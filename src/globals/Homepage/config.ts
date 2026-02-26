@@ -19,11 +19,6 @@ export const Homepage: GlobalConfig = {
           required: true,
         },
         {
-          name: 'logoImage',
-          type: 'upload',
-          relationTo: 'media',
-        },
-        {
           name: 'titleLine1',
           type: 'text',
           required: true,

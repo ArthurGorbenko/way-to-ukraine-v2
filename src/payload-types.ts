@@ -1701,7 +1701,6 @@ export interface Homepage {
   id: string;
   hero: {
     backgroundImage: string | Media;
-    logoImage?: (string | null) | Media;
     titleLine1: string;
     titleLine2: string;
     currentCollectionTitle: string;
@@ -1813,7 +1812,6 @@ export interface HomepageSelect<T extends boolean = true> {
     | T
     | {
         backgroundImage?: T;
-        logoImage?: T;
         titleLine1?: T;
         titleLine2?: T;
         currentCollectionTitle?: T;
