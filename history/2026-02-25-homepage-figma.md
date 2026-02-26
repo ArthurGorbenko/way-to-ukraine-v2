@@ -12,3 +12,6 @@
 - Raised Nginx upload body limit to resolve `413` errors for media uploads.
 - Refined footer composition against reference screenshot (smoother top fade, increased height, improved bottom alignment).
 - Removed unused `homepage.hero.logoImage` field; header logo now managed only via `Globals -> Header`.
+- Added GitHub Actions auto-deploy workflow for `main` pushes (`.github/workflows/deploy.yml`).
+- Configured workflow to use `prod` environment secrets for droplet SSH deploy.
+- Hardened SSH deploy script to bootstrap `pnpm` in non-interactive shell and removed forced `nvm use 20` (server runs Node 24).

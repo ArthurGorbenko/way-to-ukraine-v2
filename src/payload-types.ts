@@ -113,11 +113,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     homepage: Homepage;
+    achievements: Achievement;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    achievements: AchievementsSelect<false> | AchievementsSelect<true>;
   };
   locale: null;
   user: User;
@@ -1754,6 +1756,64 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "achievements".
+ */
+export interface Achievement {
+  id: string;
+  pageTitle: string;
+  topStats: {
+    value: string;
+    caption: string;
+    theme: 'dark' | 'accent' | 'blue';
+    iconStyle:
+      | 'currency'
+      | 'diamond'
+      | 'dollar'
+      | 'pickup'
+      | 'bus'
+      | 'suv'
+      | 'truck'
+      | 'nightVision'
+      | 'antenna'
+      | 'drone'
+      | 'reb'
+      | 'ambulance'
+      | 'spectrum';
+    id?: string | null;
+  }[];
+  cards: {
+    layoutType: 'stat' | 'photoWide';
+    value?: string | null;
+    label?: string | null;
+    iconStyle?:
+      | (
+          | 'currency'
+          | 'diamond'
+          | 'dollar'
+          | 'pickup'
+          | 'bus'
+          | 'suv'
+          | 'truck'
+          | 'nightVision'
+          | 'antenna'
+          | 'drone'
+          | 'reb'
+          | 'ambulance'
+          | 'spectrum'
+        )
+      | null;
+    featuredImage?: (string | null) | Media;
+    id?: string | null;
+  }[];
+  cta: {
+    label: string;
+    url: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1871,6 +1931,41 @@ export interface HomepageSelect<T extends boolean = true> {
               icon?: T;
               id?: T;
             };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "achievements_select".
+ */
+export interface AchievementsSelect<T extends boolean = true> {
+  pageTitle?: T;
+  topStats?:
+    | T
+    | {
+        value?: T;
+        caption?: T;
+        theme?: T;
+        iconStyle?: T;
+        id?: T;
+      };
+  cards?:
+    | T
+    | {
+        layoutType?: T;
+        value?: T;
+        label?: T;
+        iconStyle?: T;
+        featuredImage?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        label?: T;
+        url?: T;
       };
   updatedAt?: T;
   createdAt?: T;

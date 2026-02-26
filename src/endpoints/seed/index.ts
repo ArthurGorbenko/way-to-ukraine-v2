@@ -244,7 +244,7 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Досягнення',
-              url: '#achievements',
+              url: '/achievements',
             },
           },
           {
@@ -322,7 +322,7 @@ export const seed = async ({
         cards: [
           { title: 'проєкти', href: '#projects', image: image1Doc.id },
           { title: 'про нас', href: '#about', image: image2Doc.id },
-          { title: 'досягнення', href: '#achievements', image: image3Doc.id },
+          { title: 'досягнення', href: '/achievements', image: image3Doc.id },
           { title: 'звітність', href: '#reporting', image: image2Doc.id },
           { title: 'крамниця', href: '#shop', image: image3Doc.id },
           { title: 'faq', href: '#faq', image: image1Doc.id },
@@ -350,6 +350,49 @@ export const seed = async ({
             { icon: 'instagram', label: 'Instagram', url: '#' },
             { icon: 'twitter', label: 'Twitter', url: '#' },
           ],
+        },
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'achievements',
+      data: {
+        pageTitle: 'Досягнення',
+        topStats: [
+          {
+            value: '7 820 086 гривень',
+            caption: 'Усього зібрано фондом',
+            theme: 'dark',
+            iconStyle: 'currency',
+          },
+          {
+            value: '000 000 доларів',
+            caption: 'Усього зібрано фондом',
+            theme: 'accent',
+            iconStyle: 'dollar',
+          },
+          {
+            value: '14 бригад',
+            caption: 'Кількість підрозділів, яким ми допомогли',
+            theme: 'blue',
+            iconStyle: 'diamond',
+          },
+        ],
+        cards: [
+          { layoutType: 'stat', value: '16', label: 'Пікапів', iconStyle: 'pickup' },
+          { layoutType: 'stat', value: '4', label: 'Бусів', iconStyle: 'bus' },
+          { layoutType: 'stat', value: '3', label: 'Позашляховиків', iconStyle: 'suv' },
+          { layoutType: 'stat', value: '2', label: 'Військових вантажівок', iconStyle: 'truck' },
+          { layoutType: 'stat', value: '1', label: 'Приладів нічного бачення', iconStyle: 'nightVision' },
+          { layoutType: 'stat', value: '2', label: 'Антен', iconStyle: 'antenna' },
+          { layoutType: 'stat', value: '1', label: 'Дронів', iconStyle: 'drone' },
+          { layoutType: 'stat', value: '1', label: 'Засобів РЕБ', iconStyle: 'reb' },
+          { layoutType: 'stat', value: '1', label: 'Карет швидкої допомоги', iconStyle: 'ambulance' },
+          { layoutType: 'photoWide', featuredImage: image3Doc.id },
+          { layoutType: 'stat', value: '2', label: 'Аналізаторів спектру', iconStyle: 'spectrum' },
+        ],
+        cta: {
+          label: 'ЗАКРИТІ ПРОЄКТИ',
+          url: '#',
         },
       },
     }),

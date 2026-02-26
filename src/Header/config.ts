@@ -81,7 +81,7 @@ export const Header: GlobalConfig = {
           link: {
             type: 'custom',
             label: 'Досягнення',
-            url: '#achievements',
+            url: '/achievements',
           },
         },
         {
