@@ -1143,3 +1143,11 @@ For deeper exploration of specific topics, refer to the context files located in
 - GitHub: https://github.com/payloadcms/payload
 - Examples: https://github.com/payloadcms/payload/tree/main/examples
 - Templates: https://github.com/payloadcms/payload/tree/main/templates
+
+## Project-Specific Implementation Notes
+
+1. **Singleton Globals for Fixed Pages**: For one-off fixed-layout pages (like `/achievements`), prefer a dedicated global over blocks to reduce complexity.
+2. **Always Wire Revalidation for New Globals**: Add a global `afterChange` hook that calls both `revalidatePath()` for affected routes and `revalidateTag('global_<slug>')` for `getCachedGlobal`.
+3. **Seed New Globals Immediately**: If a new global powers a public page, update `src/endpoints/seed/index.ts` in the same change so deployments can be initialized without manual admin entry.
+4. **Conditional Field Validation**: When using layout-dependent fields in arrays (`stat` vs `photoWide`), enforce validation based on `siblingData.layoutType`, not only `admin.condition`.
+5. **Fail-Safe Media Rendering**: For required visual composition, provide frontend media fallbacks when CMS upload fields may be temporarily empty.
