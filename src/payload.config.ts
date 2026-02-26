@@ -14,6 +14,8 @@ import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { uk } from '@payloadcms/translations/languages/uk'
+import { en } from '@payloadcms/translations/languages/en'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -86,5 +88,8 @@ export default buildConfig({
       },
     },
     tasks: [],
+  },
+  i18n: {
+    supportedLanguages: { uk, en },
   },
 })
