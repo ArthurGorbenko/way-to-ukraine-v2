@@ -12,6 +12,7 @@ concurrency:
 
 jobs:
   deploy:
+    environment: prod
     runs-on: ubuntu-latest
     steps:
       - name: Deploy over SSH
