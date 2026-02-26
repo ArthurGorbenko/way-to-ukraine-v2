@@ -1,0 +1,33 @@
+name: Deploy to Droplet
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          port: ${{ secrets.DROPLET_PORT }}
+          script_stop: true
+          script: |
+            set -e
+            cd /var/www/app
+            git fetch --all
+            git reset --hard origin/main
+            pnpm install --frozen-lockfile
+            NODE_OPTIONS="--max-old-space-size=768 --no-deprecation" pnpm build
+            pm2 restart way-to-ukraine
+            pm2 save
