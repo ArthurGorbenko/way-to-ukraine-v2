@@ -112,10 +112,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    homepage: Homepage;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
   };
   locale: null;
   user: User;
@@ -1634,6 +1636,11 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: string;
+  logoVariant: 'light' | 'yellow' | 'custom';
+  customLogo?: (string | null) | Media;
+  donateLabel: string;
+  donateUrl: string;
+  languageSwitcherMode: 'visualOnly';
   navItems?:
     | {
         link: {
@@ -1688,9 +1695,74 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: string;
+  hero: {
+    backgroundImage: string | Media;
+    logoImage?: (string | null) | Media;
+    titleLine1: string;
+    titleLine2: string;
+    currentCollectionTitle: string;
+    currentCollectionSubtitle: string;
+    currentCollectionDescription: string;
+    currentCollectionDonateLabel: string;
+    currentCollectionDonateUrl: string;
+  };
+  intro: {
+    headline: string;
+    description: string;
+  };
+  cards: {
+    title: string;
+    image: string | Media;
+    href: string;
+    id?: string | null;
+  }[];
+  stats: {
+    left: {
+      iconStyle: 'currency' | 'custom';
+      customIcon?: (string | null) | Media;
+      value: string;
+      caption: string;
+    };
+    right: {
+      iconStyle: 'diamond' | 'custom';
+      customIcon?: (string | null) | Media;
+      value: string;
+      caption: string;
+    };
+  };
+  footer: {
+    backgroundImage: string | Media;
+    logoImage?: (string | null) | Media;
+    requisitesLabel: string;
+    requisitesUrl: string;
+    donateLabel: string;
+    donateUrl: string;
+    socials?:
+      | {
+          label: string;
+          url: string;
+          icon: 'telegram' | 'instagram' | 'twitter';
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  logoVariant?: T;
+  customLogo?: T;
+  donateLabel?: T;
+  donateUrl?: T;
+  languageSwitcherMode?: T;
   navItems?:
     | T
     | {
@@ -1727,6 +1799,80 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        backgroundImage?: T;
+        logoImage?: T;
+        titleLine1?: T;
+        titleLine2?: T;
+        currentCollectionTitle?: T;
+        currentCollectionSubtitle?: T;
+        currentCollectionDescription?: T;
+        currentCollectionDonateLabel?: T;
+        currentCollectionDonateUrl?: T;
+      };
+  intro?:
+    | T
+    | {
+        headline?: T;
+        description?: T;
+      };
+  cards?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        href?: T;
+        id?: T;
+      };
+  stats?:
+    | T
+    | {
+        left?:
+          | T
+          | {
+              iconStyle?: T;
+              customIcon?: T;
+              value?: T;
+              caption?: T;
+            };
+        right?:
+          | T
+          | {
+              iconStyle?: T;
+              customIcon?: T;
+              value?: T;
+              caption?: T;
+            };
+      };
+  footer?:
+    | T
+    | {
+        backgroundImage?: T;
+        logoImage?: T;
+        requisitesLabel?: T;
+        requisitesUrl?: T;
+        donateLabel?: T;
+        donateUrl?: T;
+        socials?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              icon?: T;
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

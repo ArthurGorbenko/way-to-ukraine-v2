@@ -47,6 +47,54 @@
   --font-sans: var(--font-geist-sans);
 }
 
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/fonts/e-ukraine/e-Ukraine-UltraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/fonts/e-ukraine/e-Ukraine-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/fonts/e-ukraine/e-Ukraine-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/fonts/e-ukraine/e-Ukraine-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/fonts/e-ukraine/e-Ukraine-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'e-Ukraine';
+  src: url('/fonts/e-ukraine/e-Ukraine-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer utilities {
   .container {
     width: 100%;
@@ -211,6 +259,14 @@
   }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    font-family: 'e-Ukraine', var(--font-geist-sans), sans-serif;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
   }
 }
 

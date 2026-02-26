@@ -6,8 +6,8 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
+import { SiteFooter } from '@/components/site/SiteFooter'
+import { SiteHeader } from '@/components/site/SiteHeader'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
@@ -15,9 +15,14 @@ import { draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { getCachedGlobal } from '@/utilities/getGlobals'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
+  const [headerData, homepageData] = await Promise.all([
+    getCachedGlobal('header', 1)(),
+    getCachedGlobal('homepage', 2)(),
+  ])
 
   return (
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
@@ -34,9 +39,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
 
-          <Header />
-          {children}
-          <Footer />
+          <SiteHeader data={headerData} />
+          <main className="min-h-screen">{children}</main>
+          <SiteFooter data={homepageData} />
         </Providers>
       </body>
     </html>

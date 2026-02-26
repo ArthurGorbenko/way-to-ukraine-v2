@@ -1,4 +1,4 @@
-import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
+import type { CollectionSlug, Payload, PayloadRequest, File } from 'payload'
 
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
@@ -20,7 +20,7 @@ const collections: CollectionSlug[] = [
   'search',
 ]
 
-const globals: GlobalSlug[] = ['header', 'footer']
+const globals = ['header', 'footer'] as const
 
 const categories = ['Technology', 'News', 'Finance', 'Design', 'Software', 'Engineering']
 
@@ -202,7 +202,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
+  await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
@@ -221,22 +221,51 @@ export const seed = async ({
     payload.updateGlobal({
       slug: 'header',
       data: {
+        donateLabel: 'ЗАДОНАТИТИ',
+        donateUrl: '#',
+        languageSwitcherMode: 'visualOnly',
+        logoVariant: 'yellow',
         navItems: [
           {
             link: {
               type: 'custom',
-              label: 'Posts',
-              url: '/posts',
+              label: 'Проєкти',
+              url: '#projects',
             },
           },
           {
             link: {
-              type: 'reference',
-              label: 'Contact',
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
+              type: 'custom',
+              label: 'Про нас',
+              url: '#about',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'Досягнення',
+              url: '#achievements',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'Звітність',
+              url: '#reporting',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'Крамниця',
+              url: '#shop',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'FAQ',
+              url: '#faq',
             },
           },
         ],
@@ -270,6 +299,58 @@ export const seed = async ({
             },
           },
         ],
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'homepage',
+      data: {
+        hero: {
+          backgroundImage: imageHomeDoc.id,
+          titleLine1: 'WAY TO',
+          titleLine2: 'UKRAINE',
+          currentCollectionTitle: 'ПОТОЧНИЙ ЗБІР',
+          currentCollectionSubtitle: 'Збір на пікап',
+          currentCollectionDescription: 'для 1 ОШБ «Вовки да Вінчі»',
+          currentCollectionDonateLabel: 'ЗАДОНАТИТИ',
+          currentCollectionDonateUrl: '#',
+        },
+        intro: {
+          headline: 'Всім привіт, ми з України!',
+          description:
+            'Way to Ukraine — це волонтерський фонд середнього масштабу, який працює на благо СОУ',
+        },
+        cards: [
+          { title: 'проєкти', href: '#projects', image: image1Doc.id },
+          { title: 'про нас', href: '#about', image: image2Doc.id },
+          { title: 'досягнення', href: '#achievements', image: image3Doc.id },
+          { title: 'звітність', href: '#reporting', image: image2Doc.id },
+          { title: 'крамниця', href: '#shop', image: image3Doc.id },
+          { title: 'faq', href: '#faq', image: image1Doc.id },
+        ],
+        stats: {
+          left: {
+            iconStyle: 'currency',
+            value: '7 820 086 гривень',
+            caption: 'Усього зібрано фондом',
+          },
+          right: {
+            iconStyle: 'diamond',
+            value: '15 бригад',
+            caption: 'Кількість підрозділів, яким ми допомогли',
+          },
+        },
+        footer: {
+          backgroundImage: imageHomeDoc.id,
+          requisitesLabel: 'РЕКВІЗИТИ',
+          requisitesUrl: '#',
+          donateLabel: 'ЗАДОНАТИТИ',
+          donateUrl: '#',
+          socials: [
+            { icon: 'telegram', label: 'Telegram', url: '#' },
+            { icon: 'instagram', label: 'Instagram', url: '#' },
+            { icon: 'twitter', label: 'Twitter', url: '#' },
+          ],
+        },
       },
     }),
   ])

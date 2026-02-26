@@ -1037,6 +1037,10 @@ export const myPlugin =
 
 For deeper exploration of specific topics, refer to the context files located in `.cursor/rules/`:
 
+## Session History
+
+- If you need details about previous coding rounds or project evolution, check the `history/` folder first and use it as reference context before making assumptions.
+
 ### Available Context Files
 
 1. **`payload-overview.md`** - High-level architecture and core concepts

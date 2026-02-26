@@ -1,0 +1,13 @@
+.home-page {
+  --wtu-dark: #021f42;
+  --wtu-accent: #ffbc00;
+  --wtu-blue: #3366cb;
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.65), transparent 38%),
+    radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.04), transparent 42%),
+    linear-gradient(180deg, #ececec 0%, #f7f7f7 20%, #f1f1f1 100%);
+}
+
+.home-hero {
+  background-color: var(--wtu-dark);
+}
