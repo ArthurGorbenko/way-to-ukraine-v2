@@ -15,3 +15,12 @@
 - Added GitHub Actions auto-deploy workflow for `main` pushes (`.github/workflows/deploy.yml`).
 - Configured workflow to use `prod` environment secrets for droplet SSH deploy.
 - Hardened SSH deploy script to bootstrap `pnpm` in non-interactive shell and removed forced `nvm use 20` (server runs Node 24).
+
+## 2026-02-27 Session Update
+
+- Added new static `/projects` page from Figma reference (`src/app/(frontend)/projects/page.tsx`, `projects.css`), with responsive two-card hero composition.
+- Updated default and seeded navigation/card links from `#projects` to `/projects` (`src/Header/config.ts`, `src/endpoints/seed/index.ts`).
+- Switched both header and footer brand logos to inline SVG to avoid black/matte backgrounds from uploaded media assets.
+- Investigated page/footer seam artifacts and stabilized boundary styling around `main` and projects page spacing.
+- Ran local seed from CLI and patched seed operations to pass `context.disableRevalidate: true` on hook-triggering writes so CLI seeding works without Next revalidation context.
+- Re-ran seed successfully to apply updated globals/pages/media relationships.

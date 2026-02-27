@@ -1151,3 +1151,6 @@ For deeper exploration of specific topics, refer to the context files located in
 3. **Seed New Globals Immediately**: If a new global powers a public page, update `src/endpoints/seed/index.ts` in the same change so deployments can be initialized without manual admin entry.
 4. **Conditional Field Validation**: When using layout-dependent fields in arrays (`stat` vs `photoWide`), enforce validation based on `siblingData.layoutType`, not only `admin.condition`.
 5. **Fail-Safe Media Rendering**: For required visual composition, provide frontend media fallbacks when CMS upload fields may be temporarily empty.
+6. **CLI Seed + Revalidation**: When running seed outside a Next request lifecycle, set `context.disableRevalidate: true` on seed writes that trigger hooks (`create`, `update`, `updateGlobal`) to avoid `Invariant: static generation store missing in revalidatePath`.
+7. **Brand Logos in Header/Footer**: Prefer inline SVG logos for stable transparent rendering; uploaded media logos can introduce unwanted matte/background artifacts depending on source assets.
+8. **Homepage Project Card Linking**: For dedicated routes, update both header nav and homepage card seeded links together (e.g. `#projects` -> `/projects`) to avoid split navigation behavior.
