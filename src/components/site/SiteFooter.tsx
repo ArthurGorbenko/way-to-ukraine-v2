@@ -21,7 +21,7 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
   const socials = footer?.socials ?? []
 
   return (
-    <footer className="relative mt-auto min-h-[260px] overflow-hidden bg-[#021f42] text-white lg:min-h-[340px]">
+    <footer className="relative mt-auto min-h-[260px] overflow-hidden bg-gradient-to-b from-[#264a76] to-[#0f3158] text-white lg:min-h-[340px]">
       <div className="absolute inset-0 opacity-85">
         {footer?.backgroundImage ? (
           <Media resource={footer.backgroundImage as MediaResource} imgClassName="h-full w-full object-cover" />
@@ -32,17 +32,20 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
       <div className="absolute inset-x-0 bottom-0 h-3 bg-[#ffbc00]" />
 
       <div className="relative mx-auto flex w-full max-w-[1320px] flex-col gap-6 px-5 pb-14 pt-32 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-end lg:gap-8 lg:px-8 lg:pb-16 lg:pt-44">
-        <Link href="/" className="inline-flex h-[56px] w-[56px] items-end justify-start text-[#ffbc00] lg:h-[78px] lg:w-[78px]">
-          {footer?.logoImage ? (
-            <Media resource={footer.logoImage as MediaResource} imgClassName="h-full w-full object-contain" />
-          ) : (
-            <svg viewBox="0 0 90 100" className="h-full w-full" aria-hidden="true">
+        <Link href="/" className="inline-flex h-[56px] w-[56px] items-end justify-start lg:h-[78px] lg:w-[78px]">
+          <svg viewBox="0 0 90 100" className="h-full w-full" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g clipPath="url(#clip0_footer_logo)">
               <path
-                fill="currentColor"
-                d="M12 10L38 24V54L24 62V38L12 32V10ZM44 28L78 10V68L56 80V50L44 56V28ZM24 70L38 62V90L12 76V46L24 52V70Z"
+                d="M71.7535 20.9827C69.3186 22.1404 68.4514 23.5165 68.4948 26.2272C68.6699 37.3693 68.5732 48.5181 68.5748 59.6636C68.5748 61.1025 68.5748 62.5397 68.5748 64.6616C64.7174 62.6819 61.3686 61.1736 58.2734 59.2617C57.1693 58.5787 56.0253 56.9231 56.0103 55.6993C55.8652 43.3283 55.9469 30.954 55.8935 18.5813C55.8852 16.7141 55.3082 14.8899 54.2425 13.3501L45 0L35.7575 13.3517C34.6918 14.8915 34.1148 16.7141 34.1065 18.583C34.0531 30.9556 34.1348 43.3299 33.9897 55.7009C33.9747 56.9248 32.8307 58.5803 31.7266 59.2634C28.6314 61.1752 25.2826 62.6836 21.4252 64.6633C21.4252 62.5413 21.4252 61.1025 21.4252 59.6653C21.4285 48.5198 21.3301 37.3727 21.5052 26.2288C21.5486 23.5165 20.6797 22.1404 18.2465 20.9844C12.211 18.1133 6.32398 14.9329 0 11.6846V100C11.3004 94.2015 22.3541 88.532 34.0448 82.5334L45.0017 77.3287L55.9586 82.5334C67.6493 88.5304 78.7012 94.2015 90.0033 100V11.6846C83.6777 14.9329 77.7906 18.1133 71.7535 20.9827Z"
+                fill="#F8F8F8"
               />
-            </svg>
-          )}
+            </g>
+            <defs>
+              <clipPath id="clip0_footer_logo">
+                <rect width="90" height="100" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
         </Link>
 
         <div className="flex flex-wrap items-end gap-2 lg:justify-center">

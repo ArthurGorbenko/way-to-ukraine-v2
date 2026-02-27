@@ -67,7 +67,7 @@ export const Header: GlobalConfig = {
           link: {
             type: 'custom',
             label: 'Проєкти',
-            url: '#projects',
+            url: '/projects',
           },
         },
         {

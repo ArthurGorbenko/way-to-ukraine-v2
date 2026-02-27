@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
 
           <SiteHeader data={headerData} />
-          <main className="min-h-screen">{children}</main>
+          <main className="bg-white">{children}</main>
           <SiteFooter data={homepageData} />
         </Providers>
       </body>

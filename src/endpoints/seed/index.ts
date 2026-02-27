@@ -173,6 +173,9 @@ export const seed = async ({
   await payload.update({
     id: post1Doc.id,
     collection: 'posts',
+    context: {
+      disableRevalidate: true,
+    },
     data: {
       relatedPosts: [post2Doc.id, post3Doc.id],
     },
@@ -180,6 +183,9 @@ export const seed = async ({
   await payload.update({
     id: post2Doc.id,
     collection: 'posts',
+    context: {
+      disableRevalidate: true,
+    },
     data: {
       relatedPosts: [post1Doc.id, post3Doc.id],
     },
@@ -187,6 +193,9 @@ export const seed = async ({
   await payload.update({
     id: post3Doc.id,
     collection: 'posts',
+    context: {
+      disableRevalidate: true,
+    },
     data: {
       relatedPosts: [post1Doc.id, post2Doc.id],
     },
@@ -206,11 +215,17 @@ export const seed = async ({
     payload.create({
       collection: 'pages',
       depth: 0,
+      context: {
+        disableRevalidate: true,
+      },
       data: home({ heroImage: imageHomeDoc, metaImage: image2Doc }),
     }),
     payload.create({
       collection: 'pages',
       depth: 0,
+      context: {
+        disableRevalidate: true,
+      },
       data: contactPageData({ contactForm: contactForm }),
     }),
   ])
@@ -220,6 +235,9 @@ export const seed = async ({
   await Promise.all([
     payload.updateGlobal({
       slug: 'header',
+      context: {
+        disableRevalidate: true,
+      },
       data: {
         donateLabel: 'ЗАДОНАТИТИ',
         donateUrl: '#',
@@ -230,7 +248,7 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Проєкти',
-              url: '#projects',
+              url: '/projects',
             },
           },
           {
@@ -273,6 +291,9 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'footer',
+      context: {
+        disableRevalidate: true,
+      },
       data: {
         navItems: [
           {
@@ -303,6 +324,9 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'homepage',
+      context: {
+        disableRevalidate: true,
+      },
       data: {
         hero: {
           backgroundImage: imageHomeDoc.id,
@@ -320,7 +344,7 @@ export const seed = async ({
             'Way to Ukraine — це волонтерський фонд середнього масштабу, який працює на благо СОУ',
         },
         cards: [
-          { title: 'проєкти', href: '#projects', image: image1Doc.id },
+          { title: 'проєкти', href: '/projects', image: image1Doc.id },
           { title: 'про нас', href: '#about', image: image2Doc.id },
           { title: 'досягнення', href: '/achievements', image: image3Doc.id },
           { title: 'звітність', href: '#reporting', image: image2Doc.id },
@@ -355,6 +379,9 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'achievements',
+      context: {
+        disableRevalidate: true,
+      },
       data: {
         pageTitle: 'Досягнення',
         topStats: [
