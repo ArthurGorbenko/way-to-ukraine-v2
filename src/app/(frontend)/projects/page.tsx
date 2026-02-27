@@ -30,7 +30,7 @@ export default function ProjectsPage() {
             <img alt="Закриті проєкти" className="project-card-image" src={closedProjectImage} />
             <div className="project-card-overlay" />
             <div className="project-card-outline project-card-outline-right" />
-            <Link href="#" className="project-card-cta">
+            <Link href="/projects/finished" className="project-card-cta">
               Закриті проєкти
             </Link>
           </article>

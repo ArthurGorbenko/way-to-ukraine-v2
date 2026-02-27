@@ -419,8 +419,28 @@ export const seed = async ({
         ],
         cta: {
           label: 'ЗАКРИТІ ПРОЄКТИ',
-          url: '#',
+          url: '/projects/finished',
         },
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'finished-projects',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Закриті проєкти',
+        cards: [
+          { image: image1Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+          { image: image2Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'right' },
+          { image: image3Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+          { image: image2Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'right' },
+          { image: image3Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+          { image: image1Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'right' },
+          { image: image3Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+          { image: image1Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'right' },
+          { image: image2Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+        ],
       },
     }),
   ])
