@@ -18,7 +18,7 @@
 
 .project-card {
   position: relative;
-  min-height: 400px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 50px;
 }
@@ -34,25 +34,29 @@
 .project-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.42) 4%, rgba(0, 0, 0, 0.18) 40%, rgba(0, 0, 0, 0.45) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(102, 102, 102, 0.4) 100%);
 }
 
+/* Full rectangle frame on left card, sits behind/around the CTA */
 .project-card-outline {
   position: absolute;
-  height: 170px;
-  width: 250px;
   border: 3px solid rgba(255, 255, 255, 0.85);
   border-radius: 30px;
 }
 
 .project-card-outline-left {
-  left: 24px;
-  bottom: 114px;
+  left: 4%;
+  top: 37%;
+  width: 57%;
+  height: 27%;
 }
 
+/* Partial bracket (no right border) on right card — sits below CTA */
 .project-card-outline-right {
   right: 0;
-  bottom: 44px;
+  bottom: 10%;
+  width: 37%;
+  height: 27%;
   border-right: 0;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
@@ -60,12 +64,12 @@
 
 .project-card-cta {
   position: absolute;
+  top: 50%;
   left: 50%;
-  bottom: 170px;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   display: inline-flex;
   min-height: 63px;
-  width: calc(100% - 120px);
+  width: calc(100% - 78px);
   max-width: 390px;
   align-items: center;
   justify-content: center;
@@ -73,7 +77,7 @@
   background: #ffbc00;
   padding: 10px 20px;
   text-align: center;
-  font-size: clamp(22px, 2vw, 36px);
+  font-size: clamp(22px, 2.08vw, 30px);
   line-height: 1.1;
   color: #021f42;
 }
@@ -85,31 +89,38 @@
   }
 
   .project-card {
+    aspect-ratio: auto;
     min-height: 340px;
     border-radius: 34px;
   }
 
   .project-card-outline {
-    height: 122px;
-    width: 188px;
     border-width: 2px;
   }
 
   .project-card-outline-left {
     left: 18px;
+    top: auto;
     bottom: 82px;
+    width: 55%;
+    height: 122px;
   }
 
   .project-card-outline-right {
     right: 0;
     bottom: 28px;
+    width: 45%;
+    height: 122px;
   }
 
   .project-card-cta {
-    min-height: 52px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 112px;
+    min-height: 52px;
     width: calc(100% - 82px);
-    font-size: clamp(20px, 3.2vw, 32px);
+    font-size: clamp(20px, 3.2vw, 30px);
   }
 }
 
