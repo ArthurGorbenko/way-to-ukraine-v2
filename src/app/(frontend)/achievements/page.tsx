@@ -54,9 +54,9 @@ export default async function AchievementsPage() {
   const cards = achievements?.cards || []
 
   return (
-    <article className="achievements-page pb-8 pt-20 lg:pb-10 lg:pt-24">
+    <article className="achievements-page pb-4 pt-20 lg:pb-6 lg:pt-24">
       <section className="achievements-header mx-auto w-full max-w-[1320px] px-5 py-8 text-center lg:px-8 lg:py-12">
-        <h1 className="text-[34px] font-medium uppercase text-white lg:text-[50px]">
+        <h1 className="text-[30px] font-normal text-white lg:text-[35px]">
           {achievements?.pageTitle || 'Досягнення'}
         </h1>
       </section>
@@ -100,7 +100,7 @@ export default async function AchievementsPage() {
                     </div>
                   </div>
                   <p className="mt-5 text-[50px] font-bold leading-[0.8] text-[#021f42]">{card?.value}</p>
-                  <p className="mt-2 text-center text-[20px] leading-tight text-[#021f42]">{card?.label}</p>
+                  <p className="mt-2 text-center text-[17px] leading-tight text-[#021f42]">{card?.label}</p>
                 </article>
               )
             })}
@@ -108,7 +108,7 @@ export default async function AchievementsPage() {
         </div>
       </section>
 
-      <div className="mx-auto w-full max-w-[1320px] px-5 pb-8 text-center lg:px-8 lg:pb-10">
+      <div className="mx-auto w-full max-w-[1320px] px-5 pb-4 text-center lg:px-8 lg:pb-6">
         <Link
           href={achievements?.cta?.url || '#'}
           className="inline-flex h-[85px] w-full max-w-[428px] items-center justify-center rounded-[30px] bg-[#ffbc00] px-9 py-4 text-[27px] font-bold uppercase text-[#021f42]"
