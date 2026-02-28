@@ -115,6 +115,7 @@ export interface Config {
     homepage: Homepage;
     achievements: Achievement;
     'finished-projects': FinishedProject;
+    'active-projects': ActiveProject;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -122,6 +123,7 @@ export interface Config {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     achievements: AchievementsSelect<false> | AchievementsSelect<true>;
     'finished-projects': FinishedProjectsSelect<false> | FinishedProjectsSelect<true>;
+    'active-projects': ActiveProjectsSelect<false> | ActiveProjectsSelect<true>;
   };
   locale: null;
   user: User;
@@ -1833,6 +1835,34 @@ export interface FinishedProject {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "active-projects".
+ */
+export interface ActiveProject {
+  id: string;
+  pageTitle: string;
+  projects: {
+    image: string | Media;
+    badgeImage?: (string | null) | Media;
+    cardTitle: string;
+    leftOverlayTitle: string;
+    unitLabel: string;
+    unitValue: string;
+    directionLabel: string;
+    directionValue: string;
+    goalLabel: string;
+    goalValue: string;
+    progressPercent: number;
+    donateLabel: string;
+    donateUrl: string;
+    detailsLabel: string;
+    detailsUrl: string;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2003,6 +2033,36 @@ export interface FinishedProjectsSelect<T extends boolean = true> {
         unit?: T;
         vehicle?: T;
         cornerStyle?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "active-projects_select".
+ */
+export interface ActiveProjectsSelect<T extends boolean = true> {
+  pageTitle?: T;
+  projects?:
+    | T
+    | {
+        image?: T;
+        badgeImage?: T;
+        cardTitle?: T;
+        leftOverlayTitle?: T;
+        unitLabel?: T;
+        unitValue?: T;
+        directionLabel?: T;
+        directionValue?: T;
+        goalLabel?: T;
+        goalValue?: T;
+        progressPercent?: T;
+        donateLabel?: T;
+        donateUrl?: T;
+        detailsLabel?: T;
+        detailsUrl?: T;
         id?: T;
       };
   updatedAt?: T;

@@ -443,6 +443,51 @@ export const seed = async ({
         ],
       },
     }),
+    payload.updateGlobal({
+      slug: 'active-projects',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Актуальні проєкти',
+        projects: [
+          {
+            image: image1Doc.id,
+            badgeImage: image3Doc.id,
+            cardTitle: 'Збір на авто',
+            leftOverlayTitle: 'Збір на авто',
+            unitLabel: 'для:',
+            unitValue: 'Підрозділ',
+            directionLabel: 'напрямок:',
+            directionValue: 'Напрямок',
+            goalLabel: 'ціль:',
+            goalValue: '000 000 грн',
+            progressPercent: 0,
+            donateLabel: 'ЗАДОНАТИТИ',
+            donateUrl: '#',
+            detailsLabel: 'ДЕТАЛЬНІШЕ',
+            detailsUrl: '#',
+          },
+          {
+            image: image2Doc.id,
+            badgeImage: image3Doc.id,
+            cardTitle: 'Збір на авто',
+            leftOverlayTitle: 'Збір на авто',
+            unitLabel: 'для:',
+            unitValue: 'Підрозділ',
+            directionLabel: 'напрямок:',
+            directionValue: 'Напрямок',
+            goalLabel: 'ціль:',
+            goalValue: '000 000 грн',
+            progressPercent: 0,
+            donateLabel: 'ЗАДОНАТИТИ',
+            donateUrl: '#',
+            detailsLabel: 'ДЕТАЛЬНІШЕ',
+            detailsUrl: '#',
+          },
+        ],
+      },
+    }),
   ])
 
   payload.logger.info('Seeded database successfully!')

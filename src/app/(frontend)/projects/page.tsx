@@ -21,7 +21,7 @@ export default function ProjectsPage() {
             <img alt="Актуальні проєкти" className="project-card-image" src={activeProjectImage} />
             <div className="project-card-overlay" />
             <div className="project-card-outline project-card-outline-left" />
-            <Link href="#" className="project-card-cta">
+            <Link href="/projects/active" className="project-card-cta">
               Актуальні проєкти
             </Link>
           </article>

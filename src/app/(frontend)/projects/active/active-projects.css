@@ -1,0 +1,216 @@
+.active-projects-page {
+  margin-bottom: -1px;
+  background-image:
+    radial-gradient(circle at 52% 3%, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0) 30%),
+    linear-gradient(180deg, rgba(2, 31, 66, 0.97) 0%, rgba(2, 31, 66, 0.57) 17%, rgba(242, 244, 247, 0.98) 41%),
+    linear-gradient(180deg, #eceef1 0%, #f6f7f8 100%);
+}
+
+.active-projects-title {
+  text-shadow: 0 8px 18px rgba(2, 31, 66, 0.4);
+}
+
+.active-projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+.active-project-row {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.active-project-media {
+  position: relative;
+  min-height: 142px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.active-project-image {
+  position: absolute !important;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.active-project-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 31, 66, 0.64) 14%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+.active-project-image-title {
+  position: absolute;
+  left: 14px;
+  bottom: 16px;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(16px, 1.4vw, 32px);
+  line-height: 1;
+  font-weight: 700;
+}
+
+.active-project-emblem-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 56px;
+  background: #082752;
+  display: grid;
+  place-items: center;
+}
+
+.active-project-emblem {
+  height: 30px;
+  width: 30px;
+  object-fit: contain;
+}
+
+.active-project-emblem-placeholder {
+  display: grid;
+  height: 30px;
+  width: 30px;
+  place-items: center;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.active-project-content {
+  color: #0b2448;
+}
+
+.active-project-heading {
+  margin: 0;
+  font-size: clamp(26px, 2.05vw, 38px);
+  line-height: 1.08;
+  font-weight: 700;
+  color: #021f42;
+}
+
+.active-project-line {
+  margin: 2px 0 0;
+  font-size: clamp(18px, 1.3vw, 28px);
+  line-height: 1.15;
+  color: #021f42;
+  font-weight: 400;
+}
+
+.active-project-line strong {
+  font-weight: 500;
+}
+
+.active-project-goal {
+  margin: 3px 0 0;
+  font-size: clamp(20px, 1.55vw, 30px);
+  line-height: 1.1;
+  color: #021f42;
+  font-weight: 700;
+}
+
+.active-project-goal span {
+  font-weight: 400;
+}
+
+.active-project-progress-track {
+  margin-top: 8px;
+  height: 30px;
+  width: 100%;
+  border-radius: 14px;
+  background: #ceced0;
+  overflow: hidden;
+}
+
+.active-project-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffbc00 0%, #ffd45d 100%);
+}
+
+.active-project-actions {
+  margin-top: 11px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+
+.active-project-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  border-radius: 999px;
+  padding: 5px 13px 6px;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.active-project-btn-donate {
+  background: #ffbc00;
+  color: #021f42;
+}
+
+.active-project-btn-details {
+  background: #082752;
+  color: #ffffff;
+}
+
+@media (max-width: 820px) {
+  .active-projects-list {
+    gap: 18px;
+  }
+
+  .active-project-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .active-project-media {
+    min-height: 168px;
+  }
+
+  .active-project-image-title {
+    left: 14px;
+    bottom: 16px;
+    font-size: 24px;
+  }
+
+  .active-project-emblem-wrap {
+    width: 50px;
+  }
+
+  .active-project-heading {
+    font-size: 30px;
+  }
+
+  .active-project-line {
+    font-size: 24px;
+  }
+
+  .active-project-goal {
+    font-size: 28px;
+  }
+
+  .active-project-progress-track {
+    height: 24px;
+    border-radius: 10px;
+  }
+
+  .active-project-btn {
+    min-height: 32px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+}
