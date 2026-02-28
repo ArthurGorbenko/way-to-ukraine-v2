@@ -21,10 +21,10 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
   const socials = footer?.socials ?? []
 
   return (
-    <footer className="relative mt-auto min-h-[260px] overflow-hidden bg-gradient-to-b from-[#264a76] to-[#0f3158] text-white lg:min-h-[340px]">
+    <footer className="relative mt-auto min-h-[260px] overflow-hidden bg-[#021f42] text-white lg:min-h-[340px]">
       <div className="absolute inset-0 opacity-85">
         {footer?.backgroundImage ? (
-          <Media resource={footer.backgroundImage as MediaResource} imgClassName="h-full w-full object-cover" />
+          <Media resource={footer.backgroundImage as MediaResource} fill pictureClassName="absolute inset-0" imgClassName="object-cover" />
         ) : null}
       </div>
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#f3f4f6] via-white/75 to-transparent" />

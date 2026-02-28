@@ -14,7 +14,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ data }) => {
     <section className="home-hero relative min-h-[600px] overflow-hidden pt-[84px] lg:min-h-[760px]">
       <div className="absolute inset-0">
         {data?.backgroundImage ? (
-          <Media resource={data.backgroundImage as MediaResource} imgClassName="h-full w-full object-cover" priority />
+          <Media resource={data.backgroundImage as MediaResource} fill pictureClassName="absolute inset-0" imgClassName="object-cover" priority />
         ) : null}
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-[#021f42]/90 via-[#021f42]/35 to-white/0" />
@@ -37,7 +37,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ data }) => {
         </div>
 
         <div className="ml-auto w-full max-w-[640px] text-white">
-          <div className="rounded-[38px] border-[2px] border-white/85 px-8 py-6">
+          <div className="rounded-[70px] border-[3px] border-white px-8 py-6">
             <p className="text-[32px] font-black uppercase tracking-[0.02em]">
               {data?.currentCollectionTitle || 'ПОТОЧНИЙ ЗБІР'}
             </p>

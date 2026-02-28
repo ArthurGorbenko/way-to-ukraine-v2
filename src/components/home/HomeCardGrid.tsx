@@ -27,18 +27,18 @@ export const HomeCardGrid: React.FC<HomeCardGridProps> = ({ cards }) => {
             <article
               key={index}
               id={sectionId}
-              className="group relative min-h-[260px] overflow-hidden rounded-[28px] lg:min-h-[390px]"
+              className="group relative min-h-[260px] overflow-hidden rounded-[36px] lg:min-h-[420px]"
             >
               <div className="absolute inset-0">
                 {card?.image ? (
-                  <Media resource={card.image as MediaResource} imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <Media resource={card.image as MediaResource} fill pictureClassName="absolute inset-0" imgClassName="object-cover transition-transform duration-500 group-hover:scale-105" />
                 ) : null}
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
               <div className="relative flex h-full items-end justify-center p-6 text-center">
                 <Link
                   href={card?.href || '#'}
-                  className="inline-flex flex-col items-center text-xl font-medium uppercase text-white lg:text-[28px]"
+                  className="inline-flex flex-col items-center text-xl font-medium text-white lg:text-[28px]"
                 >
                   <span>{card?.title}</span>
                   <span className="mt-2 h-[2px] w-20 bg-white/90 lg:w-24" />
