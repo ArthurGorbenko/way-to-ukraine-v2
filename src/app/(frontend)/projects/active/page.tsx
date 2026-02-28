@@ -19,7 +19,7 @@ export default async function ActiveProjectsPage() {
   return (
     <article className="active-projects-page pb-2 pt-24 lg:pb-0 lg:pt-24">
       <section className="mx-auto w-full max-w-[1320px] px-5 lg:px-8">
-        <h1 className="active-projects-title text-center text-[34px] text-white lg:text-[50px]">
+        <h1 className="active-projects-title text-center text-[30px] text-white lg:text-[35px]">
           {activeProjects?.pageTitle || 'Актуальні проєкти'}
         </h1>
 

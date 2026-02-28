@@ -18,7 +18,7 @@ export default async function FinishedProjectsPage() {
   return (
     <article className="finished-projects-page pb-12 pt-24 lg:pb-16 lg:pt-24">
       <section className="mx-auto w-full max-w-[1400px] px-4 lg:px-7">
-        <h1 className="finished-projects-title text-center text-[34px] text-white lg:text-[50px]">
+        <h1 className="finished-projects-title text-center text-[30px] text-white lg:text-[35px]">
           {finishedProjects?.pageTitle || 'Закриті проєкти'}
         </h1>
 
