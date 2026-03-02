@@ -12,7 +12,7 @@ export default function ProjectsPage() {
   return (
     <article className="projects-page pt-24 lg:pt-24 lg:pb-24">
       <section className="mx-auto w-full max-w-[1320px] px-5 lg:px-8">
-        <h1 className="projects-title text-center text-[30px] text-white lg:text-[35px]">
+        <h1 className="projects-title text-center text-[34px] text-white lg:text-[50px]">
           Проєкти
         </h1>
 

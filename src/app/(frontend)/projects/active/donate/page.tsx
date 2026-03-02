@@ -13,11 +13,15 @@ export default async function ActiveProjectDonatePage() {
   const activeProjects = await getCachedGlobal('active-projects', 2)()
   const project = activeProjects?.projects?.[0]
   const progress = Math.max(0, Math.min(100, Number(project?.progressPercent || 0)))
-  const paymentMethods =
-    project?.donateMethods?.map((method) => method?.label).filter(Boolean) || ['Monobank', 'UniversalBank', 'Crypto', 'Інше']
+  const paymentMethods = project?.donateMethods?.map((method) => method?.label).filter(Boolean) || [
+    'Monobank',
+    'UniversalBank',
+    'Crypto',
+    'Інше',
+  ]
 
   return (
-    <article className="donate-page pb-10 pt-24 lg:pb-14 lg:pt-24">
+    <article className="donate-page pb-10 pt-30 lg:pb-30 lg:pt-24">
       <section className="mx-auto w-full max-w-[1320px] px-5 lg:px-8">
         <h1 className="donate-title text-center text-[30px] text-white lg:text-[35px]">
           {project?.donatePageTitle || 'Задонатити'}
@@ -26,17 +30,25 @@ export default async function ActiveProjectDonatePage() {
         <div className="donate-project-row mt-10 lg:mt-14">
           <article className="donate-project-media">
             {project?.image ? (
-              <Media resource={project.image as MediaResource} imgClassName="donate-project-image" />
+              <Media
+                resource={project.image as MediaResource}
+                imgClassName="donate-project-image"
+              />
             ) : (
               <img alt="Актуальний проєкт" className="donate-project-image" src={photoFallback} />
             )}
 
             <div className="donate-project-overlay" />
-            <p className="donate-project-overlay-title">{project?.leftOverlayTitle || 'Збір на авто'}</p>
+            <p className="donate-project-overlay-title">
+              {project?.leftOverlayTitle || 'Збір на авто'}
+            </p>
 
             <div className="donate-project-emblem-wrap">
               {project?.badgeImage ? (
-                <Media resource={project.badgeImage as MediaResource} imgClassName="donate-project-emblem" />
+                <Media
+                  resource={project.badgeImage as MediaResource}
+                  imgClassName="donate-project-emblem"
+                />
               ) : (
                 <div className="donate-project-emblem-placeholder">W</div>
               )}
@@ -51,7 +63,8 @@ export default async function ActiveProjectDonatePage() {
             </p>
 
             <p className="donate-project-line">
-              {project?.directionLabel || 'напрямок:'} <strong>{project?.directionValue || 'Напрямок'}</strong>
+              {project?.directionLabel || 'напрямок:'}{' '}
+              <strong>{project?.directionValue || 'Напрямок'}</strong>
             </p>
 
             <p className="donate-project-goal">

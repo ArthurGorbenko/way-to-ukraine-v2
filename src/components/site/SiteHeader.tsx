@@ -12,7 +12,7 @@ type SiteHeaderProps = {
 const LanguageDot = ({ label, active }: { label: string; active: boolean }) => {
   return (
     <div
-      className={`grid h-6 w-6 place-items-center rounded-full text-[9px] font-bold ${
+      className={`grid h-[23px] w-[23px] place-items-center rounded-full text-[10px] font-bold ${
         active ? 'bg-[#ffbc00] text-[#021f42]' : 'bg-white text-[#021f42]'
       }`}
     >
@@ -25,9 +25,9 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data }) => {
   const navItems = data?.navItems ?? []
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-30 bg-gradient-to-b from-[#021f42]/95 via-[#021f42]/60 to-transparent">
-      <div className="pointer-events-auto mx-auto flex w-full max-w-[1320px] items-center justify-between gap-4 px-5 py-5 lg:px-8">
-        <Link href="/" className="inline-flex h-[56px] w-[56px] items-center justify-center">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-30 bg-gradient-to-b from-[#021f42] via-[#021f42]/70 to-transparent">
+      <div className="pointer-events-auto mx-auto flex w-full max-w-[1320px] items-center justify-between gap-5 px-5 py-4 lg:px-8 lg:py-9">
+        <Link href="/" className="inline-flex h-[48px] w-[43px] items-center justify-center lg:h-[64px] lg:w-[58px]">
           <svg viewBox="0 0 58 65" className="h-full w-full" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <g clipPath="url(#clip0_header_logo)">
               <path
@@ -43,24 +43,24 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data }) => {
           </svg>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium text-white lg:flex">
+        <nav className="hidden items-center gap-8 text-[19px] font-normal text-white lg:flex">
           {navItems.map((item, index) => {
             const link = item?.link as HeaderLink | undefined
             if (!link) return null
 
-            return <CMSLink key={index} {...link} className="uppercase tracking-[0.02em]" />
+            return <CMSLink key={index} {...link} className="leading-none" />
           })}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 lg:gap-4">
           <Link
             href={data?.donateUrl || '#'}
-            className="rounded-full bg-[#ffbc00] px-4 py-2 text-xs font-extrabold text-[#021f42] lg:px-5"
+            className="inline-flex h-[37px] items-center justify-center rounded-full bg-[#ffbc00] px-5 text-[11px] font-bold text-[#021f42] lg:w-[180px] lg:text-[19px]"
           >
             {data?.donateLabel || 'ЗАДОНАТИТИ'}
           </Link>
 
-          <div className="hidden flex-col gap-1 lg:flex">
+          <div className="hidden flex-col gap-[6px] lg:flex">
             <LanguageDot active label="UA" />
             <LanguageDot active={false} label="EN" />
           </div>
