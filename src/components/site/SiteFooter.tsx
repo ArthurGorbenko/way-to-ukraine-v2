@@ -21,18 +21,18 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
   const socials = footer?.socials ?? []
 
   return (
-    <footer className="relative mt-auto min-h-[260px] overflow-hidden bg-[#021f42] text-white lg:min-h-[340px]">
-      <div className="absolute inset-0 opacity-85">
+    <footer className="relative mt-auto min-h-[300px] overflow-hidden bg-[#021f42] text-white lg:min-h-[360px]">
+      <div className="absolute inset-0">
         {footer?.backgroundImage ? (
           <Media resource={footer.backgroundImage as MediaResource} fill pictureClassName="absolute inset-0" imgClassName="object-cover" />
         ) : null}
       </div>
-      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#f3f4f6] via-white/75 to-transparent" />
-      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/50 to-transparent blur-sm" />
-      <div className="absolute inset-x-0 bottom-0 h-3 bg-[#ffbc00]" />
+      <div className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.58)_46%,rgba(255,255,255,0)_100%)] lg:h-32" />
+      <div className="absolute inset-x-0 top-0 h-20 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_100%)] blur-[6px]" />
+      <div className="absolute inset-x-0 bottom-0 h-2 bg-[#ffbc00]" />
 
-      <div className="relative mx-auto flex w-full max-w-[1320px] flex-col gap-6 px-5 pb-14 pt-32 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-end lg:gap-8 lg:px-8 lg:pb-16 lg:pt-44">
-        <Link href="/" className="inline-flex h-[56px] w-[56px] items-end justify-start lg:h-[78px] lg:w-[78px]">
+      <div className="relative mx-auto flex w-full max-w-[1320px] flex-col gap-6 px-5 pb-8 pt-28 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-end lg:gap-8 lg:px-8 lg:pb-7 lg:pt-[258px]">
+        <Link href="/" className="inline-flex h-[56px] w-[50px] items-end justify-start lg:h-[78px] lg:w-[70px]">
           <svg viewBox="0 0 90 100" className="h-full w-full" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <g clipPath="url(#clip0_footer_logo)">
               <path
@@ -53,9 +53,9 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
             <Link
               key={index}
               href={item?.url || '#'}
-              className="inline-flex items-center gap-2 rounded-full border border-white px-5 py-2 text-sm leading-none"
+              className="inline-flex h-[37px] items-center gap-2 rounded-full border-2 border-white px-4 text-[15px] leading-none lg:w-[180px] lg:justify-center"
             >
-              <span className="text-[10px]">{iconMap[item?.icon || ''] || '•'}</span>
+              <span className="text-[11px]">{iconMap[item?.icon || ''] || '•'}</span>
               <span>{item?.label}</span>
             </Link>
           ))}
@@ -64,13 +64,13 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href={footer?.requisitesUrl || '#'}
-            className="rounded-full bg-white px-6 py-2 text-sm font-bold text-[#021f42]"
+            className="inline-flex h-[37px] items-center rounded-full bg-white px-6 text-[15px] text-[#021f42] lg:w-[180px] lg:justify-center"
           >
-            {footer?.requisitesLabel || 'РЕКВІЗИТИ'}
+            {footer?.requisitesLabel || 'Реквізити фонду'}
           </Link>
           <Link
             href={footer?.donateUrl || '#'}
-            className="rounded-full bg-[#ffbc00] px-6 py-2 text-sm font-bold text-[#021f42]"
+            className="inline-flex h-[37px] items-center rounded-full bg-[#ffbc00] px-6 text-[19px] font-bold text-[#021f42] lg:w-[180px] lg:justify-center"
           >
             {footer?.donateLabel || 'ЗАДОНАТИТИ'}
           </Link>
