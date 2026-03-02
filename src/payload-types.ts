@@ -1854,8 +1854,24 @@ export interface ActiveProject {
     progressPercent: number;
     donateLabel: string;
     donateUrl: string;
+    donatePageTitle: string;
+    donateMethods: {
+      label: string;
+      id?: string | null;
+    }[];
     detailsLabel: string;
     detailsUrl: string;
+    detailsPageTitle: string;
+    detailsStoryHeading: string;
+    detailsStoryBody: string;
+    detailsStoryOutro: string;
+    detailsStoryImage?: (string | null) | Media;
+    detailsGallery?:
+      | {
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
     id?: string | null;
   }[];
   updatedAt?: string | null;
@@ -2061,8 +2077,26 @@ export interface ActiveProjectsSelect<T extends boolean = true> {
         progressPercent?: T;
         donateLabel?: T;
         donateUrl?: T;
+        donatePageTitle?: T;
+        donateMethods?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
         detailsLabel?: T;
         detailsUrl?: T;
+        detailsPageTitle?: T;
+        detailsStoryHeading?: T;
+        detailsStoryBody?: T;
+        detailsStoryOutro?: T;
+        detailsStoryImage?: T;
+        detailsGallery?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
         id?: T;
       };
   updatedAt?: T;

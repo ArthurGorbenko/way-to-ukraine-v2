@@ -13,9 +13,16 @@ const defaultProjects = Array.from({ length: 2 }, () => ({
   goalValue: '000 000 грн',
   progressPercent: 0,
   donateLabel: 'ЗАДОНАТИТИ',
-  donateUrl: '#',
+  donateUrl: '/projects/active/donate',
+  donatePageTitle: 'Задонатити',
+  donateMethods: [{ label: 'Monobank' }, { label: 'UniversalBank' }, { label: 'Crypto' }, { label: 'Інше' }],
   detailsLabel: 'ДЕТАЛЬНІШЕ',
-  detailsUrl: '#',
+  detailsUrl: '/projects/active/details',
+  detailsPageTitle: 'Детальніше',
+  detailsStoryHeading: 'Дорогі друзі!',
+  detailsStoryBody:
+    'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
+  detailsStoryOutro: 'Разом до перемог!',
 }))
 
 export const ActiveProjects: GlobalConfig = {
@@ -113,7 +120,27 @@ export const ActiveProjects: GlobalConfig = {
           name: 'donateUrl',
           type: 'text',
           required: true,
-          defaultValue: '#',
+          defaultValue: '/projects/active/donate',
+        },
+        {
+          name: 'donatePageTitle',
+          type: 'text',
+          required: true,
+          defaultValue: 'Задонатити',
+        },
+        {
+          name: 'donateMethods',
+          type: 'array',
+          required: true,
+          minRows: 1,
+          defaultValue: [{ label: 'Monobank' }, { label: 'UniversalBank' }, { label: 'Crypto' }, { label: 'Інше' }],
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+            },
+          ],
         },
         {
           name: 'detailsLabel',
@@ -125,7 +152,49 @@ export const ActiveProjects: GlobalConfig = {
           name: 'detailsUrl',
           type: 'text',
           required: true,
-          defaultValue: '#',
+          defaultValue: '/projects/active/details',
+        },
+        {
+          name: 'detailsPageTitle',
+          type: 'text',
+          required: true,
+          defaultValue: 'Детальніше',
+        },
+        {
+          name: 'detailsStoryHeading',
+          type: 'text',
+          required: true,
+          defaultValue: 'Дорогі друзі!',
+        },
+        {
+          name: 'detailsStoryBody',
+          type: 'textarea',
+          required: true,
+          defaultValue:
+            'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
+        },
+        {
+          name: 'detailsStoryOutro',
+          type: 'text',
+          required: true,
+          defaultValue: 'Разом до перемог!',
+        },
+        {
+          name: 'detailsStoryImage',
+          type: 'upload',
+          relationTo: 'media',
+        },
+        {
+          name: 'detailsGallery',
+          type: 'array',
+          fields: [
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
+            },
+          ],
         },
       ],
       defaultValue: defaultProjects,

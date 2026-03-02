@@ -26,6 +26,10 @@ export default async function ActiveProjectsPage() {
         <div className="active-projects-list mt-10 lg:mt-12">
           {projects.map((project, index) => {
             const progress = Math.max(0, Math.min(100, Number(project?.progressPercent || 0)))
+            const donateHref =
+              project?.donateUrl && project.donateUrl !== '#' ? project.donateUrl : '/projects/active/donate'
+            const detailsHref =
+              project?.detailsUrl && project.detailsUrl !== '#' ? project.detailsUrl : '/projects/active/details'
 
             return (
               <article key={project.id || index} className="active-project-row">
@@ -70,10 +74,16 @@ export default async function ActiveProjectsPage() {
                   </div>
 
                   <div className="active-project-actions">
-                    <Link className="active-project-btn active-project-btn-donate" href={project?.donateUrl || '#'}>
+                    <Link
+                      className="active-project-btn active-project-btn-donate"
+                      href={donateHref}
+                    >
                       {project?.donateLabel || 'ЗАДОНАТИТИ'}
                     </Link>
-                    <Link className="active-project-btn active-project-btn-details" href={project?.detailsUrl || '#'}>
+                    <Link
+                      className="active-project-btn active-project-btn-details"
+                      href={detailsHref}
+                    >
                       {project?.detailsLabel || 'ДЕТАЛЬНІШЕ'}
                     </Link>
                   </div>

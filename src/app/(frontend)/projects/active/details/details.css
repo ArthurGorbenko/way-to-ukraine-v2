@@ -1,0 +1,255 @@
+.details-page {
+  margin-bottom: -1px;
+  background-image:
+    radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(180deg, rgba(2, 31, 66, 0.95) 0%, rgba(2, 31, 66, 0.5) 18%, rgba(242, 244, 247, 0.98) 44%),
+    url('https://www.figma.com/api/mcp/asset/398fda27681f456dbdcbefdb03f0d35982f64665');
+  background-size: auto, auto, cover;
+  background-position: center top, center top, center top;
+}
+
+.details-title {
+  text-shadow: 0 10px 20px rgba(2, 31, 66, 0.35);
+}
+
+.details-project-row {
+  display: grid;
+  grid-template-columns: 499px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.details-project-media {
+  position: relative;
+  height: 233px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.details-project-image {
+  position: absolute !important;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.details-project-overlay {
+  position: absolute;
+  inset: 0 110px 0 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.details-project-overlay-title {
+  position: absolute;
+  inset: 0 110px 0 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #ffffff;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.details-project-emblem-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 110px;
+  background: #021f42;
+  display: grid;
+  place-items: center;
+}
+
+.details-project-emblem {
+  height: 55px;
+  width: 55px;
+  object-fit: contain;
+}
+
+.details-project-emblem-placeholder {
+  display: grid;
+  height: 55px;
+  width: 55px;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.details-project-content {
+  color: #021f42;
+}
+
+.details-project-heading {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.08;
+  font-weight: 700;
+}
+
+.details-project-line {
+  margin: 12px 0 0;
+  font-size: 25px;
+  line-height: 1.15;
+}
+
+.details-project-line strong {
+  font-weight: 700;
+}
+
+.details-project-goal {
+  margin: 12px 0 0;
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.details-project-goal strong {
+  color: #021f42;
+  font-weight: 700;
+}
+
+.details-project-progress-track {
+  margin-top: 26px;
+  height: 50px;
+  width: min(100%, 564px);
+  border-radius: 18px;
+  background: #ffbc00;
+  overflow: hidden;
+}
+
+.details-project-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #efad00 0%, #ffbc00 100%);
+}
+
+.details-story-row {
+  display: grid;
+  grid-template-columns: 499px minmax(0, 1fr);
+  gap: 46px;
+  align-items: start;
+}
+
+.details-story-image-wrap {
+  height: 182px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.details-story-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.details-story-copy h3 {
+  margin: 0;
+  color: #000000;
+  font-size: 25px;
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.details-story-copy p {
+  margin: 8px 0 0;
+  color: #000000;
+  max-width: 746px;
+  font-size: 18px;
+  line-height: 1.15;
+  font-weight: 400;
+}
+
+.details-gallery {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.details-gallery-item {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.details-gallery-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1200px) {
+  .details-story-copy p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .details-project-row,
+  .details-story-row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .details-project-media {
+    height: auto;
+    min-height: 220px;
+  }
+
+  .details-project-overlay {
+    inset: 0 88px 0 0;
+  }
+
+  .details-project-overlay-title {
+    inset: 0 88px 0 0;
+    font-size: clamp(17px, 6vw, 24px);
+  }
+
+  .details-project-emblem-wrap {
+    width: 88px;
+  }
+
+  .details-project-emblem,
+  .details-project-emblem-placeholder {
+    width: 40px;
+    height: 40px;
+  }
+
+  .details-project-heading {
+    font-size: clamp(27px, 7vw, 42px);
+  }
+
+  .details-project-line {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+
+  .details-project-goal {
+    font-size: clamp(26px, 6vw, 38px);
+  }
+
+  .details-project-progress-track {
+    margin-top: 20px;
+    height: 36px;
+    border-radius: 14px;
+  }
+
+  .details-story-image-wrap {
+    height: auto;
+    min-height: 190px;
+  }
+
+  .details-story-copy h3 {
+    font-size: clamp(24px, 6vw, 30px);
+  }
+
+  .details-story-copy p {
+    font-size: clamp(16px, 4.4vw, 20px);
+  }
+
+  .details-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+}

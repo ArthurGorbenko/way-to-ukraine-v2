@@ -1,0 +1,233 @@
+.donate-page {
+  margin-bottom: -1px;
+  background-image:
+    radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(180deg, rgba(2, 31, 66, 0.95) 0%, rgba(2, 31, 66, 0.5) 18%, rgba(242, 244, 247, 0.98) 44%),
+    url('https://www.figma.com/api/mcp/asset/398fda27681f456dbdcbefdb03f0d35982f64665');
+  background-size: auto, auto, cover;
+  background-position: center top, center top, center top;
+}
+
+.donate-title {
+  text-shadow: 0 10px 20px rgba(2, 31, 66, 0.35);
+}
+
+.donate-project-row {
+  display: grid;
+  grid-template-columns: 499px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.donate-project-media {
+  position: relative;
+  height: 233px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.donate-project-image {
+  position: absolute !important;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.donate-project-overlay {
+  position: absolute;
+  inset: 0 110px 0 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.donate-project-overlay-title {
+  position: absolute;
+  inset: 0 110px 0 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #ffffff;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.donate-project-emblem-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 110px;
+  background: #021f42;
+  display: grid;
+  place-items: center;
+}
+
+.donate-project-emblem {
+  height: 55px;
+  width: 55px;
+  object-fit: contain;
+}
+
+.donate-project-emblem-placeholder {
+  display: grid;
+  height: 55px;
+  width: 55px;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.donate-project-content {
+  color: #021f42;
+}
+
+.donate-project-heading {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.08;
+  font-weight: 700;
+}
+
+.donate-project-line {
+  margin: 12px 0 0;
+  font-size: 25px;
+  line-height: 1.15;
+}
+
+.donate-project-line strong {
+  font-weight: 700;
+}
+
+.donate-project-goal {
+  margin: 12px 0 0;
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.donate-project-goal strong {
+  color: #021f42;
+  font-weight: 700;
+}
+
+.donate-project-progress-track {
+  margin-top: 26px;
+  height: 50px;
+  width: min(100%, 564px);
+  border-radius: 18px;
+  background: #d6d7da;
+  overflow: hidden;
+}
+
+.donate-project-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffbc00 0%, #ffd45d 100%);
+}
+
+.donate-methods {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.donate-method-pill {
+  position: relative;
+  height: 91px;
+  border-radius: 30px;
+  border: 0;
+  background: #021f42;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.donate-method-pill.is-active {
+  background: #ffbc00;
+  color: #021f42;
+}
+
+.donate-method-accent {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 26px solid transparent;
+  border-right: 26px solid transparent;
+  border-top: 13px solid #ffbc00;
+}
+
+@media (max-width: 1200px) {
+  .donate-project-row {
+    gap: 30px;
+  }
+
+  .donate-method-pill {
+    height: 76px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .donate-project-row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .donate-project-media {
+    height: auto;
+    min-height: 220px;
+  }
+
+  .donate-project-overlay {
+    inset: 0 88px 0 0;
+  }
+
+  .donate-project-overlay-title {
+    inset: 0 88px 0 0;
+    font-size: clamp(24px, 8vw, 36px);
+  }
+
+  .donate-project-emblem-wrap {
+    width: 88px;
+  }
+
+  .donate-project-emblem,
+  .donate-project-emblem-placeholder {
+    width: 40px;
+    height: 40px;
+  }
+
+  .donate-project-heading {
+    font-size: clamp(27px, 7vw, 42px);
+  }
+
+  .donate-project-line {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+
+  .donate-project-goal {
+    font-size: clamp(26px, 6vw, 38px);
+  }
+
+  .donate-project-progress-track {
+    margin-top: 20px;
+    height: 36px;
+    border-radius: 14px;
+  }
+
+  .donate-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .donate-method-pill {
+    height: 66px;
+    font-size: clamp(24px, 6vw, 30px);
+  }
+}
