@@ -94,7 +94,7 @@ export default async function AchievementsPage() {
               return (
                 <article key={card.id || index} className="achievement-card">
                   <div className="icon-badge">
-                    <div className="icon-badge-shadow" />
+                    <div className={`icon-badge-shadow icon-badge-shadow-${card?.leafPosition || 'center'}`} />
                     <div className="icon-badge-face">
                       <IconGlyph iconStyle={card?.iconStyle} />
                     </div>

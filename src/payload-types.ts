@@ -1806,6 +1806,7 @@ export interface Achievement {
           | 'spectrum'
         )
       | null;
+    leafPosition?: ('center' | 'left' | 'right' | 'upright') | null;
     featuredImage?: (string | null) | Media;
     id?: string | null;
   }[];
@@ -2023,6 +2024,7 @@ export interface AchievementsSelect<T extends boolean = true> {
         value?: T;
         label?: T;
         iconStyle?: T;
+        leafPosition?: T;
         featuredImage?: T;
         id?: T;
       };

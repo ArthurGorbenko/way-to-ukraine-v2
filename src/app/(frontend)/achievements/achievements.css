@@ -99,28 +99,52 @@
 .icon-badge {
   position: relative;
   margin-top: 8px;
-  height: 140px;
-  width: 140px;
+  height: 150px;
+  width: 150px;
 }
 
 .icon-badge-shadow {
   position: absolute;
-  bottom: 3px;
-  right: -8px;
-  height: 100px;
-  width: 100px;
-  border-radius: 38% 62% 58% 42% / 57% 34% 66% 43%;
-  background: var(--wtu-dark);
+  left: 50%;
+  top: 18px;
+  height: 151px;
+  width: 211px;
+  background: center / contain no-repeat url('/achievements-leaf.svg');
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.icon-badge-shadow-left {
+  left: calc(50% - 8px);
+}
+
+.icon-badge-shadow-center {
+  left: 50%;
+}
+
+.icon-badge-shadow-right {
+  left: calc(50% + 8px);
+}
+
+.icon-badge-shadow-upright {
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
 }
 
 .icon-badge-face {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 0;
+  height: 132px;
+  width: 132px;
+  transform: translateX(-50%);
   display: grid;
   place-items: center;
   border-radius: 999px;
   background: var(--wtu-accent);
   color: var(--wtu-dark);
+  z-index: 2;
 }
 
 .achievement-photo-card {

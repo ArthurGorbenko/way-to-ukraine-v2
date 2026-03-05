@@ -137,6 +137,24 @@ export const Achievements: GlobalConfig = {
           },
         },
         {
+          name: 'leafPosition',
+          type: 'select',
+          options: [
+            { label: 'Center', value: 'center' },
+            { label: 'Left', value: 'left' },
+            { label: 'Right', value: 'right' },
+            { label: 'Upright', value: 'upright' },
+          ],
+          defaultValue: 'center',
+          validate: (value: unknown, { siblingData }: { siblingData?: { layoutType?: string } }) => {
+            if (siblingData?.layoutType === 'stat' && !value) return 'Leaf position is required for stat cards'
+            return true
+          },
+          admin: {
+            condition: (_, siblingData) => siblingData?.layoutType !== 'photoWide',
+          },
+        },
+        {
           name: 'featuredImage',
           type: 'upload',
           relationTo: 'media',
@@ -146,17 +164,29 @@ export const Achievements: GlobalConfig = {
         },
       ],
       defaultValue: [
-        { layoutType: 'stat', value: '16', label: 'Пікапів', iconStyle: 'pickup' },
-        { layoutType: 'stat', value: '4', label: 'Бусів', iconStyle: 'bus' },
-        { layoutType: 'stat', value: '3', label: 'Позашляховиків', iconStyle: 'suv' },
-        { layoutType: 'stat', value: '2', label: 'Військових вантажівок', iconStyle: 'truck' },
-        { layoutType: 'stat', value: '1', label: 'Приладів нічного бачення', iconStyle: 'nightVision' },
-        { layoutType: 'stat', value: '2', label: 'Антен', iconStyle: 'antenna' },
-        { layoutType: 'stat', value: '1', label: 'Дронів', iconStyle: 'drone' },
-        { layoutType: 'stat', value: '1', label: 'Засобів РЕБ', iconStyle: 'reb' },
-        { layoutType: 'stat', value: '1', label: 'Карет швидкої допомоги', iconStyle: 'ambulance' },
+        { layoutType: 'stat', value: '16', label: 'Пікапів', iconStyle: 'pickup', leafPosition: 'center' },
+        { layoutType: 'stat', value: '4', label: 'Бусів', iconStyle: 'bus', leafPosition: 'center' },
+        { layoutType: 'stat', value: '3', label: 'Позашляховиків', iconStyle: 'suv', leafPosition: 'right' },
+        { layoutType: 'stat', value: '2', label: 'Військових вантажівок', iconStyle: 'truck', leafPosition: 'upright' },
+        {
+          layoutType: 'stat',
+          value: '1',
+          label: 'Приладів нічного бачення',
+          iconStyle: 'nightVision',
+          leafPosition: 'left',
+        },
+        { layoutType: 'stat', value: '2', label: 'Антен', iconStyle: 'antenna', leafPosition: 'center' },
+        { layoutType: 'stat', value: '1', label: 'Дронів', iconStyle: 'drone', leafPosition: 'right' },
+        { layoutType: 'stat', value: '1', label: 'Засобів РЕБ', iconStyle: 'reb', leafPosition: 'left' },
+        {
+          layoutType: 'stat',
+          value: '1',
+          label: 'Карет швидкої допомоги',
+          iconStyle: 'ambulance',
+          leafPosition: 'upright',
+        },
         { layoutType: 'photoWide' },
-        { layoutType: 'stat', value: '2', label: 'Аналізаторів спектру', iconStyle: 'spectrum' },
+        { layoutType: 'stat', value: '2', label: 'Аналізаторів спектру', iconStyle: 'spectrum', leafPosition: 'right' },
       ],
     },
     {
