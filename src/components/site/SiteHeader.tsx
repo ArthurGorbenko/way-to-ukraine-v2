@@ -54,7 +54,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data }) => {
 
         <div className="flex items-center gap-3 lg:gap-4">
           <Link
-            href={data?.donateUrl || '#'}
+            href={data?.donateUrl || '/projects/active/donate'}
             className="inline-flex h-[37px] items-center justify-center rounded-full bg-[#ffbc00] px-5 text-[11px] font-bold text-[#021f42] lg:w-[180px] lg:text-[19px]"
           >
             {data?.donateLabel || 'ЗАДОНАТИТИ'}

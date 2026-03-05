@@ -50,7 +50,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ data }) => {
           </div>
           <div className="mt-7 flex justify-end">
             <Link
-              href={data?.currentCollectionDonateUrl || '#'}
+              href={data?.currentCollectionDonateUrl || '/projects/active/donate'}
               className="rounded-full bg-[#ffbc00] px-8 py-3 text-lg font-black text-[#021f42]"
             >
               {data?.currentCollectionDonateLabel || 'ЗАДОНАТИТИ'}

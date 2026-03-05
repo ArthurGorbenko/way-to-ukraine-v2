@@ -2,6 +2,7 @@ import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import type { Metadata } from 'next'
+import { DonateMethods } from './DonateMethods.client'
 
 import './donate.css'
 
@@ -13,12 +14,7 @@ export default async function ActiveProjectDonatePage() {
   const activeProjects = await getCachedGlobal('active-projects', 2)()
   const project = activeProjects?.projects?.[0]
   const progress = Math.max(0, Math.min(100, Number(project?.progressPercent || 0)))
-  const paymentMethods = project?.donateMethods?.map((method) => method?.label).filter(Boolean) || [
-    'Monobank',
-    'UniversalBank',
-    'Crypto',
-    'Інше',
-  ]
+  const paymentMethods = project?.donateMethods || []
 
   return (
     <article className="donate-page pb-10 pt-30 lg:pb-30 lg:pt-24">
@@ -77,19 +73,7 @@ export default async function ActiveProjectDonatePage() {
           </section>
         </div>
 
-        <section className="donate-methods mt-10 lg:mt-12" aria-label="Методи донату">
-          {paymentMethods.map((method, index) => (
-            <button
-              key={method}
-              className={`donate-method-pill ${index === 0 ? 'is-active' : ''}`}
-              type="button"
-              aria-pressed={index === 0}
-            >
-              <span>{method}</span>
-              {index !== 0 ? <span className="donate-method-accent" aria-hidden="true" /> : null}
-            </button>
-          ))}
-        </section>
+        <DonateMethods methods={paymentMethods} />
       </section>
     </article>
   )

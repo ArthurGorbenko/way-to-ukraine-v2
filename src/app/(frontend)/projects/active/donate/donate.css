@@ -163,6 +163,65 @@
   border-top: 13px solid #ffbc00;
 }
 
+.donate-method-panel {
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(2, 31, 66, 0.14);
+}
+
+.donate-method-description {
+  margin: 0 0 14px;
+  color: #314154;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.donate-credentials-list {
+  display: grid;
+  gap: 10px;
+}
+
+.donate-credential-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 14px;
+  align-items: center;
+  border-radius: 16px;
+  background: #f4f7fb;
+  padding: 12px 14px;
+}
+
+.donate-credential-label {
+  margin: 0;
+  color: #021f42;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.donate-credential-value {
+  margin: 0;
+  color: #1e2f46;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.donate-method-cta {
+  margin-top: 18px;
+  display: inline-flex;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #021f42;
+  padding: 0 24px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 @media (max-width: 1200px) {
   .donate-project-row {
     gap: 30px;
@@ -171,6 +230,10 @@
   .donate-method-pill {
     height: 76px;
     font-size: 24px;
+  }
+
+  .donate-credential-row {
+    grid-template-columns: 170px 1fr;
   }
 }
 
@@ -229,5 +292,32 @@
   .donate-method-pill {
     height: 66px;
     font-size: clamp(24px, 6vw, 30px);
+  }
+
+  .donate-method-panel {
+    border-radius: 24px;
+    padding: 16px;
+  }
+
+  .donate-method-description {
+    font-size: 16px;
+  }
+
+  .donate-credential-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 12px;
+  }
+
+  .donate-credential-label {
+    font-size: 13px;
+  }
+
+  .donate-credential-value {
+    font-size: 15px;
+  }
+
+  .donate-method-cta {
+    width: 100%;
   }
 }

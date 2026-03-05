@@ -1750,7 +1750,7 @@ export interface Homepage {
       | {
           label: string;
           url: string;
-          icon: 'telegram' | 'instagram' | 'twitter';
+          icon: 'facebook' | 'telegram' | 'instagram' | 'twitter';
           id?: string | null;
         }[]
       | null;
@@ -1858,6 +1858,16 @@ export interface ActiveProject {
     donatePageTitle: string;
     donateMethods: {
       label: string;
+      description?: string | null;
+      actionLabel?: string | null;
+      actionUrl?: string | null;
+      details?:
+        | {
+            label: string;
+            value: string;
+            id?: string | null;
+          }[]
+        | null;
       id?: string | null;
     }[];
     detailsLabel: string;
@@ -2084,6 +2094,16 @@ export interface ActiveProjectsSelect<T extends boolean = true> {
           | T
           | {
               label?: T;
+              description?: T;
+              actionLabel?: T;
+              actionUrl?: T;
+              details?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    id?: T;
+                  };
               id?: T;
             };
         detailsLabel?: T;

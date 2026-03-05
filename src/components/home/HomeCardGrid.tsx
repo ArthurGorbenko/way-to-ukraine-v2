@@ -14,6 +14,8 @@ interface HomeCardGridProps {
 const toSectionId = (href?: string | null, index?: number) => {
   if (!href) return `section-${index ?? 0}`
   if (href.startsWith('#')) return href.slice(1)
+  const hashIndex = href.indexOf('#')
+  if (hashIndex >= 0 && hashIndex < href.length - 1) return href.slice(hashIndex + 1)
   return `section-${index ?? 0}`
 }
 
@@ -37,7 +39,7 @@ export const HomeCardGrid: React.FC<HomeCardGridProps> = ({ cards }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
               <div className="relative flex h-full items-end justify-center p-6 text-center">
                 <Link
-                  href={card?.href || '#'}
+                  href={card?.href || '/projects'}
                   className="inline-flex flex-col items-center text-xl font-medium text-white lg:text-[28px]"
                 >
                   <span>{card?.title}</span>

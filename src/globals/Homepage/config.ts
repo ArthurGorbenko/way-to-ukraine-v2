@@ -58,7 +58,7 @@ export const Homepage: GlobalConfig = {
           name: 'currentCollectionDonateUrl',
           type: 'text',
           required: true,
-          defaultValue: '#',
+          defaultValue: '/projects/active/donate',
         },
       ],
     },
@@ -209,7 +209,7 @@ export const Homepage: GlobalConfig = {
           name: 'requisitesUrl',
           type: 'text',
           required: true,
-          defaultValue: '#',
+          defaultValue: 'https://way-to-ukraine.com/en/requisites',
         },
         {
           name: 'donateLabel',
@@ -221,7 +221,7 @@ export const Homepage: GlobalConfig = {
           name: 'donateUrl',
           type: 'text',
           required: true,
-          defaultValue: '#',
+          defaultValue: '/projects/active/donate',
         },
         {
           name: 'socials',
@@ -243,6 +243,7 @@ export const Homepage: GlobalConfig = {
               type: 'select',
               required: true,
               options: [
+                { label: 'Facebook', value: 'facebook' },
                 { label: 'Telegram', value: 'telegram' },
                 { label: 'Instagram', value: 'instagram' },
                 { label: 'Twitter', value: 'twitter' },

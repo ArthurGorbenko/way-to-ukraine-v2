@@ -240,7 +240,7 @@ export const seed = async ({
       },
       data: {
         donateLabel: 'ЗАДОНАТИТИ',
-        donateUrl: '#',
+        donateUrl: '/projects/active/donate',
         languageSwitcherMode: 'visualOnly',
         logoVariant: 'yellow',
         navItems: [
@@ -255,7 +255,7 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Про нас',
-              url: '#about',
+              url: '/#about',
             },
           },
           {
@@ -269,21 +269,21 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Звітність',
-              url: '#reporting',
+              url: '/#reporting',
             },
           },
           {
             link: {
               type: 'custom',
               label: 'Крамниця',
-              url: '#shop',
+              url: '/#shop',
             },
           },
           {
             link: {
               type: 'custom',
               label: 'FAQ',
-              url: '#faq',
+              url: '/#faq',
             },
           },
         ],
@@ -336,7 +336,7 @@ export const seed = async ({
           currentCollectionSubtitle: 'Збір на пікап',
           currentCollectionDescription: 'для 1 ОШБ «Вовки да Вінчі»',
           currentCollectionDonateLabel: 'ЗАДОНАТИТИ',
-          currentCollectionDonateUrl: '#',
+          currentCollectionDonateUrl: '/projects/active/donate',
         },
         intro: {
           headline: 'Всім привіт, ми з України!',
@@ -345,11 +345,11 @@ export const seed = async ({
         },
         cards: [
           { title: 'проєкти', href: '/projects', image: image1Doc.id },
-          { title: 'про нас', href: '#about', image: image2Doc.id },
+          { title: 'про нас', href: '/#about', image: image2Doc.id },
           { title: 'досягнення', href: '/achievements', image: image3Doc.id },
-          { title: 'звітність', href: '#reporting', image: image2Doc.id },
-          { title: 'крамниця', href: '#shop', image: image3Doc.id },
-          { title: 'faq', href: '#faq', image: image1Doc.id },
+          { title: 'звітність', href: '/#reporting', image: image2Doc.id },
+          { title: 'крамниця', href: '/#shop', image: image3Doc.id },
+          { title: 'faq', href: '/#faq', image: image1Doc.id },
         ],
         stats: {
           left: {
@@ -366,13 +366,13 @@ export const seed = async ({
         footer: {
           backgroundImage: imageHomeDoc.id,
           requisitesLabel: 'РЕКВІЗИТИ',
-          requisitesUrl: '#',
+          requisitesUrl: 'https://way-to-ukraine.com/en/requisites',
           donateLabel: 'ЗАДОНАТИТИ',
-          donateUrl: '#',
+          donateUrl: '/projects/active/donate',
           socials: [
-            { icon: 'telegram', label: 'Telegram', url: '#' },
-            { icon: 'instagram', label: 'Instagram', url: '#' },
-            { icon: 'twitter', label: 'Twitter', url: '#' },
+            { icon: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/groups/way.to.ukraine' },
+            { icon: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/way.to.ua' },
+            { icon: 'twitter', label: 'Twitter', url: 'https://x.com/Way_to_UA' },
           ],
         },
       },
@@ -479,10 +479,40 @@ export const seed = async ({
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Задонатити',
             donateMethods: [
-              { label: 'Monobank' },
-              { label: 'UniversalBank' },
-              { label: 'Crypto' },
-              { label: 'Інше' },
+              {
+                label: 'Monobank',
+                details: [
+                  { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
+                  {
+                    label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade',
+                    value: 'https://send.monobank.ua/jar/bB9VYwZiY',
+                  },
+                  { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
+                ],
+              },
+              {
+                label: 'UniversalBank',
+                details: [
+                  { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
+                  { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
+                  { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
+                  { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
+                  { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
+                  { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
+                ],
+              },
+              {
+                label: 'Crypto',
+                details: [
+                  { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
+                  { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
+                  { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
+                ],
+              },
+              {
+                label: 'Інше',
+                details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }],
+              },
             ],
             detailsLabel: 'ДЕТАЛЬНІШЕ',
             detailsUrl: '/projects/active/details',
@@ -517,10 +547,40 @@ export const seed = async ({
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Задонатити',
             donateMethods: [
-              { label: 'Monobank' },
-              { label: 'UniversalBank' },
-              { label: 'Crypto' },
-              { label: 'Інше' },
+              {
+                label: 'Monobank',
+                details: [
+                  { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
+                  {
+                    label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade',
+                    value: 'https://send.monobank.ua/jar/bB9VYwZiY',
+                  },
+                  { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
+                ],
+              },
+              {
+                label: 'UniversalBank',
+                details: [
+                  { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
+                  { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
+                  { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
+                  { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
+                  { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
+                  { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
+                ],
+              },
+              {
+                label: 'Crypto',
+                details: [
+                  { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
+                  { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
+                  { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
+                ],
+              },
+              {
+                label: 'Інше',
+                details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }],
+              },
             ],
             detailsLabel: 'ДЕТАЛЬНІШЕ',
             detailsUrl: '/projects/active/details',

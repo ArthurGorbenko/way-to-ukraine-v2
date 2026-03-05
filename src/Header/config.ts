@@ -38,7 +38,7 @@ export const Header: GlobalConfig = {
       name: 'donateUrl',
       type: 'text',
       required: true,
-      defaultValue: '#',
+      defaultValue: '/projects/active/donate',
     },
     {
       name: 'languageSwitcherMode',
@@ -74,7 +74,7 @@ export const Header: GlobalConfig = {
           link: {
             type: 'custom',
             label: 'Про нас',
-            url: '#about',
+            url: '/#about',
           },
         },
         {
@@ -88,21 +88,21 @@ export const Header: GlobalConfig = {
           link: {
             type: 'custom',
             label: 'Звітність',
-            url: '#reporting',
+            url: '/#reporting',
           },
         },
         {
           link: {
             type: 'custom',
             label: 'Крамниця',
-            url: '#shop',
+            url: '/#shop',
           },
         },
         {
           link: {
             type: 'custom',
             label: 'FAQ',
-            url: '#faq',
+            url: '/#faq',
           },
         },
       ],

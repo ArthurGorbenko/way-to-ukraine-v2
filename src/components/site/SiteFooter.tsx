@@ -1,6 +1,6 @@
 import { Media } from '@/components/Media'
 import type { Homepage as HomepageGlobal, Media as MediaType } from '@/payload-types'
-import { Instagram, Send, Twitter } from 'lucide-react'
+import { Facebook, Instagram, Send, Twitter } from 'lucide-react'
 import Link from 'next/link'
 import type React from 'react'
 
@@ -11,6 +11,7 @@ interface SiteFooterProps {
 }
 
 const iconMap: Record<string, React.ReactNode> = {
+  facebook: <Facebook className="h-3 w-3" />,
   telegram: <Send className="h-3 w-3" />,
   instagram: <Instagram className="h-3 w-3" />,
   twitter: <Twitter className="h-3 w-3" />,
@@ -63,13 +64,13 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
 
         <div className="flex flex-wrap items-center gap-3">
           <Link
-            href={footer?.requisitesUrl || '#'}
+            href={footer?.requisitesUrl || 'https://way-to-ukraine.com/en/requisites'}
             className="inline-flex h-[37px] items-center rounded-full bg-white px-6 text-[15px] text-[#021f42] lg:w-[180px] lg:justify-center"
           >
             {footer?.requisitesLabel || 'Реквізити фонду'}
           </Link>
           <Link
-            href={footer?.donateUrl || '#'}
+            href={footer?.donateUrl || '/projects/active/donate'}
             className="inline-flex h-[37px] items-center rounded-full bg-[#ffbc00] px-6 text-[19px] font-bold text-[#021f42] lg:w-[180px] lg:justify-center"
           >
             {footer?.donateLabel || 'ЗАДОНАТИТИ'}

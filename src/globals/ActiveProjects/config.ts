@@ -15,7 +15,42 @@ const defaultProjects = Array.from({ length: 2 }, () => ({
   donateLabel: 'ЗАДОНАТИТИ',
   donateUrl: '/projects/active/donate',
   donatePageTitle: 'Задонатити',
-  donateMethods: [{ label: 'Monobank' }, { label: 'UniversalBank' }, { label: 'Crypto' }, { label: 'Інше' }],
+  donateMethods: [
+    {
+      label: 'Monobank',
+      details: [
+        { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
+        {
+          label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade',
+          value: 'https://send.monobank.ua/jar/bB9VYwZiY',
+        },
+        { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
+      ],
+    },
+    {
+      label: 'UniversalBank',
+      details: [
+        { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
+        { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
+        { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
+        { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
+        { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
+        { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
+      ],
+    },
+    {
+      label: 'Crypto',
+      details: [
+        { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
+        { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
+        { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
+      ],
+    },
+    {
+      label: 'Інше',
+      details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }],
+    },
+  ],
   detailsLabel: 'ДЕТАЛЬНІШЕ',
   detailsUrl: '/projects/active/details',
   detailsPageTitle: 'Детальніше',
@@ -133,12 +168,75 @@ export const ActiveProjects: GlobalConfig = {
           type: 'array',
           required: true,
           minRows: 1,
-          defaultValue: [{ label: 'Monobank' }, { label: 'UniversalBank' }, { label: 'Crypto' }, { label: 'Інше' }],
+          defaultValue: [
+            {
+              label: 'Monobank',
+              details: [
+                { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
+                {
+                  label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade',
+                  value: 'https://send.monobank.ua/jar/bB9VYwZiY',
+                },
+                { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
+              ],
+            },
+            {
+              label: 'UniversalBank',
+              details: [
+                { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
+                { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
+                { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
+                { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
+                { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
+                { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
+              ],
+            },
+            {
+              label: 'Crypto',
+              details: [
+                { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
+                { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
+                { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
+              ],
+            },
+            {
+              label: 'Інше',
+              details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }],
+            },
+          ],
           fields: [
             {
               name: 'label',
               type: 'text',
               required: true,
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+            },
+            {
+              name: 'actionLabel',
+              type: 'text',
+            },
+            {
+              name: 'actionUrl',
+              type: 'text',
+            },
+            {
+              name: 'details',
+              type: 'array',
+              fields: [
+                {
+                  name: 'label',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'value',
+                  type: 'text',
+                  required: true,
+                },
+              ],
             },
           ],
         },

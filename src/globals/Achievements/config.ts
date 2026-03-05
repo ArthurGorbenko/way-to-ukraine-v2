@@ -203,7 +203,7 @@ export const Achievements: GlobalConfig = {
           name: 'url',
           type: 'text',
           required: true,
-          defaultValue: '#',
+          defaultValue: '/projects/finished',
         },
       ],
     },

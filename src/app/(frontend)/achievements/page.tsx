@@ -110,7 +110,7 @@ export default async function AchievementsPage() {
 
       <div className="mx-auto w-full max-w-[1320px] px-5 pb-4 text-center lg:px-8 lg:pb-6">
         <Link
-          href={achievements?.cta?.url || '#'}
+          href={achievements?.cta?.url || '/projects/finished'}
           className="inline-flex h-[85px] w-full max-w-[428px] items-center justify-center rounded-[30px] bg-[#ffbc00] px-9 py-4 text-[27px] font-bold uppercase text-[#021f42]"
         >
           {achievements?.cta?.label || 'ЗАКРИТІ ПРОЄКТИ'}
