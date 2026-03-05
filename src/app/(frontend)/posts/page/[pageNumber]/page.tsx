@@ -8,6 +8,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 import { notFound } from 'next/navigation'
+import { getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 
 export const revalidate = 600
 
@@ -19,6 +20,7 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { pageNumber } = await paramsPromise
+  const locale = await getRequestPayloadLocale()
   const payload = await getPayload({ config: configPromise })
 
   const sanitizedPageNumber = Number(pageNumber)
@@ -27,6 +29,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const posts = await payload.find({
     collection: 'posts',
+    locale: locale as unknown as 'all',
+    fallbackLocale: 'uk' as unknown as null,
     depth: 1,
     limit: 12,
     page: sanitizedPageNumber,

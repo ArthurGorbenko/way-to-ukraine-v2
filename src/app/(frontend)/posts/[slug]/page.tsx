@@ -7,6 +7,7 @@ import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
+import { getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 
 import type { Post } from '@/payload-types'
 
@@ -43,11 +44,12 @@ type Args = {
 
 export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
+  const locale = await getRequestPayloadLocale()
   const { slug = '' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const url = '/posts/' + decodedSlug
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const post = await queryPostBySlug({ slug: decodedSlug, locale })
 
   if (!post) return <PayloadRedirects url={url} />
 
@@ -78,15 +80,16 @@ export default async function Post({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+  const locale = await getRequestPayloadLocale()
   const { slug = '' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
-  const post = await queryPostBySlug({ slug: decodedSlug })
+  const post = await queryPostBySlug({ slug: decodedSlug, locale })
 
   return generateMeta({ doc: post })
 }
 
-const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
+const queryPostBySlug = cache(async ({ slug, locale }: { slug: string; locale: 'uk' | 'en' }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
@@ -94,6 +97,8 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const result = await payload.find({
     collection: 'posts',
     draft,
+    locale: locale as unknown as 'all',
+    fallbackLocale: 'uk' as unknown as null,
     limit: 1,
     overrideAccess: draft,
     pagination: false,

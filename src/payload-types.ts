@@ -108,7 +108,7 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  fallbackLocale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('uk' | 'en') | ('uk' | 'en')[];
   globals: {
     header: Header;
     footer: Footer;
@@ -125,7 +125,7 @@ export interface Config {
     'finished-projects': FinishedProjectsSelect<false> | FinishedProjectsSelect<true>;
     'active-projects': ActiveProjectsSelect<false> | ActiveProjectsSelect<true>;
   };
-  locale: null;
+  locale: 'uk' | 'en';
   user: User;
   jobs: {
     tasks: {

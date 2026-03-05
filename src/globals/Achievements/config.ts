@@ -27,6 +27,7 @@ export const Achievements: GlobalConfig = {
     {
       name: 'pageTitle',
       type: 'text',
+      localized: true,
       required: true,
       defaultValue: 'Досягнення',
     },
@@ -40,11 +41,13 @@ export const Achievements: GlobalConfig = {
         {
           name: 'value',
           type: 'text',
+          localized: true,
           required: true,
         },
         {
           name: 'caption',
           type: 'text',
+          localized: true,
           required: true,
         },
         {
@@ -105,6 +108,7 @@ export const Achievements: GlobalConfig = {
         {
           name: 'value',
           type: 'text',
+          localized: true,
           validate: (value: unknown, { siblingData }: { siblingData?: { layoutType?: string } }) => {
             if (siblingData?.layoutType === 'stat' && !value) return 'Value is required for stat cards'
             return true
@@ -116,6 +120,7 @@ export const Achievements: GlobalConfig = {
         {
           name: 'label',
           type: 'text',
+          localized: true,
           validate: (value: unknown, { siblingData }: { siblingData?: { layoutType?: string } }) => {
             if (siblingData?.layoutType === 'stat' && !value) return 'Label is required for stat cards'
             return true
@@ -196,12 +201,14 @@ export const Achievements: GlobalConfig = {
         {
           name: 'label',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'ЗАКРИТІ ПРОЄКТИ',
         },
         {
           name: 'url',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: '/projects/finished',
         },

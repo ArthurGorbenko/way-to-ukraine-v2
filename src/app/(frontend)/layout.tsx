@@ -16,16 +16,18 @@ import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
+  const [locale, payloadLocale] = await Promise.all([getRequestLocale(), getRequestPayloadLocale()])
   const [headerData, homepageData] = await Promise.all([
-    getCachedGlobal('header', 1)(),
-    getCachedGlobal('homepage', 2)(),
+    getCachedGlobal('header', 1, payloadLocale)(),
+    getCachedGlobal('homepage', 2, payloadLocale)(),
   ])
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html className={cn(GeistSans.variable, GeistMono.variable)} lang={payloadLocale} suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
@@ -39,9 +41,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             }}
           />
 
-          <SiteHeader data={headerData} />
+          <SiteHeader data={headerData} locale={locale} />
           <main className="bg-white">{children}</main>
-          <SiteFooter data={homepageData} />
+          <SiteFooter data={homepageData} locale={locale} />
         </Providers>
       </body>
     </html>

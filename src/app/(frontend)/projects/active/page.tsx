@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
 import type { Config, Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -13,7 +14,8 @@ const photoFallback =
   'https://www.figma.com/api/mcp/asset/cedddda1-fdfe-47d3-aef6-13255dc95b70'
 
 export default async function ActiveProjectsPage() {
-  const activeProjects = await getCachedGlobal('active-projects', 2)()
+  const locale = await getRequestPayloadLocale()
+  const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const projects = activeProjects?.projects || []
 
   return (
@@ -98,11 +100,15 @@ export default async function ActiveProjectsPage() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const activeProjects = (await getCachedGlobal('active-projects', 0)()) as ActiveProjectsGlobal
+  const [publicLocale, payloadLocale] = await Promise.all([getRequestLocale(), getRequestPayloadLocale()])
+  const activeProjects = (await getCachedGlobal('active-projects', 0, payloadLocale)()) as ActiveProjectsGlobal
   const pageTitle = activeProjects?.pageTitle || 'Актуальні проєкти'
 
   return {
     title: `${pageTitle} | Way to Ukraine`,
-    description: 'Актуальні проєкти Way to Ukraine: поточні збори та активні ініціативи.',
+    description:
+      publicLocale === 'en'
+        ? 'Way to Ukraine active projects: current fundraising and active initiatives.'
+        : 'Актуальні проєкти Way to Ukraine: поточні збори та активні ініціативи.',
   }
 }

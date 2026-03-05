@@ -17,6 +17,7 @@ export const FinishedProjects: GlobalConfig = {
     {
       name: 'pageTitle',
       type: 'text',
+      localized: true,
       required: true,
       defaultValue: 'Закриті проєкти',
     },
@@ -36,12 +37,14 @@ export const FinishedProjects: GlobalConfig = {
         {
           name: 'unit',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: '120 бригада, 173 батальйон',
         },
         {
           name: 'vehicle',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'STEYR 1291',
         },

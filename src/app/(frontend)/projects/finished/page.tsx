@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
 import type { Config, Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
 
 import './finished-projects.css'
@@ -12,7 +13,8 @@ const photoFallback =
   'https://www.figma.com/api/mcp/asset/7e3640cf-82b2-491e-ad28-9ca5fc0199ab'
 
 export default async function FinishedProjectsPage() {
-  const finishedProjects = await getCachedGlobal('finished-projects', 2)()
+  const locale = await getRequestPayloadLocale()
+  const finishedProjects = await getCachedGlobal('finished-projects', 2, locale)()
   const cards = finishedProjects?.cards || []
 
   return (
@@ -51,11 +53,15 @@ export default async function FinishedProjectsPage() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const finishedProjects = (await getCachedGlobal('finished-projects', 0)()) as FinishedProjectsGlobal
+  const [publicLocale, payloadLocale] = await Promise.all([getRequestLocale(), getRequestPayloadLocale()])
+  const finishedProjects = (await getCachedGlobal('finished-projects', 0, payloadLocale)()) as FinishedProjectsGlobal
   const pageTitle = finishedProjects?.pageTitle || 'Закриті проєкти'
 
   return {
     title: `${pageTitle} | Way to Ukraine`,
-    description: 'Закриті проєкти Way to Ukraine: завершені збори та реалізовані поставки.',
+    description:
+      publicLocale === 'en'
+        ? 'Way to Ukraine closed projects: completed fundraisers and delivered support.'
+        : 'Закриті проєкти Way to Ukraine: завершені збори та реалізовані поставки.',
   }
 }

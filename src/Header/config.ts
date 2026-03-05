@@ -31,12 +31,14 @@ export const Header: GlobalConfig = {
     {
       name: 'donateLabel',
       type: 'text',
+      localized: true,
       required: true,
       defaultValue: 'ЗАДОНАТИТИ',
     },
     {
       name: 'donateUrl',
       type: 'text',
+      localized: true,
       required: true,
       defaultValue: '/projects/active/donate',
     },
@@ -53,6 +55,7 @@ export const Header: GlobalConfig = {
       fields: [
         link({
           appearances: false,
+          localized: true,
         }),
       ],
       maxRows: 6,

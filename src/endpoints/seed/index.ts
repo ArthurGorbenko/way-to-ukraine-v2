@@ -142,63 +142,37 @@ export const seed = async ({
 
   // Do not create posts with `Promise.all` because we want the posts to be created in order
   // This way we can sort them by `createdAt` or `publishedAt` and they will be in the expected order
-  const post1Doc = await payload.create({
+  await payload.create({
     collection: 'posts',
     depth: 0,
+    req,
     context: {
       disableRevalidate: true,
+      disableSearchSync: true,
     },
     data: post1({ heroImage: image1Doc, blockImage: image2Doc, author: demoAuthor }),
   })
 
-  const post2Doc = await payload.create({
+  await payload.create({
     collection: 'posts',
     depth: 0,
+    req,
     context: {
       disableRevalidate: true,
+      disableSearchSync: true,
     },
     data: post2({ heroImage: image2Doc, blockImage: image3Doc, author: demoAuthor }),
   })
 
-  const post3Doc = await payload.create({
+  await payload.create({
     collection: 'posts',
     depth: 0,
+    req,
     context: {
       disableRevalidate: true,
+      disableSearchSync: true,
     },
     data: post3({ heroImage: image3Doc, blockImage: image1Doc, author: demoAuthor }),
-  })
-
-  // update each post with related posts
-  await payload.update({
-    id: post1Doc.id,
-    collection: 'posts',
-    context: {
-      disableRevalidate: true,
-    },
-    data: {
-      relatedPosts: [post2Doc.id, post3Doc.id],
-    },
-  })
-  await payload.update({
-    id: post2Doc.id,
-    collection: 'posts',
-    context: {
-      disableRevalidate: true,
-    },
-    data: {
-      relatedPosts: [post1Doc.id, post3Doc.id],
-    },
-  })
-  await payload.update({
-    id: post3Doc.id,
-    collection: 'posts',
-    context: {
-      disableRevalidate: true,
-    },
-    data: {
-      relatedPosts: [post1Doc.id, post2Doc.id],
-    },
   })
 
   payload.logger.info(`— Seeding contact form...`)
@@ -235,6 +209,7 @@ export const seed = async ({
   await Promise.all([
     payload.updateGlobal({
       slug: 'header',
+      locale: 'uk' as unknown as 'all',
       context: {
         disableRevalidate: true,
       },
@@ -324,6 +299,7 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'homepage',
+      locale: 'uk' as unknown as 'all',
       context: {
         disableRevalidate: true,
       },
@@ -379,6 +355,7 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'achievements',
+      locale: 'uk' as unknown as 'all',
       context: {
         disableRevalidate: true,
       },
@@ -437,6 +414,7 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'finished-projects',
+      locale: 'uk' as unknown as 'all',
       context: {
         disableRevalidate: true,
       },
@@ -457,6 +435,7 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'active-projects',
+      locale: 'uk' as unknown as 'all',
       context: {
         disableRevalidate: true,
       },
@@ -603,6 +582,329 @@ export const seed = async ({
       },
     }),
   ])
+
+  await Promise.all([
+    payload.updateGlobal({
+      slug: 'header',
+      locale: 'en' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        donateLabel: 'DONATE',
+        donateUrl: '/projects/active/donate',
+        navItems: [
+          { link: { type: 'custom', label: 'Projects', url: '/projects' } },
+          { link: { type: 'custom', label: 'About', url: '/#about' } },
+          { link: { type: 'custom', label: 'Achievements', url: '/achievements' } },
+          { link: { type: 'custom', label: 'Reporting', url: '/#reporting' } },
+          { link: { type: 'custom', label: 'Shop', url: '/#shop' } },
+          { link: { type: 'custom', label: 'FAQ', url: '/#faq' } },
+        ],
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'homepage',
+      locale: 'en' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        hero: {
+          titleLine1: 'WAY TO',
+          titleLine2: 'UKRAINE',
+          currentCollectionTitle: 'CURRENT FUNDRAISER',
+          currentCollectionSubtitle: 'Pickup truck fundraiser',
+          currentCollectionDescription: 'for 1st Assault Battalion "Da Vinci Wolves"',
+          currentCollectionDonateLabel: 'DONATE',
+          currentCollectionDonateUrl: '/projects/active/donate',
+        },
+        intro: {
+          headline: 'Hello, we are from Ukraine!',
+          description: 'Way to Ukraine is a mid-scale volunteer foundation supporting the Defense Forces of Ukraine.',
+        },
+        cards: [
+          { title: 'projects', href: '/projects', image: image1Doc.id },
+          { title: 'about', href: '/#about', image: image2Doc.id },
+          { title: 'achievements', href: '/achievements', image: image3Doc.id },
+          { title: 'reporting', href: '/#reporting', image: image2Doc.id },
+          { title: 'shop', href: '/#shop', image: image3Doc.id },
+          { title: 'faq', href: '/#faq', image: image1Doc.id },
+        ],
+        stats: {
+          left: {
+            value: '7 820 086 UAH',
+            caption: 'Total raised by the foundation',
+          },
+          right: {
+            value: '15 brigades',
+            caption: 'Units supported by us',
+          },
+        },
+        footer: {
+          requisitesLabel: 'REQUISITES',
+          requisitesUrl: 'https://way-to-ukraine.com/en/requisites',
+          donateLabel: 'DONATE',
+          donateUrl: '/projects/active/donate',
+          socials: [
+            { icon: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/groups/way.to.ukraine' },
+            { icon: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/way.to.ua' },
+            { icon: 'twitter', label: 'Twitter', url: 'https://x.com/Way_to_UA' },
+          ],
+        },
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'achievements',
+      locale: 'en' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Achievements',
+        topStats: [
+          { value: '7 820 086 UAH', caption: 'Total raised by the foundation', theme: 'dark', iconStyle: 'currency' },
+          { value: '000 000 USD', caption: 'Total raised by the foundation', theme: 'accent', iconStyle: 'dollar' },
+          { value: '14 brigades', caption: 'Units supported by us', theme: 'blue', iconStyle: 'diamond' },
+        ],
+        cards: [
+          { layoutType: 'stat', value: '16', label: 'Pickup trucks', iconStyle: 'pickup', leafPosition: 'center' },
+          { layoutType: 'stat', value: '4', label: 'Vans', iconStyle: 'bus', leafPosition: 'center' },
+          { layoutType: 'stat', value: '3', label: 'SUVs', iconStyle: 'suv', leafPosition: 'right' },
+          { layoutType: 'stat', value: '2', label: 'Military trucks', iconStyle: 'truck', leafPosition: 'upright' },
+          { layoutType: 'stat', value: '1', label: 'Night vision devices', iconStyle: 'nightVision', leafPosition: 'left' },
+          { layoutType: 'stat', value: '2', label: 'Antennas', iconStyle: 'antenna', leafPosition: 'center' },
+          { layoutType: 'stat', value: '1', label: 'Drones', iconStyle: 'drone', leafPosition: 'right' },
+          { layoutType: 'stat', value: '1', label: 'EW systems', iconStyle: 'reb', leafPosition: 'left' },
+          { layoutType: 'stat', value: '1', label: 'Ambulances', iconStyle: 'ambulance', leafPosition: 'upright' },
+          { layoutType: 'photoWide', featuredImage: image3Doc.id },
+          { layoutType: 'stat', value: '2', label: 'Spectrum analyzers', iconStyle: 'spectrum', leafPosition: 'right' },
+        ],
+        cta: {
+          label: 'CLOSED PROJECTS',
+          url: '/projects/finished',
+        },
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'finished-projects',
+      locale: 'en' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Closed Projects',
+        cards: [
+          { image: image1Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+          { image: image2Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'right' },
+          { image: image3Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+          { image: image2Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'right' },
+          { image: image3Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+          { image: image1Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'right' },
+          { image: image3Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+          { image: image1Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'right' },
+          { image: image2Doc.id, unit: '120th Brigade, 173rd Battalion', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+        ],
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'active-projects',
+      locale: 'en' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Active Projects',
+        projects: [
+          {
+            image: image1Doc.id,
+            badgeImage: image3Doc.id,
+            cardTitle: 'Vehicle fundraiser',
+            leftOverlayTitle: 'Vehicle fundraiser',
+            unitLabel: 'for:',
+            unitValue: 'Unit',
+            directionLabel: 'direction:',
+            directionValue: 'Direction',
+            goalLabel: 'goal:',
+            goalValue: '000 000 UAH',
+            progressPercent: 0,
+            donateLabel: 'DONATE',
+            donateUrl: '/projects/active/donate',
+            donatePageTitle: 'Donate',
+            donateMethods: [
+              {
+                label: 'Monobank',
+                details: [
+                  { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
+                  { label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade', value: 'https://send.monobank.ua/jar/bB9VYwZiY' },
+                  { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
+                ],
+              },
+              {
+                label: 'UniversalBank',
+                details: [
+                  { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
+                  { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
+                  { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
+                  { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
+                  { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
+                  { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
+                ],
+              },
+              {
+                label: 'Crypto',
+                details: [
+                  { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
+                  { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
+                  { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
+                ],
+              },
+              { label: 'Other', details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }] },
+            ],
+            detailsLabel: 'DETAILS',
+            detailsUrl: '/projects/active/details',
+            detailsPageTitle: 'Details',
+            detailsStoryHeading: 'Dear friends!',
+            detailsStoryBody:
+              'We continue supporting the Defense Forces of Ukraine. This time, fighters from the 5th Assault Brigade asked us for help. They are defending near Chasiv Yar and need a Robotrack drone platform for evacuation and ammunition supply.',
+            detailsStoryOutro: 'Together to victory!',
+            detailsStoryImage: image1Doc.id,
+            detailsGallery: [
+              { image: image1Doc.id },
+              { image: image2Doc.id },
+              { image: image3Doc.id },
+              { image: image1Doc.id },
+              { image: image2Doc.id },
+              { image: image3Doc.id },
+            ],
+          },
+          {
+            image: image2Doc.id,
+            badgeImage: image3Doc.id,
+            cardTitle: 'Vehicle fundraiser',
+            leftOverlayTitle: 'Vehicle fundraiser',
+            unitLabel: 'for:',
+            unitValue: 'Unit',
+            directionLabel: 'direction:',
+            directionValue: 'Direction',
+            goalLabel: 'goal:',
+            goalValue: '000 000 UAH',
+            progressPercent: 0,
+            donateLabel: 'DONATE',
+            donateUrl: '/projects/active/donate',
+            donatePageTitle: 'Donate',
+            donateMethods: [
+              {
+                label: 'Monobank',
+                details: [
+                  { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
+                  { label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade', value: 'https://send.monobank.ua/jar/bB9VYwZiY' },
+                  { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
+                ],
+              },
+              {
+                label: 'UniversalBank',
+                details: [
+                  { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
+                  { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
+                  { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
+                  { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
+                  { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
+                  { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
+                ],
+              },
+              {
+                label: 'Crypto',
+                details: [
+                  { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
+                  { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
+                  { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
+                ],
+              },
+              { label: 'Other', details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }] },
+            ],
+            detailsLabel: 'DETAILS',
+            detailsUrl: '/projects/active/details',
+            detailsPageTitle: 'Details',
+            detailsStoryHeading: 'Dear friends!',
+            detailsStoryBody:
+              'We continue supporting the Defense Forces of Ukraine. This time, fighters from the 5th Assault Brigade asked us for help. They are defending near Chasiv Yar and need a Robotrack drone platform for evacuation and ammunition supply.',
+            detailsStoryOutro: 'Together to victory!',
+            detailsStoryImage: image2Doc.id,
+            detailsGallery: [
+              { image: image2Doc.id },
+              { image: image1Doc.id },
+              { image: image3Doc.id },
+              { image: image2Doc.id },
+              { image: image1Doc.id },
+              { image: image3Doc.id },
+            ],
+          },
+        ],
+      },
+    }),
+  ])
+
+  // Localized fields inside arrays can be lost when another locale rewrites rows with new IDs.
+  // Re-apply Ukrainian achievements labels against the current row IDs to keep both `uk` and `en`.
+  const achievementsEN = await payload.findGlobal({
+    slug: 'achievements',
+    locale: 'en' as unknown as 'all',
+    depth: 0,
+    req,
+  })
+
+  const ukTopStats = [
+    { value: '7 820 086 гривень', caption: 'Усього зібрано фондом' },
+    { value: '000 000 доларів', caption: 'Усього зібрано фондом' },
+    { value: '14 бригад', caption: 'Кількість підрозділів, яким ми допомогли' },
+  ]
+
+  const ukCards = [
+    { value: '16', label: 'Пікапів' },
+    { value: '4', label: 'Бусів' },
+    { value: '3', label: 'Позашляховиків' },
+    { value: '2', label: 'Військових вантажівок' },
+    { value: '1', label: 'Приладів нічного бачення' },
+    { value: '2', label: 'Антен' },
+    { value: '1', label: 'Дронів' },
+    { value: '1', label: 'Засобів РЕБ' },
+    { value: '1', label: 'Карет швидкої допомоги' },
+    { value: '', label: '' },
+    { value: '2', label: 'Аналізаторів спектру' },
+  ]
+
+  await payload.updateGlobal({
+    slug: 'achievements',
+    locale: 'uk' as unknown as 'all',
+    req,
+    context: {
+      disableRevalidate: true,
+    },
+    data: {
+      pageTitle: 'Досягнення',
+      topStats: (achievementsEN.topStats || []).map((item, index) => ({
+        id: item.id,
+        value: ukTopStats[index]?.value || '',
+        caption: ukTopStats[index]?.caption || '',
+        theme: item.theme,
+        iconStyle: item.iconStyle,
+      })),
+      cards: (achievementsEN.cards || []).map((item, index) => ({
+        id: item.id,
+        layoutType: item.layoutType,
+        value: item.layoutType === 'photoWide' ? undefined : ukCards[index]?.value || '',
+        label: item.layoutType === 'photoWide' ? undefined : ukCards[index]?.label || '',
+        iconStyle: item.iconStyle,
+        leafPosition: item.leafPosition,
+        featuredImage: item.featuredImage,
+      })),
+      cta: {
+        label: 'ЗАКРИТІ ПРОЄКТИ',
+        url: '/projects/finished',
+      },
+    },
+  })
 
   payload.logger.info('Seeded database successfully!')
 }

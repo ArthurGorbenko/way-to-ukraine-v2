@@ -6,9 +6,11 @@ export const revalidateAchievements: GlobalAfterChangeHook = ({ doc, req: { payl
   if (!context.disableRevalidate) {
     payload.logger.info('Revalidating achievements')
     revalidatePath('/achievements')
-    revalidateTag('global_achievements')
+    revalidatePath('/ua/achievements')
+    revalidatePath('/en/achievements')
+    revalidateTag('global_achievements_uk')
+    revalidateTag('global_achievements_en')
   }
 
   return doc
 }
-

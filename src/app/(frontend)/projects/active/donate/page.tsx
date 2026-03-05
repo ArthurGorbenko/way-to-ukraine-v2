@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
 import { DonateMethods } from './DonateMethods.client'
 
@@ -11,7 +12,8 @@ type MediaResource = string | number | MediaType | null | undefined
 const photoFallback = 'https://www.figma.com/api/mcp/asset/cedddda1-fdfe-47d3-aef6-13255dc95b70'
 
 export default async function ActiveProjectDonatePage() {
-  const activeProjects = await getCachedGlobal('active-projects', 2)()
+  const locale = await getRequestPayloadLocale()
+  const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const project = activeProjects?.projects?.[0]
   const progress = Math.max(0, Math.min(100, Number(project?.progressPercent || 0)))
   const paymentMethods = project?.donateMethods || []
@@ -80,11 +82,15 @@ export default async function ActiveProjectDonatePage() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const activeProjects = await getCachedGlobal('active-projects', 0)()
+  const [publicLocale, payloadLocale] = await Promise.all([getRequestLocale(), getRequestPayloadLocale()])
+  const activeProjects = await getCachedGlobal('active-projects', 0, payloadLocale)()
   const pageTitle = activeProjects?.projects?.[0]?.donatePageTitle || 'Задонатити'
 
   return {
     title: `${pageTitle} | Way to Ukraine`,
-    description: 'Сторінка донату для актуального проєкту Way to Ukraine.',
+    description:
+      publicLocale === 'en'
+        ? 'Donation page for an active Way to Ukraine fundraiser.'
+        : 'Сторінка донату для актуального проєкту Way to Ukraine.',
   }
 }

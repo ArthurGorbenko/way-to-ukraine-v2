@@ -6,7 +6,10 @@ export const revalidateFinishedProjects: GlobalAfterChangeHook = ({ doc, req: { 
   if (!context.disableRevalidate) {
     payload.logger.info('Revalidating finished projects')
     revalidatePath('/projects/finished')
-    revalidateTag('global_finished-projects')
+    revalidatePath('/ua/projects/finished')
+    revalidatePath('/en/projects/finished')
+    revalidateTag('global_finished-projects_uk')
+    revalidateTag('global_finished-projects_en')
   }
 
   return doc

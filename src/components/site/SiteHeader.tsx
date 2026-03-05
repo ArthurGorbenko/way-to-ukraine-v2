@@ -1,28 +1,20 @@
 import { CMSLink } from '@/components/Link'
+import { type PublicLocale } from '@/i18n/config'
 import type { Header as HeaderGlobal } from '@/payload-types'
 import Link from 'next/link'
 import type React from 'react'
+import { LanguageSwitcher } from './LanguageSwitcher.client'
 
 type HeaderLink = NonNullable<HeaderGlobal['navItems']>[number]['link']
 
 type SiteHeaderProps = {
   data: HeaderGlobal
+  locale: PublicLocale
 }
 
-const LanguageDot = ({ label, active }: { label: string; active: boolean }) => {
-  return (
-    <div
-      className={`grid h-[23px] w-[23px] place-items-center rounded-full text-[10px] font-bold ${
-        active ? 'bg-[#ffbc00] text-[#021f42]' : 'bg-white text-[#021f42]'
-      }`}
-    >
-      {label}
-    </div>
-  )
-}
-
-export const SiteHeader: React.FC<SiteHeaderProps> = ({ data }) => {
+export const SiteHeader: React.FC<SiteHeaderProps> = ({ data, locale }) => {
   const navItems = data?.navItems ?? []
+  const isEn = locale === 'en'
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-30 bg-gradient-to-b from-[#021f42] via-[#021f42]/70 to-transparent">
@@ -57,13 +49,10 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({ data }) => {
             href={data?.donateUrl || '/projects/active/donate'}
             className="inline-flex h-[37px] items-center justify-center rounded-full bg-[#ffbc00] px-5 text-[11px] font-bold text-[#021f42] lg:w-[180px] lg:text-[19px]"
           >
-            {data?.donateLabel || 'ЗАДОНАТИТИ'}
+            {data?.donateLabel || (isEn ? 'DONATE' : 'ЗАДОНАТИТИ')}
           </Link>
 
-          <div className="hidden flex-col gap-[6px] lg:flex">
-            <LanguageDot active label="UA" />
-            <LanguageDot active={false} label="EN" />
-          </div>
+          <LanguageSwitcher locale={locale} />
         </div>
       </div>
     </header>

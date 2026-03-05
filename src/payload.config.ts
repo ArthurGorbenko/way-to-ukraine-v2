@@ -96,4 +96,18 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { uk, en },
   },
+  localization: {
+    locales: [
+      {
+        code: 'uk',
+        label: 'Ukrainian',
+      },
+      {
+        code: 'en',
+        label: 'English',
+      },
+    ],
+    defaultLocale: 'uk',
+    fallback: true,
+  },
 })

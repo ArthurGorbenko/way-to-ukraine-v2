@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
 import type { Config, Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import {
   Ambulance,
   BusFront,
@@ -49,7 +50,8 @@ const IconGlyph = ({ iconStyle }: { iconStyle?: string | null }) => {
 }
 
 export default async function AchievementsPage() {
-  const achievements = await getCachedGlobal('achievements', 2)()
+  const payloadLocale = await getRequestPayloadLocale()
+  const achievements = await getCachedGlobal('achievements', 2, payloadLocale)()
   const topStats = achievements?.topStats || []
   const cards = achievements?.cards || []
 
@@ -121,11 +123,15 @@ export default async function AchievementsPage() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const achievements = (await getCachedGlobal('achievements', 0)()) as AchievementsGlobal
+  const [publicLocale, payloadLocale] = await Promise.all([getRequestLocale(), getRequestPayloadLocale()])
+  const achievements = (await getCachedGlobal('achievements', 0, payloadLocale)()) as AchievementsGlobal
   const pageTitle = achievements?.pageTitle || 'Досягнення'
 
   return {
     title: `${pageTitle} | Way to Ukraine`,
-    description: 'Досягнення Way to Ukraine: техніка, обладнання та підтримані підрозділи.',
+    description:
+      publicLocale === 'en'
+        ? 'Way to Ukraine achievements: delivered vehicles, equipment, and supported units.'
+        : 'Досягнення Way to Ukraine: техніка, обладнання та підтримані підрозділи.',
   }
 }

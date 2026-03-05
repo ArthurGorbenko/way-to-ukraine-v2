@@ -21,42 +21,49 @@ export const Homepage: GlobalConfig = {
         {
           name: 'titleLine1',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'WAY TO',
         },
         {
           name: 'titleLine2',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'UKRAINE',
         },
         {
           name: 'currentCollectionTitle',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'ПОТОЧНИЙ ЗБІР',
         },
         {
           name: 'currentCollectionSubtitle',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Збір на пікап',
         },
         {
           name: 'currentCollectionDescription',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'для 1 ОШБ «Вовки да Вінчі»',
         },
         {
           name: 'currentCollectionDonateLabel',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'ЗАДОНАТИТИ',
         },
         {
           name: 'currentCollectionDonateUrl',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: '/projects/active/donate',
         },
@@ -69,12 +76,14 @@ export const Homepage: GlobalConfig = {
         {
           name: 'headline',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Всім привіт, ми з України!',
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
           required: true,
           defaultValue:
             'Way to Ukraine — це волонтерський фонд середнього масштабу, який працює на благо СОУ',
@@ -91,6 +100,7 @@ export const Homepage: GlobalConfig = {
         {
           name: 'title',
           type: 'text',
+          localized: true,
           required: true,
         },
         {
@@ -102,6 +112,7 @@ export const Homepage: GlobalConfig = {
         {
           name: 'href',
           type: 'text',
+          localized: true,
           required: true,
         },
       ],
@@ -135,12 +146,14 @@ export const Homepage: GlobalConfig = {
             {
               name: 'value',
               type: 'text',
+              localized: true,
               required: true,
               defaultValue: '7 820 086 гривень',
             },
             {
               name: 'caption',
               type: 'text',
+              localized: true,
               required: true,
               defaultValue: 'Усього зібрано фондом',
             },
@@ -171,12 +184,14 @@ export const Homepage: GlobalConfig = {
             {
               name: 'value',
               type: 'text',
+              localized: true,
               required: true,
               defaultValue: '15 бригад',
             },
             {
               name: 'caption',
               type: 'text',
+              localized: true,
               required: true,
               defaultValue: 'Кількість підрозділів, яким ми допомогли',
             },
@@ -202,24 +217,28 @@ export const Homepage: GlobalConfig = {
         {
           name: 'requisitesLabel',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'РЕКВІЗИТИ',
         },
         {
           name: 'requisitesUrl',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'https://way-to-ukraine.com/en/requisites',
         },
         {
           name: 'donateLabel',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'ЗАДОНАТИТИ',
         },
         {
           name: 'donateUrl',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: '/projects/active/donate',
         },
@@ -231,11 +250,13 @@ export const Homepage: GlobalConfig = {
             {
               name: 'label',
               type: 'text',
+              localized: true,
               required: true,
             },
             {
               name: 'url',
               type: 'text',
+              localized: true,
               required: true,
             },
             {

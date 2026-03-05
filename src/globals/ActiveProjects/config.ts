@@ -69,6 +69,7 @@ export const ActiveProjects: GlobalConfig = {
     {
       name: 'pageTitle',
       type: 'text',
+      localized: true,
       required: true,
       defaultValue: 'Актуальні проєкти',
     },
@@ -92,48 +93,56 @@ export const ActiveProjects: GlobalConfig = {
         {
           name: 'cardTitle',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Збір на авто',
         },
         {
           name: 'leftOverlayTitle',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Збір на авто',
         },
         {
           name: 'unitLabel',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'для:',
         },
         {
           name: 'unitValue',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Підрозділ',
         },
         {
           name: 'directionLabel',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'напрямок:',
         },
         {
           name: 'directionValue',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Напрямок',
         },
         {
           name: 'goalLabel',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'ціль:',
         },
         {
           name: 'goalValue',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: '000 000 грн',
         },
@@ -148,18 +157,21 @@ export const ActiveProjects: GlobalConfig = {
         {
           name: 'donateLabel',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'ЗАДОНАТИТИ',
         },
         {
           name: 'donateUrl',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: '/projects/active/donate',
         },
         {
           name: 'donatePageTitle',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Задонатити',
         },
@@ -208,19 +220,23 @@ export const ActiveProjects: GlobalConfig = {
             {
               name: 'label',
               type: 'text',
+              localized: true,
               required: true,
             },
             {
               name: 'description',
               type: 'textarea',
+              localized: true,
             },
             {
               name: 'actionLabel',
               type: 'text',
+              localized: true,
             },
             {
               name: 'actionUrl',
               type: 'text',
+              localized: true,
             },
             {
               name: 'details',
@@ -229,6 +245,7 @@ export const ActiveProjects: GlobalConfig = {
                 {
                   name: 'label',
                   type: 'text',
+                  localized: true,
                   required: true,
                 },
                 {
@@ -243,30 +260,35 @@ export const ActiveProjects: GlobalConfig = {
         {
           name: 'detailsLabel',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'ДЕТАЛЬНІШЕ',
         },
         {
           name: 'detailsUrl',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: '/projects/active/details',
         },
         {
           name: 'detailsPageTitle',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Детальніше',
         },
         {
           name: 'detailsStoryHeading',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Дорогі друзі!',
         },
         {
           name: 'detailsStoryBody',
           type: 'textarea',
+          localized: true,
           required: true,
           defaultValue:
             'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
@@ -274,6 +296,7 @@ export const ActiveProjects: GlobalConfig = {
         {
           name: 'detailsStoryOutro',
           type: 'text',
+          localized: true,
           required: true,
           defaultValue: 'Разом до перемог!',
         },

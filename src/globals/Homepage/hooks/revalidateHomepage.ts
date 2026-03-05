@@ -6,7 +6,10 @@ export const revalidateHomepage: GlobalAfterChangeHook = ({ doc, req: { payload,
   if (!context.disableRevalidate) {
     payload.logger.info('Revalidating homepage')
     revalidatePath('/')
-    revalidateTag('global_homepage')
+    revalidatePath('/ua')
+    revalidatePath('/en')
+    revalidateTag('global_homepage_uk')
+    revalidateTag('global_homepage_en')
   }
 
   return doc

@@ -18,10 +18,11 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
+  localized?: boolean
   overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link: LinkType = ({ appearances, disableLabel = false, localized = false, overrides = {} } = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -81,6 +82,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     {
       name: 'url',
       type: 'text',
+      localized,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
@@ -105,6 +107,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
         {
           name: 'label',
           type: 'text',
+          localized,
           admin: {
             width: '50%',
           },

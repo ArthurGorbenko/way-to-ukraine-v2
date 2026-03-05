@@ -3,12 +3,14 @@ import { HomeHero } from '@/components/home/HomeHero'
 import { HomeIntro } from '@/components/home/HomeIntro'
 import { HomeStats } from '@/components/home/HomeStats'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
 
 import './home.css'
 
 export default async function HomePage() {
-  const homepage = await getCachedGlobal('homepage', 2)()
+  const locale = await getRequestPayloadLocale()
+  const homepage = await getCachedGlobal('homepage', 2, locale)()
 
   return (
     <article className="home-page bg-white pb-10">
@@ -20,7 +22,14 @@ export default async function HomePage() {
   )
 }
 
-export const metadata: Metadata = {
-  title: 'Way to Ukraine',
-  description: 'Way to Ukraine — волонтерський фонд середнього масштабу, який працює на благо СОУ.',
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale()
+
+  return {
+    title: 'Way to Ukraine',
+    description:
+      locale === 'en'
+        ? 'Way to Ukraine is a volunteer foundation supporting the Defense Forces of Ukraine.'
+        : 'Way to Ukraine — волонтерський фонд середнього масштабу, який працює на благо СОУ.',
+  }
 }

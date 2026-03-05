@@ -1,4 +1,5 @@
 import { Media } from '@/components/Media'
+import type { PublicLocale } from '@/i18n/config'
 import type { Homepage as HomepageGlobal, Media as MediaType } from '@/payload-types'
 import { Facebook, Instagram, Send, Twitter } from 'lucide-react'
 import Link from 'next/link'
@@ -8,6 +9,7 @@ type MediaResource = string | number | MediaType | null | undefined
 
 interface SiteFooterProps {
   data: HomepageGlobal
+  locale: PublicLocale
 }
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -17,9 +19,10 @@ const iconMap: Record<string, React.ReactNode> = {
   twitter: <Twitter className="h-3 w-3" />,
 }
 
-export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
+export const SiteFooter: React.FC<SiteFooterProps> = ({ data, locale }) => {
   const footer = data.footer
   const socials = footer?.socials ?? []
+  const isEn = locale === 'en'
 
   return (
     <footer className="relative mt-auto min-h-[300px] overflow-hidden bg-[#021f42] text-white lg:min-h-[360px]">
@@ -67,13 +70,13 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data }) => {
             href={footer?.requisitesUrl || 'https://way-to-ukraine.com/en/requisites'}
             className="inline-flex h-[37px] items-center rounded-full bg-white px-6 text-[15px] text-[#021f42] lg:w-[180px] lg:justify-center"
           >
-            {footer?.requisitesLabel || 'Реквізити фонду'}
+            {footer?.requisitesLabel || (isEn ? 'Requisites' : 'Реквізити фонду')}
           </Link>
           <Link
             href={footer?.donateUrl || '/projects/active/donate'}
             className="inline-flex h-[37px] items-center rounded-full bg-[#ffbc00] px-6 text-[19px] font-bold text-[#021f42] lg:w-[180px] lg:justify-center"
           >
-            {footer?.donateLabel || 'ЗАДОНАТИТИ'}
+            {footer?.donateLabel || (isEn ? 'DONATE' : 'ЗАДОНАТИТИ')}
           </Link>
         </div>
       </div>

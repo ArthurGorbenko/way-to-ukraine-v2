@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
 
 import './details.css'
@@ -18,7 +19,8 @@ const galleryFallback = [
 ] as const
 
 export default async function ActiveProjectDetailsPage() {
-  const activeProjects = await getCachedGlobal('active-projects', 2)()
+  const locale = await getRequestPayloadLocale()
+  const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const project = activeProjects?.projects?.[0]
   const progress = Math.max(0, Math.min(100, Number(project?.progressPercent || 0)))
   const gallery = project?.detailsGallery || []
@@ -112,11 +114,15 @@ export default async function ActiveProjectDetailsPage() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const activeProjects = await getCachedGlobal('active-projects', 0)()
+  const [publicLocale, payloadLocale] = await Promise.all([getRequestLocale(), getRequestPayloadLocale()])
+  const activeProjects = await getCachedGlobal('active-projects', 0, payloadLocale)()
   const pageTitle = activeProjects?.projects?.[0]?.detailsPageTitle || 'Детальніше'
 
   return {
     title: `${pageTitle} | Way to Ukraine`,
-    description: 'Детальна сторінка актуального проєкту Way to Ukraine.',
+    description:
+      publicLocale === 'en'
+        ? 'Detailed page of an active Way to Ukraine project.'
+        : 'Детальна сторінка актуального проєкту Way to Ukraine.',
   }
 }

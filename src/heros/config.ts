@@ -41,6 +41,7 @@ export const hero: Field = {
     {
       name: 'richText',
       type: 'richText',
+      localized: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
           return [
@@ -54,6 +55,7 @@ export const hero: Field = {
       label: false,
     },
     linkGroup({
+      localized: true,
       overrides: {
         maxRows: 2,
       },

@@ -7,6 +7,7 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
+import { getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 
 type Args = {
   searchParams: Promise<{
@@ -15,10 +16,13 @@ type Args = {
 }
 export default async function Page({ searchParams: searchParamsPromise }: Args) {
   const { q: query } = await searchParamsPromise
+  const locale = await getRequestPayloadLocale()
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
     collection: 'search',
+    locale: locale as unknown as 'all',
+    fallbackLocale: 'uk' as unknown as null,
     depth: 1,
     limit: 12,
     select: {
