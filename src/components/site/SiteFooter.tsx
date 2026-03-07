@@ -68,7 +68,7 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data, locale }) => {
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href={footer?.requisitesUrl || 'https://way-to-ukraine.com/en/requisites'}
-            className="inline-flex h-[37px] items-center rounded-full bg-white px-6 text-[15px] text-[#021f42] lg:w-[180px] lg:justify-center"
+            className="inline-flex h-[37px] items-center rounded-full bg-white px-6 text-[19px] font-bold text-[#021f42] lg:w-[180px] lg:justify-center"
           >
             {footer?.requisitesLabel || (isEn ? 'Requisites' : 'Реквізити фонду')}
           </Link>
