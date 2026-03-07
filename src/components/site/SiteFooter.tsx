@@ -13,10 +13,10 @@ interface SiteFooterProps {
 }
 
 const iconMap: Record<string, React.ReactNode> = {
-  facebook: <Facebook className="h-3 w-3" />,
-  telegram: <Send className="h-3 w-3" />,
-  instagram: <Instagram className="h-3 w-3" />,
-  twitter: <Twitter className="h-3 w-3" />,
+  facebook: <Facebook className="h-5 w-5" />,
+  telegram: <Send className="h-5 w-5" />,
+  instagram: <Instagram className="h-5 w-5" />,
+  twitter: <Twitter className="h-5 w-5" />,
 }
 
 export const SiteFooter: React.FC<SiteFooterProps> = ({ data, locale }) => {
@@ -59,7 +59,7 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data, locale }) => {
               href={item?.url || '#'}
               className="inline-flex h-[37px] items-center gap-2 rounded-full border-2 border-white px-4 text-[15px] leading-none lg:w-[180px] lg:justify-center"
             >
-              <span className="text-[11px]">{iconMap[item?.icon || ''] || '•'}</span>
+              <span className="text-[20px] leading-none">{iconMap[item?.icon || ''] || '•'}</span>
               <span>{item?.label}</span>
             </Link>
           ))}
