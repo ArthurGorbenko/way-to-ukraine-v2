@@ -13,6 +13,7 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { ActiveProjects } from './globals/ActiveProjects/config'
 import { Achievements } from './globals/Achievements/config'
+import { About } from './globals/About/config'
 import { FinishedProjects } from './globals/FinishedProjects/config'
 import { Homepage } from './globals/Homepage/config'
 import { plugins } from './plugins'
@@ -68,7 +69,7 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, Homepage, Achievements, FinishedProjects, ActiveProjects],
+  globals: [Header, Footer, Homepage, About, Achievements, FinishedProjects, ActiveProjects],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

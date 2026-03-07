@@ -113,6 +113,7 @@ export interface Config {
     header: Header;
     footer: Footer;
     homepage: Homepage;
+    about: About;
     achievements: Achievement;
     'finished-projects': FinishedProject;
     'active-projects': ActiveProject;
@@ -121,6 +122,7 @@ export interface Config {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
     achievements: AchievementsSelect<false> | AchievementsSelect<true>;
     'finished-projects': FinishedProjectsSelect<false> | FinishedProjectsSelect<true>;
     'active-projects': ActiveProjectsSelect<false> | ActiveProjectsSelect<true>;
@@ -1760,6 +1762,30 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: string;
+  pageTitle: string;
+  hero: {
+    eyebrow: string;
+    headline: string;
+    paragraphs: {
+      copy: string;
+      id?: string | null;
+    }[];
+  };
+  video: {
+    title: string;
+    youtubeUrl: string;
+    originalVideoLabel: string;
+    originalVideoUrl: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "achievements".
  */
 export interface Achievement {
@@ -2007,6 +2033,36 @@ export interface HomepageSelect<T extends boolean = true> {
               icon?: T;
               id?: T;
             };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  pageTitle?: T;
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        headline?: T;
+        paragraphs?:
+          | T
+          | {
+              copy?: T;
+              id?: T;
+            };
+      };
+  video?:
+    | T
+    | {
+        title?: T;
+        youtubeUrl?: T;
+        originalVideoLabel?: T;
+        originalVideoUrl?: T;
       };
   updatedAt?: T;
   createdAt?: T;

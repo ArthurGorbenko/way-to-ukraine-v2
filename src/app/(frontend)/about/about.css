@@ -1,0 +1,100 @@
+.about-page {
+  background:
+    radial-gradient(circle at top left, rgba(255, 188, 0, 0.16), transparent 28%),
+    radial-gradient(circle at top right, rgba(41, 108, 255, 0.18), transparent 30%),
+    linear-gradient(180deg, #04101f 0%, #07162b 45%, #081a2f 100%);
+  color: #f7f4ee;
+}
+
+.about-shell {
+  position: relative;
+}
+
+.about-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: rgba(255, 188, 0, 0.14);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.about-hero-card,
+.about-video-card,
+.about-path-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(247, 244, 238, 0.12);
+  background: rgba(7, 22, 43, 0.82);
+  backdrop-filter: blur(18px);
+}
+
+.about-hero-card::after,
+.about-video-card::after,
+.about-path-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -12% -38% auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 36px;
+  background: linear-gradient(135deg, rgba(255, 188, 0, 0.22), rgba(41, 108, 255, 0));
+  transform: rotate(28deg);
+  pointer-events: none;
+}
+
+.about-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #ffbc00;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.about-eyebrow::before {
+  content: '';
+  width: 2.75rem;
+  height: 1px;
+  background: rgba(255, 188, 0, 0.9);
+}
+
+.about-highlight {
+  border: 1px solid rgba(255, 188, 0, 0.2);
+  background: linear-gradient(180deg, rgba(255, 188, 0, 0.16), rgba(255, 188, 0, 0.04));
+  color: #fff8e4;
+}
+
+.about-highlight-label {
+  color: rgba(255, 248, 228, 0.72);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.about-video-frame {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border: 0;
+  border-radius: 24px;
+  background: #000;
+}
+
+.about-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #ffbc00;
+  font-weight: 600;
+}
+
+.about-video-link::after {
+  content: '↗';
+  font-size: 1rem;
+}

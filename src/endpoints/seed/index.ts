@@ -230,7 +230,7 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Про нас',
-              url: '/#about',
+              url: '/about',
             },
           },
           {
@@ -321,7 +321,7 @@ export const seed = async ({
         },
         cards: [
           { title: 'проєкти', href: '/projects', image: image1Doc.id },
-          { title: 'про нас', href: '/#about', image: image2Doc.id },
+          { title: 'про нас', href: '/about', image: image2Doc.id },
           { title: 'досягнення', href: '/achievements', image: image3Doc.id },
           { title: 'звітність', href: '/#reporting', image: image2Doc.id },
           { title: 'крамниця', href: '/#shop', image: image3Doc.id },
@@ -350,6 +350,44 @@ export const seed = async ({
             { icon: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/way.to.ua' },
             { icon: 'twitter', label: 'Twitter', url: 'https://x.com/Way_to_UA' },
           ],
+        },
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'about',
+      locale: 'uk' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Про нас',
+        hero: {
+          eyebrow: 'WAY TO UKRAINE',
+          headline: 'Всім привіт, ми з України!',
+          paragraphs: [
+            {
+              copy:
+                'У цей складний час надзвичайно важливо об’єднуватися заради спільної мети — НАШОЇ ПЕРЕМОГИ! Кожен із нас намагається бути корисним для Батьківщини й робить усе, що в його чи її силах. Ми не є винятком. Ми організували волонтерський фонд, до якого увійшла команда людей із досвідом пошуку та доставки автомобілів для потреб Збройних Сил України.',
+            },
+            {
+              copy:
+                'Щоб підтримувати боєздатність підрозділів ЗСУ під час активних бойових дій, потрібне оперативне перевезення боєприпасів, продовольства та особового складу. Оскільки активна фаза війни триває, існує катастрофічна нестача транспорту для цих завдань, тому виникла потреба у звичайних надійних машинах із високою прохідністю.',
+            },
+            {
+              copy:
+                'Що ми пропонуємо? Головна мета фонду — доставити автомобіль підрозділам, які гостро потребують транспорту. Після розмов із військовими ми маємо контакти відповідальних осіб у тих підрозділах, де ці авто потрібні найбільше.',
+            },
+            {
+              copy:
+                'Як ви можете допомогти? Якщо маєте можливість, ви можете зробити внесок. Також ми будемо вдячні за поширення інформації про наш фонд.',
+            },
+          ],
+        },
+        video: {
+          title: 'Інтерв’ю «UA:Перший» у марафоні',
+          youtubeUrl: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
+          originalVideoLabel: 'Оригінальне відео',
+          originalVideoUrl: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
         },
       },
     }),
@@ -595,7 +633,7 @@ export const seed = async ({
         donateUrl: '/projects/active/donate',
         navItems: [
           { link: { type: 'custom', label: 'Projects', url: '/projects' } },
-          { link: { type: 'custom', label: 'About', url: '/#about' } },
+          { link: { type: 'custom', label: 'About', url: '/about' } },
           { link: { type: 'custom', label: 'Achievements', url: '/achievements' } },
           { link: { type: 'custom', label: 'Reporting', url: '/#reporting' } },
           { link: { type: 'custom', label: 'Shop', url: '/#shop' } },
@@ -625,7 +663,7 @@ export const seed = async ({
         },
         cards: [
           { title: 'projects', href: '/projects', image: image1Doc.id },
-          { title: 'about', href: '/#about', image: image2Doc.id },
+          { title: 'about', href: '/about', image: image2Doc.id },
           { title: 'achievements', href: '/achievements', image: image3Doc.id },
           { title: 'reporting', href: '/#reporting', image: image2Doc.id },
           { title: 'shop', href: '/#shop', image: image3Doc.id },
@@ -651,6 +689,44 @@ export const seed = async ({
             { icon: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/way.to.ua' },
             { icon: 'twitter', label: 'Twitter', url: 'https://x.com/Way_to_UA' },
           ],
+        },
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'about',
+      locale: 'en' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'About us',
+        hero: {
+          eyebrow: 'WAY TO UKRAINE',
+          headline: 'Hello everyone, we are from Ukraine!',
+          paragraphs: [
+            {
+              copy:
+                'In this difficult time, it is extremely important to unite for the sake of a common goal - OUR VICTORY! Each one of us tries to be useful for the Motherland and does everything in his, or her power! We are are no exception. We organized a volunteer fund, which includes a group of volunteers who already had experience in acquisition and transporting the autos for the needs of the Armed Forces of Ukraine!',
+            },
+            {
+              copy:
+                'In order to maintain the combat capability of units of the Armed Forces of Ukraine during active hostilities, there is a need for rapid transportation of ammunition, food, and personnel. Since the active phase of the war is currently being waged, there is a catastrophic lack of transport for the above-mentioned purposes, so there was a need for ordinary reliable machines with high off-road capability.',
+            },
+            {
+              copy:
+                'What do we offer? The main goal of the fund is to deliver a car to units that are in dire need of transportation. Therefore, after talking with the military guys, we have contacts of people who are responsible for the units where these autos are required.',
+            },
+            {
+              copy:
+                'How can you help us? If you have the opportunity, you can make your contributions. We will also be grateful for the dissemination of information about our fund.',
+            },
+          ],
+        },
+        video: {
+          title: 'Interview "UA:First" in the program of the TV marathon',
+          youtubeUrl: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
+          originalVideoLabel: 'Original video',
+          originalVideoUrl: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
         },
       },
     }),

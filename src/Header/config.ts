@@ -77,7 +77,7 @@ export const Header: GlobalConfig = {
           link: {
             type: 'custom',
             label: 'Про нас',
-            url: '/#about',
+            url: '/about',
           },
         },
         {
