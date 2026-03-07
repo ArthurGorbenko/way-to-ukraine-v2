@@ -2,8 +2,8 @@
   margin-bottom: -1px;
   background-image:
     radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 34%),
-    linear-gradient(180deg, rgba(2, 31, 66, 0.95) 0%, rgba(2, 31, 66, 0.5) 18%, rgba(242, 244, 247, 0.98) 44%),
-    url('https://www.figma.com/api/mcp/asset/398fda27681f456dbdcbefdb03f0d35982f64665');
+    linear-gradient(180deg, rgba(2, 31, 66, 0.95) 0%, rgba(2, 31, 66, 0.5) 18%, rgba(242, 244, 247, 0.14) 44%, rgba(242, 244, 247, 0) 58%),
+    var(--wtu-paper-texture);
   background-size: auto, auto, cover;
   background-position: center top, center top, center top;
 }

@@ -135,6 +135,12 @@
 }
 
 :root {
+  --wtu-paper-texture:
+    radial-gradient(circle at 50% -10%, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0) 26%),
+    radial-gradient(circle at 18% 22%, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0) 28%),
+    radial-gradient(circle at 82% 38%, rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0) 24%),
+    radial-gradient(circle at 35% 72%, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0) 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(248, 248, 248, 0.72) 18%, rgba(239, 239, 239, 0.78) 100%);
   --background: oklch(100% 0 0deg);
   --foreground: oklch(14.5% 0 0deg);
   --card: oklch(96.5% 0.005 265deg);
@@ -260,6 +266,14 @@
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
     font-family: 'e-Ukraine', var(--font-geist-sans), sans-serif;
+  }
+
+  .site-main {
+    min-height: 100vh;
+    background-color: #ececec;
+    background-image: var(--wtu-paper-texture);
+    background-size: cover;
+    background-position: center top;
   }
 
   button,

@@ -2,8 +2,8 @@
   margin-bottom: -1px;
   background-image:
     radial-gradient(circle at 20% 4%, rgba(255, 255, 255, 0.55), transparent 34%),
-    linear-gradient(180deg, rgba(2, 31, 66, 0.97) 0%, rgba(2, 31, 66, 0.52) 17%, rgba(245, 245, 245, 0.95) 44%),
-    linear-gradient(180deg, #ebebeb 0%, #f5f5f5 100%);
+    linear-gradient(180deg, rgba(2, 31, 66, 0.97) 0%, rgba(2, 31, 66, 0.52) 17%, rgba(245, 245, 245, 0.12) 44%, rgba(245, 245, 245, 0) 58%),
+    var(--wtu-paper-texture);
 }
 
 .projects-title {

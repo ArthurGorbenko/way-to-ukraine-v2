@@ -3,9 +3,9 @@
   --wtu-accent: #ffbc00;
   --wtu-blue: #3366cb;
   background-image:
-    radial-gradient(circle at 15% 3%, rgba(255, 255, 255, 0.6), transparent 35%),
-    radial-gradient(circle at 88% 20%, rgba(0, 0, 0, 0.04), transparent 44%),
-    linear-gradient(180deg, #ececec 0%, #f7f7f7 30%, #efefef 100%);
+    radial-gradient(circle at 15% 3%, rgba(255, 255, 255, 0.5), transparent 35%),
+    linear-gradient(180deg, rgba(2, 31, 66, 0.08) 0%, rgba(2, 31, 66, 0) 28%),
+    var(--wtu-paper-texture);
 }
 
 .achievements-header {

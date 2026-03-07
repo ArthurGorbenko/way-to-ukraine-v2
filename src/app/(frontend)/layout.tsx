@@ -42,7 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
 
           <SiteHeader data={headerData} locale={locale} />
-          <main className="bg-white">{children}</main>
+          <main className="site-main">{children}</main>
           <SiteFooter data={homepageData} locale={locale} />
         </Providers>
       </body>
