@@ -1,5 +1,6 @@
 import { Media } from '@/components/Media'
 import type { Homepage as HomepageGlobal, Media as MediaType } from '@/payload-types'
+import Image from 'next/image'
 import Link from 'next/link'
 import type React from 'react'
 
@@ -26,13 +27,8 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ data }) => {
             <span className="block">{data?.titleLine1 || 'WAY TO'}</span>
             <span className="block">{data?.titleLine2 || 'UKRAINE'}</span>
           </h1>
-          <div className="mt-8 hidden items-center gap-3 md:flex">
-            <span className="inline-block h-3 w-8 -skew-x-[35deg] bg-[#ffbc00]" />
-            <span className="inline-block h-3 w-8 -skew-x-[35deg] bg-[#ffbc00]" />
-            <span className="inline-block h-3 w-8 -skew-x-[35deg] bg-[#ffbc00]" />
-            <span className="ml-3 inline-block h-3 w-8 -skew-x-[35deg] bg-[#3366cb]" />
-            <span className="inline-block h-3 w-8 -skew-x-[35deg] bg-[#3366cb]" />
-            <span className="inline-block h-3 w-8 -skew-x-[35deg] bg-[#3366cb]" />
+          <div className="home-hero-mark relative mt-8">
+            <Image alt="" aria-hidden className="h-auto w-full" height={73} priority src="/home-hero-frame.svg" width={347} />
           </div>
         </div>
 

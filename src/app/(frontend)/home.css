@@ -11,3 +11,19 @@
 .home-hero {
   background-color: var(--wtu-dark);
 }
+
+.home-hero-mark {
+  width: min(100%, 240px);
+}
+
+@media (min-width: 768px) {
+  .home-hero-mark {
+    width: min(100%, 300px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-hero-mark {
+    width: min(100%, 347px);
+  }
+}
