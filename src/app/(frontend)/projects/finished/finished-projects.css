@@ -60,12 +60,12 @@
 .project-meta-wrap {
   position: absolute;
   inset-inline: 0;
-  bottom: 0;
+  bottom: 32px;
 }
 
 .project-unit {
   margin-inline: 0;
-  margin-bottom: 0;
+  margin-bottom: 12px;
   width: calc(100% - 58px);
   border-radius: 0 999px 999px 0;
   background: #ffffff;
@@ -78,6 +78,7 @@
 
 .project-vehicle {
   margin-left: auto;
+  margin-right: 0;
   width: 176px;
   border-radius: 999px 0 0 999px;
   background: #ffbc00;
@@ -122,10 +123,12 @@
 
   .project-unit {
     width: calc(100% - 34px);
+    margin-bottom: 10px;
     font-size: 18px;
   }
 
   .project-vehicle {
+    margin-right: 0;
     width: 160px;
     font-size: 16px;
   }
