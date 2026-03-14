@@ -251,7 +251,7 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Крамниця',
-              url: '/#shop',
+              url: '/shop',
             },
           },
           {
@@ -324,7 +324,7 @@ export const seed = async ({
           { title: 'про нас', href: '/about', image: image2Doc.id },
           { title: 'досягнення', href: '/achievements', image: image3Doc.id },
           { title: 'звітність', href: '/#reporting', image: image2Doc.id },
-          { title: 'крамниця', href: '/#shop', image: image3Doc.id },
+          { title: 'крамниця', href: '/shop', image: image3Doc.id },
           { title: 'faq', href: '/#faq', image: image1Doc.id },
         ],
         stats: {
@@ -468,6 +468,21 @@ export const seed = async ({
           { image: image3Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'left' },
           { image: image1Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'right' },
           { image: image2Doc.id, unit: '120 бригада, 173 батальйон', vehicle: 'STEYR 1291', cornerStyle: 'left' },
+        ],
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'shop',
+      locale: 'uk' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Крамниця',
+        items: [
+          { image: image1Doc.id, title: 'Common W2U Box', price: '$225', frameSide: 'left' },
+          { image: image2Doc.id, title: 'Rare W2U Box', price: '$500', frameSide: 'right' },
+          { image: image3Doc.id, title: 'EPIC W2U Box', price: '$1000', frameSide: 'left' },
         ],
       },
     }),
@@ -636,7 +651,7 @@ export const seed = async ({
           { link: { type: 'custom', label: 'About', url: '/about' } },
           { link: { type: 'custom', label: 'Achievements', url: '/achievements' } },
           { link: { type: 'custom', label: 'Reporting', url: '/#reporting' } },
-          { link: { type: 'custom', label: 'Shop', url: '/#shop' } },
+          { link: { type: 'custom', label: 'Shop', url: '/shop' } },
           { link: { type: 'custom', label: 'FAQ', url: '/#faq' } },
         ],
       },
@@ -666,7 +681,7 @@ export const seed = async ({
           { title: 'about', href: '/about', image: image2Doc.id },
           { title: 'achievements', href: '/achievements', image: image3Doc.id },
           { title: 'reporting', href: '/#reporting', image: image2Doc.id },
-          { title: 'shop', href: '/#shop', image: image3Doc.id },
+          { title: 'shop', href: '/shop', image: image3Doc.id },
           { title: 'faq', href: '/#faq', image: image1Doc.id },
         ],
         stats: {
@@ -690,6 +705,21 @@ export const seed = async ({
             { icon: 'twitter', label: 'Twitter', url: 'https://x.com/Way_to_UA' },
           ],
         },
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'shop',
+      locale: 'en' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Shop',
+        items: [
+          { image: image1Doc.id, title: 'Common W2U Box', price: '$225', frameSide: 'left' },
+          { image: image2Doc.id, title: 'Rare W2U Box', price: '$500', frameSide: 'right' },
+          { image: image3Doc.id, title: 'EPIC W2U Box', price: '$1000', frameSide: 'left' },
+        ],
       },
     }),
     payload.updateGlobal({

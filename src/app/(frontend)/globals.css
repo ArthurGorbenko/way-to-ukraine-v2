@@ -269,7 +269,8 @@
   }
 
   .site-main {
-    min-height: 100vh;
+    flex: 1 0 auto;
+    min-height: 0;
     background-color: #ececec;
     background-image: var(--wtu-paper-texture);
     background-size: cover;

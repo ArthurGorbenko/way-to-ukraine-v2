@@ -117,6 +117,7 @@ export interface Config {
     achievements: Achievement;
     'finished-projects': FinishedProject;
     'active-projects': ActiveProject;
+    shop: Shop;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -126,6 +127,7 @@ export interface Config {
     achievements: AchievementsSelect<false> | AchievementsSelect<true>;
     'finished-projects': FinishedProjectsSelect<false> | FinishedProjectsSelect<true>;
     'active-projects': ActiveProjectsSelect<false> | ActiveProjectsSelect<true>;
+    shop: ShopSelect<false> | ShopSelect<true>;
   };
   locale: 'uk' | 'en';
   user: User;
@@ -1916,6 +1918,23 @@ export interface ActiveProject {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shop".
+ */
+export interface Shop {
+  id: string;
+  pageTitle: string;
+  items: {
+    image: string | Media;
+    title: string;
+    price: string;
+    frameSide: 'left' | 'right';
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2175,6 +2194,25 @@ export interface ActiveProjectsSelect<T extends boolean = true> {
               image?: T;
               id?: T;
             };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shop_select".
+ */
+export interface ShopSelect<T extends boolean = true> {
+  pageTitle?: T;
+  items?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        price?: T;
+        frameSide?: T;
         id?: T;
       };
   updatedAt?: T;

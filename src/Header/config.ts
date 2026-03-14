@@ -98,7 +98,7 @@ export const Header: GlobalConfig = {
           link: {
             type: 'custom',
             label: 'Крамниця',
-            url: '/#shop',
+            url: '/shop',
           },
         },
         {
