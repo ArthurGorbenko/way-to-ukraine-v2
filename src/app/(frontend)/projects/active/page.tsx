@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
 import type { Config, Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { formatMonobankAmount, getMonobankJarSnapshot } from '@/utilities/monobankJarSnapshot'
 import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -17,6 +18,8 @@ export default async function ActiveProjectsPage() {
   const locale = await getRequestPayloadLocale()
   const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const projects = activeProjects?.projects || []
+  const jarData = await Promise.all(projects.map((project) => getMonobankJarSnapshot(project?.monoJarUrl)))
+  const raisedLabel = locale === 'en' ? 'raised:' : 'зібрано:'
 
   return (
     <article className="active-projects-page pb-2 pt-24 lg:pb-0 lg:pt-24">
@@ -27,7 +30,7 @@ export default async function ActiveProjectsPage() {
 
         <div className="active-projects-list mt-10 lg:mt-12">
           {projects.map((project, index) => {
-            const progress = Math.max(0, Math.min(100, Number(project?.progressPercent || 0)))
+            const jar = jarData[index]
             const donateHref =
               project?.donateUrl && project.donateUrl !== '#' ? project.donateUrl : '/projects/active/donate'
             const detailsHref =
@@ -67,13 +70,26 @@ export default async function ActiveProjectsPage() {
                     <strong>{project?.directionValue || 'Напрямок'}</strong>
                   </p>
 
-                  <p className="active-project-goal">
-                    <span>{project?.goalLabel || 'ціль:'}</span> {project?.goalValue || '000 000 грн'}
-                  </p>
+                  {jar ? (
+                    <>
+                      <p className="active-project-goal">
+                        <span>{project?.goalLabel || 'ціль:'}</span>{' '}
+                        {formatMonobankAmount(jar.displayGoal || 0, locale)}
+                      </p>
 
-                  <div className="active-project-progress-track">
-                    <div className="active-project-progress-fill" style={{ width: `${progress}%` }} />
-                  </div>
+                      <p className="active-project-line">
+                        <span>{raisedLabel}</span>{' '}
+                        <strong>{formatMonobankAmount(jar.displayAmount || 0, locale)}</strong>
+                      </p>
+
+                      <div className="active-project-progress-track">
+                        <div
+                          className="active-project-progress-fill"
+                          style={{ width: `${jar.progressPercent || 0}%` }}
+                        />
+                      </div>
+                    </>
+                  ) : null}
 
                   <div className="active-project-actions">
                     <Link

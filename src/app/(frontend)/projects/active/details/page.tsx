@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { formatMonobankAmount, getMonobankJarSnapshot } from '@/utilities/monobankJarSnapshot'
 import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
 
@@ -22,8 +23,9 @@ export default async function ActiveProjectDetailsPage() {
   const locale = await getRequestPayloadLocale()
   const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const project = activeProjects?.projects?.[0]
-  const progress = Math.max(0, Math.min(100, Number(project?.progressPercent || 0)))
   const gallery = project?.detailsGallery || []
+  const jar = await getMonobankJarSnapshot(project?.monoJarUrl)
+  const raisedLabel = locale === 'en' ? 'raised:' : 'зібрано:'
 
   return (
     <article className="details-page pb-8 pt-24 lg:pb-10 lg:pt-24">
@@ -63,13 +65,22 @@ export default async function ActiveProjectDetailsPage() {
               {project?.directionLabel || 'напрямок:'} <strong>{project?.directionValue || 'Напрямок'}</strong>
             </p>
 
-            <p className="details-project-goal">
-              {project?.goalLabel || 'ціль:'} <strong>{project?.goalValue || '000 000 грн'}</strong>
-            </p>
+            {jar ? (
+              <>
+                <p className="details-project-goal">
+                  {project?.goalLabel || 'ціль:'}{' '}
+                  <strong>{formatMonobankAmount(jar.displayGoal || 0, locale)}</strong>
+                </p>
 
-            <div className="details-project-progress-track">
-              <div className="details-project-progress-fill" style={{ width: `${progress}%` }} />
-            </div>
+                <p className="details-project-line">
+                  {raisedLabel} <strong>{formatMonobankAmount(jar.displayAmount || 0, locale)}</strong>
+                </p>
+
+                <div className="details-project-progress-track">
+                  <div className="details-project-progress-fill" style={{ width: `${jar.progressPercent || 0}%` }} />
+                </div>
+              </>
+            ) : null}
           </section>
         </div>
 

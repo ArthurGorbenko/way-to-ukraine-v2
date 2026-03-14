@@ -1,6 +1,7 @@
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { formatMonobankAmount, getMonobankJarSnapshot } from '@/utilities/monobankJarSnapshot'
 import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
 import { DonateMethods } from './DonateMethods.client'
@@ -15,8 +16,9 @@ export default async function ActiveProjectDonatePage() {
   const locale = await getRequestPayloadLocale()
   const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const project = activeProjects?.projects?.[0]
-  const progress = Math.max(0, Math.min(100, Number(project?.progressPercent || 0)))
   const paymentMethods = project?.donateMethods || []
+  const jar = await getMonobankJarSnapshot(project?.monoJarUrl)
+  const raisedLabel = locale === 'en' ? 'raised:' : 'зібрано:'
 
   return (
     <article className="donate-page pb-10 pt-30 lg:pb-30 lg:pt-24">
@@ -65,13 +67,22 @@ export default async function ActiveProjectDonatePage() {
               <strong>{project?.directionValue || 'Напрямок'}</strong>
             </p>
 
-            <p className="donate-project-goal">
-              {project?.goalLabel || 'ціль:'} <strong>{project?.goalValue || '000 000 грн'}</strong>
-            </p>
+            {jar ? (
+              <>
+                <p className="donate-project-goal">
+                  {project?.goalLabel || 'ціль:'}{' '}
+                  <strong>{formatMonobankAmount(jar.displayGoal || 0, locale)}</strong>
+                </p>
 
-            <div className="donate-project-progress-track">
-              <div className="donate-project-progress-fill" style={{ width: `${progress}%` }} />
-            </div>
+                <p className="donate-project-line">
+                  {raisedLabel} <strong>{formatMonobankAmount(jar.displayAmount || 0, locale)}</strong>
+                </p>
+
+                <div className="donate-project-progress-track">
+                  <div className="donate-project-progress-fill" style={{ width: `${jar.progressPercent || 0}%` }} />
+                </div>
+              </>
+            ) : null}
           </section>
         </div>
 

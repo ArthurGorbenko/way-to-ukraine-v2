@@ -118,13 +118,13 @@
   height: 50px;
   width: min(100%, 564px);
   border-radius: 18px;
-  background: #ffbc00;
+  background: #d6d7da;
   overflow: hidden;
 }
 
 .details-project-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #efad00 0%, #ffbc00 100%);
+  background: linear-gradient(90deg, #ffbc00 0%, #ffd45d 100%);
 }
 
 .details-story-row {

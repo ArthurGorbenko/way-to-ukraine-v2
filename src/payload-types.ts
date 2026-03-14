@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    'monobank-jars': MonobankJar;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -94,6 +95,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'monobank-jars': MonobankJarsSelect<false> | MonobankJarsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -792,6 +794,27 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "monobank-jars".
+ */
+export interface MonobankJar {
+  id: string;
+  jarUrl: string;
+  jarId: string;
+  title?: string | null;
+  description?: string | null;
+  amountMinor: number;
+  goalMinor: number;
+  displayAmount: number;
+  displayGoal: number;
+  progressPercent: number;
+  lastFetchedAt?: string | null;
+  lastFetchStatus: 'pending' | 'success' | 'error';
+  lastError?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -999,6 +1022,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'monobank-jars';
+        value: string | MonobankJar;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1364,6 +1391,26 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "monobank-jars_select".
+ */
+export interface MonobankJarsSelect<T extends boolean = true> {
+  jarUrl?: T;
+  jarId?: T;
+  title?: T;
+  description?: T;
+  amountMinor?: T;
+  goalMinor?: T;
+  displayAmount?: T;
+  displayGoal?: T;
+  progressPercent?: T;
+  lastFetchedAt?: T;
+  lastFetchStatus?: T;
+  lastError?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1884,6 +1931,10 @@ export interface ActiveProject {
     donateLabel: string;
     donateUrl: string;
     donatePageTitle: string;
+    /**
+     * Supports https://api.monobank.ua/bank/jar/{id} or widget URLs with the jar query parameter.
+     */
+    monoJarUrl?: string | null;
     donateMethods: {
       label: string;
       description?: string | null;
@@ -2165,6 +2216,7 @@ export interface ActiveProjectsSelect<T extends boolean = true> {
         donateLabel?: T;
         donateUrl?: T;
         donatePageTitle?: T;
+        monoJarUrl?: T;
         donateMethods?:
           | T
           | {

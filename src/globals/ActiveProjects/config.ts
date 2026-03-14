@@ -176,6 +176,15 @@ export const ActiveProjects: GlobalConfig = {
           defaultValue: 'Задонатити',
         },
         {
+          name: 'monoJarUrl',
+          type: 'text',
+          label: 'Monobank jar URL',
+          admin: {
+            description:
+              'Supports https://api.monobank.ua/bank/jar/{id} or widget URLs with the jar query parameter.',
+          },
+        },
+        {
           name: 'donateMethods',
           type: 'array',
           required: true,

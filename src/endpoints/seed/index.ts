@@ -510,6 +510,7 @@ export const seed = async ({
             donateLabel: 'ЗАДОНАТИТИ',
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Задонатити',
+            monoJarUrl: 'https://api.monobank.ua/bank/jar/2S9ehWkVCcYY4SdcXQw3HDHzpsCUq81d',
             donateMethods: [
               {
                 label: 'Monobank',
@@ -578,6 +579,7 @@ export const seed = async ({
             donateLabel: 'ЗАДОНАТИТИ',
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Задонатити',
+            monoJarUrl: '',
             donateMethods: [
               {
                 label: 'Monobank',
@@ -837,6 +839,7 @@ export const seed = async ({
             donateLabel: 'DONATE',
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Donate',
+            monoJarUrl: 'https://api.monobank.ua/bank/jar/2S9ehWkVCcYY4SdcXQw3HDHzpsCUq81d',
             donateMethods: [
               {
                 label: 'Monobank',
@@ -899,6 +902,7 @@ export const seed = async ({
             donateLabel: 'DONATE',
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Donate',
+            monoJarUrl: '',
             donateMethods: [
               {
                 label: 'Monobank',
