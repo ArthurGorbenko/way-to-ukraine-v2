@@ -180,8 +180,7 @@ export const ActiveProjects: GlobalConfig = {
           type: 'text',
           label: 'Monobank jar URL',
           admin: {
-            description:
-              'Supports https://api.monobank.ua/bank/jar/{id} or widget URLs with the jar query parameter.',
+            description: 'Store the public send.monobank.ua/jar/{clientId} link for the fundraiser.',
           },
         },
         {

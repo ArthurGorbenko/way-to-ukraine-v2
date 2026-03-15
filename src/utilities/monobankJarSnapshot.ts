@@ -5,13 +5,15 @@ import { getPayload } from 'payload'
 import type { Config, MonobankJar } from '@/payload-types'
 
 const MONOBANK_API_BASE = 'https://api.monobank.ua/bank/jar'
+const MONOBANK_RESOLVER_API = 'https://send.monobank.ua/api/handler'
+const MONOBANK_PC = 'way-to-ukraine-sync'
 
 export type MonobankJarData = {
   title: string
   description: string
   amountMinor: number
   goalMinor: number
-  jarId: string
+  extJarId: string
   displayAmount: number
   displayGoal: number
   progressPercent: number
@@ -20,7 +22,7 @@ export type MonobankJarData = {
 type ActiveProjectsGlobal = Config['globals']['active-projects']
 type ActiveProjectItem = NonNullable<ActiveProjectsGlobal['projects']>[number]
 
-export function parseMonobankJarId(input: string | null | undefined): string | null {
+export function parseMonobankClientId(input: string | null | undefined): string | null {
   if (!input) return null
 
   const raw = input.trim()
@@ -28,6 +30,9 @@ export function parseMonobankJarId(input: string | null | undefined): string | n
 
   try {
     const url = new URL(raw)
+    const clientQuery = url.searchParams.get('clientId')?.trim()
+    if (clientQuery) return clientQuery
+
     const jarQuery = url.searchParams.get('jar')?.trim()
     if (jarQuery) return jarQuery
 
@@ -54,11 +59,11 @@ export function normalizeMonobankJarResponse(payload: unknown): MonobankJarData 
   const source = payload as Record<string, unknown>
   const title = typeof source.title === 'string' ? source.title : ''
   const description = typeof source.description === 'string' ? source.description : ''
-  const jarId = typeof source.jarId === 'string' ? source.jarId : ''
+  const extJarId = typeof source.jarId === 'string' ? source.jarId : ''
   const amountMinor = Number(source.amount)
   const goalMinor = Number(source.goal)
 
-  if (!jarId || !Number.isFinite(amountMinor) || !Number.isFinite(goalMinor)) return null
+  if (!extJarId || !Number.isFinite(amountMinor) || !Number.isFinite(goalMinor)) return null
 
   const displayAmount = normalizeAmount(amountMinor)
   const displayGoal = normalizeAmount(goalMinor)
@@ -70,15 +75,57 @@ export function normalizeMonobankJarResponse(payload: unknown): MonobankJarData 
     description,
     amountMinor,
     goalMinor,
-    jarId,
+    extJarId,
     displayAmount,
     displayGoal,
     progressPercent,
   }
 }
 
-export async function fetchMonobankJarById(jarId: string): Promise<MonobankJarData | null> {
-  const response = await fetch(`${MONOBANK_API_BASE}/${jarId}`, {
+export async function resolveMonobankExtJarId(clientId: string): Promise<string> {
+  const response = await fetch(MONOBANK_RESOLVER_API, {
+    cache: 'no-store',
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      c: 'hello',
+      clientId,
+      Pc: MONOBANK_PC,
+    }),
+  })
+
+  if (!response.ok) {
+    let message = `${response.status} ${response.statusText}`
+    try {
+      const body = (await response.json()) as { errCode?: string; errText?: string }
+      if (body?.errCode || body?.errText) {
+        message = [body.errCode, body.errText].filter(Boolean).join(' ')
+      }
+    } catch {
+      // ignore body parse errors
+    }
+
+    throw new Error(message)
+  }
+
+  const payload = (await response.json()) as unknown
+  if (!payload || typeof payload !== 'object') {
+    throw new Error('Malformed Monobank resolver response')
+  }
+
+  const extJarId = (payload as Record<string, unknown>).extJarId
+  if (typeof extJarId !== 'string' || !extJarId.trim()) {
+    throw new Error('Missing extJarId in Monobank resolver response')
+  }
+
+  return extJarId.trim()
+}
+
+export async function fetchMonobankJarById(extJarId: string): Promise<MonobankJarData | null> {
+  const response = await fetch(`${MONOBANK_API_BASE}/${extJarId}`, {
     cache: 'no-store',
   })
 
@@ -117,7 +164,9 @@ export function formatMonobankAmount(amount: number, locale: 'uk' | 'en'): strin
 function buildSnapshotMap(snapshots: MonobankJar[]): Map<string, MonobankJar> {
   return new Map(
     snapshots.flatMap((snapshot) => {
-      const keys = [snapshot.jarUrl, snapshot.jarId].filter(Boolean)
+      const keys = [snapshot.jarUrl, snapshot.clientId, snapshot.extJarId].filter(
+        (key): key is string => Boolean(key),
+      )
       return keys.map((key) => [key, snapshot] as const)
     }),
   )
@@ -142,11 +191,11 @@ const getCachedSnapshots = unstable_cache(
 )
 
 export async function getMonobankJarSnapshot(url: string | null | undefined): Promise<MonobankJar | null> {
-  const jarId = parseMonobankJarId(url)
-  if (!jarId && !url) return null
+  const clientId = parseMonobankClientId(url)
+  if (!clientId && !url) return null
 
   const snapshotMap = buildSnapshotMap(await getCachedSnapshots())
-  const snapshot = snapshotMap.get(url || '') || (jarId ? snapshotMap.get(jarId) || null : null)
+  const snapshot = snapshotMap.get(url || '') || (clientId ? snapshotMap.get(clientId) || null : null)
   if (!snapshot) return null
 
   const hasUsableValues = Boolean(snapshot.displayGoal || snapshot.displayAmount || snapshot.progressPercent)

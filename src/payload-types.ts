@@ -799,7 +799,8 @@ export interface Form {
 export interface MonobankJar {
   id: string;
   jarUrl: string;
-  jarId: string;
+  clientId: string;
+  extJarId?: string | null;
   title?: string | null;
   description?: string | null;
   amountMinor: number;
@@ -808,8 +809,11 @@ export interface MonobankJar {
   displayGoal: number;
   progressPercent: number;
   lastFetchedAt?: string | null;
+  lastResolvedAt?: string | null;
   lastFetchStatus: 'pending' | 'success' | 'error';
+  lastResolveStatus: 'pending' | 'success' | 'error';
   lastError?: string | null;
+  lastResolveError?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1398,7 +1402,8 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MonobankJarsSelect<T extends boolean = true> {
   jarUrl?: T;
-  jarId?: T;
+  clientId?: T;
+  extJarId?: T;
   title?: T;
   description?: T;
   amountMinor?: T;
@@ -1407,8 +1412,11 @@ export interface MonobankJarsSelect<T extends boolean = true> {
   displayGoal?: T;
   progressPercent?: T;
   lastFetchedAt?: T;
+  lastResolvedAt?: T;
   lastFetchStatus?: T;
+  lastResolveStatus?: T;
   lastError?: T;
+  lastResolveError?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1932,7 +1940,7 @@ export interface ActiveProject {
     donateUrl: string;
     donatePageTitle: string;
     /**
-     * Supports https://api.monobank.ua/bank/jar/{id} or widget URLs with the jar query parameter.
+     * Store the public send.monobank.ua/jar/{clientId} link for the fundraiser.
      */
     monoJarUrl?: string | null;
     donateMethods: {

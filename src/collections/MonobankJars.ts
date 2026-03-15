@@ -6,8 +6,8 @@ import { authenticated } from '@/access/authenticated'
 export const MonobankJars: CollectionConfig = {
   slug: 'monobank-jars',
   admin: {
-    useAsTitle: 'jarId',
-    defaultColumns: ['jarId', 'title', 'progressPercent', 'lastFetchStatus', 'lastFetchedAt'],
+    useAsTitle: 'clientId',
+    defaultColumns: ['clientId', 'extJarId', 'title', 'progressPercent', 'lastFetchStatus', 'lastFetchedAt'],
   },
   access: {
     read: anyone,
@@ -24,10 +24,15 @@ export const MonobankJars: CollectionConfig = {
       index: true,
     },
     {
-      name: 'jarId',
+      name: 'clientId',
       type: 'text',
       required: true,
       unique: true,
+      index: true,
+    },
+    {
+      name: 'extJarId',
+      type: 'text',
       index: true,
     },
     {
@@ -75,6 +80,10 @@ export const MonobankJars: CollectionConfig = {
       type: 'date',
     },
     {
+      name: 'lastResolvedAt',
+      type: 'date',
+    },
+    {
       name: 'lastFetchStatus',
       type: 'select',
       required: true,
@@ -86,7 +95,22 @@ export const MonobankJars: CollectionConfig = {
       ],
     },
     {
+      name: 'lastResolveStatus',
+      type: 'select',
+      required: true,
+      defaultValue: 'pending',
+      options: [
+        { label: 'Pending', value: 'pending' },
+        { label: 'Success', value: 'success' },
+        { label: 'Error', value: 'error' },
+      ],
+    },
+    {
       name: 'lastError',
+      type: 'textarea',
+    },
+    {
+      name: 'lastResolveError',
       type: 'textarea',
     },
   ],
