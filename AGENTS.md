@@ -1049,7 +1049,7 @@ For deeper exploration of specific topics, refer to the context files located in
    - Configuration fundamentals
    - Database adapters overview
 
-2. **`security-critical.md`** - Critical security patterns (⚠️ IMPORTANT)
+2. **`security-critical.mdc`** - Critical security patterns (⚠️ IMPORTANT)
 
    - Local API access control
    - Transaction safety in hooks
@@ -1143,6 +1143,14 @@ For deeper exploration of specific topics, refer to the context files located in
 - GitHub: https://github.com/payloadcms/payload
 - Examples: https://github.com/payloadcms/payload/tree/main/examples
 - Templates: https://github.com/payloadcms/payload/tree/main/templates
+
+## Deployment
+
+- Production deploys to a DigitalOcean droplet.
+- GitHub Actions is the source of truth for deployment and syncs the `main` branch to the droplet over SSH.
+- The deploy workflow runs on the droplet in `/var/www/app`, installs dependencies with `pnpm install --frozen-lockfile`, builds the app with `pnpm build`, and restarts the process with `pm2 restart way-to-ukraine`.
+- Treat the production host as a Linux container/server environment. Prefer Linux-compatible commands and assumptions when writing deployment, build, or runtime instructions.
+- If deployment behavior is relevant, check `.github/workflows/deploy.yml` first before making assumptions from generic Docker or template docs.
 
 ## Project-Specific Implementation Notes
 
