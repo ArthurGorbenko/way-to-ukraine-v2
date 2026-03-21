@@ -19,14 +19,14 @@ async function handleSync(request: Request): Promise<Response> {
 
   try {
     const result = await syncMonobankJarSnapshots()
-    return Response.json({ ...result, success: true })
+    return Response.json({ ok: true, result })
   } catch (error) {
     if (error instanceof MonobankSyncAlreadyRunningError) {
-      return Response.json({ success: false, error: error.message }, { status: 409 })
+      return Response.json({ ok: false, error: error.message }, { status: 409 })
     }
 
     const message = error instanceof Error ? error.message : 'Monobank sync failed'
-    return Response.json({ success: false, error: message }, { status: 500 })
+    return Response.json({ ok: false, error: message }, { status: 500 })
   }
 }
 

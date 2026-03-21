@@ -32,6 +32,13 @@ export class MonobankSyncAlreadyRunningError extends Error {
   }
 }
 
+function formatJarForLog(jarUrl: string, clientId?: string | null, extJarId?: string | null): string {
+  const parts = [jarUrl]
+  if (clientId) parts.push(`clientId=${clientId}`)
+  if (extJarId) parts.push(`extJarId=${extJarId}`)
+  return parts.join(' | ')
+}
+
 async function getConfiguredJarUrls(payload: Payload): Promise<string[]> {
   const locales: Array<'uk' | 'en'> = ['uk', 'en']
   const uniqueUrls = new Map<string, string>()
@@ -211,6 +218,7 @@ async function syncJarSnapshot(
   let extJarId = existingExtJarId?.trim()
 
   if (!extJarId) {
+    payload.logger.info(`Resolving Monobank extJarId for ${formatJarForLog(jarUrl, clientId)}`)
     extJarId = await resolveMonobankExtJarId(clientId)
     await sleep(500)
   }
@@ -223,6 +231,9 @@ async function syncJarSnapshot(
 
     if (!shouldReresolve) throw error
 
+    payload.logger.warn(
+      `Monobank extJarId appears stale, re-resolving for ${formatJarForLog(jarUrl, clientId, existingExtJarId)}: ${message}`,
+    )
     const refreshedExtJarId = await resolveMonobankExtJarId(clientId)
     await sleep(500)
     await upsertJarSuccess(payload, existingId, jarUrl, clientId, refreshedExtJarId)
@@ -251,6 +262,8 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
     const payload = await getPayload({ config: configPromise })
     const jarUrls = await getConfiguredJarUrls(payload)
 
+    payload.logger.info(`Starting Monobank sync for ${jarUrls.length} jar(s)`)
+
     const result: SyncResult = {
       total: jarUrls.length,
       success: 0,
@@ -263,6 +276,7 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
       const clientId = parseMonobankClientId(jarUrl)
 
       if (!clientId) {
+        payload.logger.warn(`Skipping Monobank sync for invalid jar URL: ${jarUrl}`)
         result.skipped += 1
         result.errors.push({ jarUrl, error: 'Invalid jar URL' })
         continue
@@ -270,13 +284,21 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
 
       try {
         const existing = await findExistingSnapshot(payload, clientId, jarUrl)
+        payload.logger.info(
+          `Syncing Monobank jar ${index + 1}/${jarUrls.length}: ${formatJarForLog(jarUrl, clientId, existing?.extJarId)}`,
+        )
         await syncJarSnapshot(payload, existing?.id || null, jarUrl, clientId, existing?.extJarId)
+        payload.logger.info(`Monobank jar sync succeeded: ${formatJarForLog(jarUrl, clientId)}`)
         result.success += 1
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown sync error'
         const existing = await findExistingSnapshot(payload, clientId, jarUrl)
         const resolveLikelyFailed =
           message.includes('extJarId') || message.includes('resolver') || message.includes('invalid alias')
+
+        payload.logger.error(
+          `Monobank jar sync failed for ${formatJarForLog(jarUrl, clientId, existing?.extJarId)}: ${message}`,
+        )
 
         await upsertJarError(payload, existing?.id || null, {
           jarUrl,
@@ -294,11 +316,17 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
       }
 
       if (index < jarUrls.length - 1) {
+        payload.logger.info(
+          `Waiting ${Math.round(MONOBANK_SYNC_INTERVAL_MS / 1000)}s before next Monobank jar sync`,
+        )
         await sleep(MONOBANK_SYNC_INTERVAL_MS)
       }
     }
 
     revalidateActiveProjectPages()
+    payload.logger.info(
+      `Completed Monobank sync: total=${result.total} success=${result.success} failed=${result.failed} skipped=${result.skipped}`,
+    )
     return result
   } finally {
     await releaseMonobankSyncLock()

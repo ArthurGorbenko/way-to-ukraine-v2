@@ -1171,3 +1171,5 @@ For deeper exploration of specific topics, refer to the context files located in
 12. **Current Monobank Jar Response Shape**: The successful jar payload returns fields like `amount`, `goal`, `jarId`, `title`, `description`, and `closed` boolean. Do not assume the legacy `jarStatus` field from the old Laravel implementation still exists.
 13. **Monobank Sync Must Not Overlap**: The `/api/monobank/sync` route should reject concurrent runs rather than syncing the same jars in parallel.
 14. **Monobank Sync Must Be Slow by Design**: Process Monobank jars sequentially and leave at least 60 seconds between jars unless there is a deliberate, verified reason to reduce that interval.
+15. **Keep Monobank Sync Responses Unambiguous**: Do not reuse `success` as both a boolean and a numeric count in the same API response. Preserve the numeric counts and use a separate field like `ok` for route-level status.
+16. **Monobank Sync Needs Explicit Runtime Logs**: Log sync start, each jar attempt, extJarId resolution/re-resolution, per-jar success or failure, inter-jar waits, and final summary so production failures can be traced from server logs.
