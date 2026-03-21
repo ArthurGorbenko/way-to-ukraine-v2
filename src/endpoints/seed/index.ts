@@ -361,33 +361,142 @@ export const seed = async ({
       },
       data: {
         pageTitle: 'Про нас',
-        hero: {
-          eyebrow: 'WAY TO UKRAINE',
-          headline: 'Всім привіт, ми з України!',
-          paragraphs: [
+        featuredMember: {
+          image: imageHomeDoc.id,
+          name: 'Ім’я Прізвище',
+          role: 'Посада у фонді',
+          bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+          telegramUrl: 'https://t.me/way_to_ua',
+          twitterUrl: 'https://x.com/Way_to_UA',
+        },
+        teamSection: {
+          members: [
             {
-              copy:
-                'У цей складний час надзвичайно важливо об’єднуватися заради спільної мети — НАШОЇ ПЕРЕМОГИ! Кожен із нас намагається бути корисним для Батьківщини й робить усе, що в його чи її силах. Ми не є винятком. Ми організували волонтерський фонд, до якого увійшла команда людей із досвідом пошуку та доставки автомобілів для потреб Збройних Сил України.',
+              image: imageHomeDoc.id,
+              name: 'Ім’я Прізвище',
+              role: 'Посада у фонді',
+              bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
             },
             {
-              copy:
-                'Щоб підтримувати боєздатність підрозділів ЗСУ під час активних бойових дій, потрібне оперативне перевезення боєприпасів, продовольства та особового складу. Оскільки активна фаза війни триває, існує катастрофічна нестача транспорту для цих завдань, тому виникла потреба у звичайних надійних машинах із високою прохідністю.',
+              image: image1Doc.id,
+              name: 'Ім’я Прізвище',
+              role: 'Посада у фонді',
+              bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
             },
             {
-              copy:
-                'Що ми пропонуємо? Головна мета фонду — доставити автомобіль підрозділам, які гостро потребують транспорту. Після розмов із військовими ми маємо контакти відповідальних осіб у тих підрозділах, де ці авто потрібні найбільше.',
+              image: image2Doc.id,
+              name: 'Ім’я Прізвище',
+              role: 'Посада у фонді',
+              bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
             },
             {
-              copy:
-                'Як ви можете допомогти? Якщо маєте можливість, ви можете зробити внесок. Також ми будемо вдячні за поширення інформації про наш фонд.',
+              image: image3Doc.id,
+              name: 'Ім’я Прізвище',
+              role: 'Посада у фонді',
+              bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
+            },
+            {
+              image: image1Doc.id,
+              name: 'Ім’я Прізвище',
+              role: 'Посада у фонді',
+              bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
+            },
+            {
+              image: imageHomeDoc.id,
+              name: 'Ім’я Прізвище',
+              role: 'Посада у фонді',
+              bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
+            },
+            {
+              image: image2Doc.id,
+              name: 'Ім’я Прізвище',
+              role: 'Посада у фонді',
+              bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
+            },
+            {
+              image: image3Doc.id,
+              name: 'Ім’я Прізвище',
+              role: 'Посада у фонді',
+              bio: 'Деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі, деталі. Деталі, деталі, деталі, деталі, деталі.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
             },
           ],
         },
-        video: {
-          title: 'Інтерв’ю «UA:Перший» у марафоні',
-          youtubeUrl: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
-          originalVideoLabel: 'Оригінальне відео',
-          originalVideoUrl: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
+        partnersSection: {
+          title: 'Наші партнери',
+          partners: [
+            {
+              image: image1Doc.id,
+              name: 'В.Е.С. ГРУП',
+              description:
+                'Постачальник обладнання відомих європейських виробників у сфері вентиляції, опалення, електротехніки та освітлення.',
+              url: 'https://way-to-ukraine.com',
+            },
+            {
+              image: image2Doc.id,
+              name: 'В.Е.С. ГРУП',
+              description:
+                'Постачальник обладнання відомих європейських виробників у сфері вентиляції, опалення, електротехніки та освітлення.',
+              url: 'https://way-to-ukraine.com',
+            },
+            {
+              image: image3Doc.id,
+              name: 'В.Е.С. ГРУП',
+              description:
+                'Постачальник обладнання відомих європейських виробників у сфері вентиляції, опалення, електротехніки та освітлення.',
+              url: 'https://way-to-ukraine.com',
+            },
+            {
+              image: image2Doc.id,
+              name: 'В.Е.С. ГРУП',
+              description:
+                'Постачальник обладнання відомих європейських виробників у сфері вентиляції, опалення, електротехніки та освітлення.',
+              url: 'https://way-to-ukraine.com',
+            },
+            {
+              image: image1Doc.id,
+              name: 'В.Е.С. ГРУП',
+              description:
+                'Постачальник обладнання відомих європейських виробників у сфері вентиляції, опалення, електротехніки та освітлення.',
+              url: 'https://way-to-ukraine.com',
+            },
+          ],
+        },
+        storySection: {
+          lead: 'Way to Ukraine — це волонтерський фонд середнього масштабу, який працює на благо СОУ',
+          paragraphs: [
+            {
+              copy:
+                'У цей нелегкий час вкрай важливо об’єднатися заради спільної мети — НАШОЇ ПЕРЕМОГИ!!! Кожен з нас намагається бути корисним для Батьківщини та робити все, що в наших силах, і ми з друзями не виключення. Нашими силами було організовано благодійний фонд, в який входить група волонтерів, які вже мали досвід в закупці та перевезенні автомобілів для потреб Збройних сил України.',
+            },
+            {
+              copy:
+                'Для якісного підтримання боєздатності підрозділів Збройних сил України під час активних бойових дій виникає необхідність у швидкому транспортуванні амуніції, продуктів харчування, а також у перевезенні особового складу. Так як зараз ведеться активна фаза війни, катастрофічно не вистачає транспорту для вище зазначених цілей, тому виникла потреба у звичайних надійних машинах, з високою прохідністю бездоріжжям.',
+            },
+            {
+              copy:
+                'Що ми пропонуємо? Головна мета фонду доставити автомобіль підрозділам, які мають гостру потребу у транспорті. Тому, поспілкувавшись з військовими, ми маємо контакти людей, які відповідають за підрозділи, де ці машини необхідні.',
+            },
+            {
+              copy:
+                'Чим Ви можете нам допомогти? Якщо у вас є можливість — то можете робити ваші внески. Також ми будемо вдячні за розповсюдження інформації про наш фонд.',
+            },
+          ],
         },
       },
     }),
@@ -822,33 +931,142 @@ export const seed = async ({
       },
       data: {
         pageTitle: 'About us',
-        hero: {
-          eyebrow: 'WAY TO UKRAINE',
-          headline: 'Hello everyone, we are from Ukraine!',
-          paragraphs: [
+        featuredMember: {
+          image: imageHomeDoc.id,
+          name: 'Name Surname',
+          role: 'Foundation role',
+          bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+          telegramUrl: 'https://t.me/way_to_ua',
+          twitterUrl: 'https://x.com/Way_to_UA',
+        },
+        teamSection: {
+          members: [
             {
-              copy:
-                'In this difficult time, it is extremely important to unite for the sake of a common goal - OUR VICTORY! Each one of us tries to be useful for the Motherland and does everything in his, or her power! We are are no exception. We organized a volunteer fund, which includes a group of volunteers who already had experience in acquisition and transporting the autos for the needs of the Armed Forces of Ukraine!',
+              image: imageHomeDoc.id,
+              name: 'Name Surname',
+              role: 'Foundation role',
+              bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
             },
             {
-              copy:
-                'In order to maintain the combat capability of units of the Armed Forces of Ukraine during active hostilities, there is a need for rapid transportation of ammunition, food, and personnel. Since the active phase of the war is currently being waged, there is a catastrophic lack of transport for the above-mentioned purposes, so there was a need for ordinary reliable machines with high off-road capability.',
+              image: image1Doc.id,
+              name: 'Name Surname',
+              role: 'Foundation role',
+              bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
             },
             {
-              copy:
-                'What do we offer? The main goal of the fund is to deliver a car to units that are in dire need of transportation. Therefore, after talking with the military guys, we have contacts of people who are responsible for the units where these autos are required.',
+              image: image2Doc.id,
+              name: 'Name Surname',
+              role: 'Foundation role',
+              bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
             },
             {
-              copy:
-                'How can you help us? If you have the opportunity, you can make your contributions. We will also be grateful for the dissemination of information about our fund.',
+              image: image3Doc.id,
+              name: 'Name Surname',
+              role: 'Foundation role',
+              bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
+            },
+            {
+              image: image1Doc.id,
+              name: 'Name Surname',
+              role: 'Foundation role',
+              bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
+            },
+            {
+              image: imageHomeDoc.id,
+              name: 'Name Surname',
+              role: 'Foundation role',
+              bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
+            },
+            {
+              image: image2Doc.id,
+              name: 'Name Surname',
+              role: 'Foundation role',
+              bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
+            },
+            {
+              image: image3Doc.id,
+              name: 'Name Surname',
+              role: 'Foundation role',
+              bio: 'Details, details, details, details, details, details, details, details, details. Details, details, details, details, details.',
+              telegramUrl: 'https://t.me/way_to_ua',
+              twitterUrl: 'https://x.com/Way_to_UA',
             },
           ],
         },
-        video: {
-          title: 'Interview "UA:First" in the program of the TV marathon',
-          youtubeUrl: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
-          originalVideoLabel: 'Original video',
-          originalVideoUrl: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
+        partnersSection: {
+          title: 'Our partners',
+          partners: [
+            {
+              image: image1Doc.id,
+              name: 'V.E.S. GROUP',
+              description:
+                'Supplier of equipment from leading European manufacturers in ventilation, heating, electrical engineering, and lighting.',
+              url: 'https://way-to-ukraine.com/en',
+            },
+            {
+              image: image2Doc.id,
+              name: 'V.E.S. GROUP',
+              description:
+                'Supplier of equipment from leading European manufacturers in ventilation, heating, electrical engineering, and lighting.',
+              url: 'https://way-to-ukraine.com/en',
+            },
+            {
+              image: image3Doc.id,
+              name: 'V.E.S. GROUP',
+              description:
+                'Supplier of equipment from leading European manufacturers in ventilation, heating, electrical engineering, and lighting.',
+              url: 'https://way-to-ukraine.com/en',
+            },
+            {
+              image: image2Doc.id,
+              name: 'V.E.S. GROUP',
+              description:
+                'Supplier of equipment from leading European manufacturers in ventilation, heating, electrical engineering, and lighting.',
+              url: 'https://way-to-ukraine.com/en',
+            },
+            {
+              image: image1Doc.id,
+              name: 'V.E.S. GROUP',
+              description:
+                'Supplier of equipment from leading European manufacturers in ventilation, heating, electrical engineering, and lighting.',
+              url: 'https://way-to-ukraine.com/en',
+            },
+          ],
+        },
+        storySection: {
+          lead: 'Way to Ukraine is a mid-scale volunteer foundation working for the benefit of the Defense Forces of Ukraine',
+          paragraphs: [
+            {
+              copy:
+                'In this difficult time, it is extremely important to unite for the sake of a common goal, our victory. Each of us tries to be useful for our homeland and do everything within our power. Together with friends, we organized a charitable foundation that includes volunteers with prior experience in purchasing and delivering vehicles for the Armed Forces of Ukraine.',
+            },
+            {
+              copy:
+                'To maintain the combat capability of Ukrainian units during active hostilities, there is a constant need for fast transportation of ammunition, food, and personnel. Because the active phase of the war continues, there is a severe shortage of transport for these purposes, so the need for reliable high-clearance vehicles remains critical.',
+            },
+            {
+              copy:
+                'What do we offer? The main goal of the foundation is to deliver a vehicle to units that urgently need transportation. After direct communication with the military, we have contacts with the people responsible for the units where these vehicles are needed most.',
+            },
+            {
+              copy:
+                'How can you help us? If you have the opportunity, you can make a contribution. We are also grateful when people share information about our foundation and our work.',
+            },
+          ],
         },
       },
     }),

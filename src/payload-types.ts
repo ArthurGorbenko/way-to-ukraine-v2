@@ -1824,19 +1824,41 @@ export interface Homepage {
 export interface About {
   id: string;
   pageTitle: string;
-  hero: {
-    eyebrow: string;
-    headline: string;
+  featuredMember: {
+    image?: (string | null) | Media;
+    name: string;
+    role: string;
+    bio: string;
+    telegramUrl?: string | null;
+    twitterUrl?: string | null;
+  };
+  teamSection: {
+    members: {
+      image?: (string | null) | Media;
+      name: string;
+      role: string;
+      bio: string;
+      telegramUrl?: string | null;
+      twitterUrl?: string | null;
+      id?: string | null;
+    }[];
+  };
+  partnersSection: {
+    title: string;
+    partners: {
+      image?: (string | null) | Media;
+      name: string;
+      description: string;
+      url?: string | null;
+      id?: string | null;
+    }[];
+  };
+  storySection: {
+    lead: string;
     paragraphs: {
       copy: string;
       id?: string | null;
     }[];
-  };
-  video: {
-    title: string;
-    youtubeUrl: string;
-    originalVideoLabel: string;
-    originalVideoUrl: string;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1986,6 +2008,13 @@ export interface Shop {
     image: string | Media;
     title: string;
     price: string;
+    backTitle: string;
+    backItems: {
+      text: string;
+      id?: string | null;
+    }[];
+    backButtonLabel: string;
+    backButtonUrl: string;
     frameSide: 'left' | 'right';
     id?: string | null;
   }[];
@@ -2014,13 +2043,6 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
-    backTitle: string;
-    backItems: {
-      text: string;
-      id?: string | null;
-    }[];
-    backButtonLabel: string;
-    backButtonUrl: string;
         id?: T;
       };
   updatedAt?: T;
@@ -2129,25 +2151,55 @@ export interface HomepageSelect<T extends boolean = true> {
  */
 export interface AboutSelect<T extends boolean = true> {
   pageTitle?: T;
-  hero?:
+  featuredMember?:
     | T
     | {
-        eyebrow?: T;
-        headline?: T;
+        image?: T;
+        name?: T;
+        role?: T;
+        bio?: T;
+        telegramUrl?: T;
+        twitterUrl?: T;
+      };
+  teamSection?:
+    | T
+    | {
+        members?:
+          | T
+          | {
+              image?: T;
+              name?: T;
+              role?: T;
+              bio?: T;
+              telegramUrl?: T;
+              twitterUrl?: T;
+              id?: T;
+            };
+      };
+  partnersSection?:
+    | T
+    | {
+        title?: T;
+        partners?:
+          | T
+          | {
+              image?: T;
+              name?: T;
+              description?: T;
+              url?: T;
+              id?: T;
+            };
+      };
+  storySection?:
+    | T
+    | {
+        lead?: T;
         paragraphs?:
           | T
           | {
               copy?: T;
               id?: T;
             };
-      };
-  video?:
-    | T
-    | {
-        title?: T;
-        youtubeUrl?: T;
-        originalVideoLabel?: T;
-        originalVideoUrl?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2279,6 +2331,15 @@ export interface ShopSelect<T extends boolean = true> {
         image?: T;
         title?: T;
         price?: T;
+        backTitle?: T;
+        backItems?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        backButtonLabel?: T;
+        backButtonUrl?: T;
         frameSide?: T;
         id?: T;
       };
@@ -2305,15 +2366,6 @@ export interface TaskSchedulePublish {
         } | null);
     global?: string | null;
     user?: (string | null) | User;
-        backTitle?: T;
-        backItems?:
-          | T
-          | {
-              text?: T;
-              id?: T;
-            };
-        backButtonLabel?: T;
-        backButtonUrl?: T;
   };
   output?: unknown;
 }

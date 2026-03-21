@@ -2,6 +2,17 @@ import type { GlobalConfig } from 'payload'
 
 import { revalidateAbout } from './hooks/revalidateAbout'
 
+const defaultTeamMembers = Array.from({ length: 8 }, (_, index) => ({
+  name: `Ім’я Прізвище ${index + 1}`,
+  role: 'Посада у фонді',
+  bio: 'Короткий опис учасника команди та його або її ролі у фонді.',
+}))
+
+const defaultPartners = Array.from({ length: 5 }, (_, index) => ({
+  name: `Партнер ${index + 1}`,
+  description: 'Короткий опис партнера та його внеску в підтримку фонду.',
+}))
+
 export const About: GlobalConfig = {
   slug: 'about',
   access: {
@@ -16,29 +27,150 @@ export const About: GlobalConfig = {
       defaultValue: 'Про нас',
     },
     {
-      name: 'hero',
+      name: 'featuredMember',
       type: 'group',
       fields: [
         {
-          name: 'eyebrow',
-          type: 'text',
-          localized: true,
-          required: true,
-          defaultValue: 'WAY TO UKRAINE',
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
         },
         {
-          name: 'headline',
+          name: 'name',
           type: 'text',
           localized: true,
           required: true,
-          defaultValue: 'Всім привіт, ми з України!',
+          defaultValue: 'Ім’я Прізвище',
+        },
+        {
+          name: 'role',
+          type: 'text',
+          localized: true,
+          required: true,
+          defaultValue: 'Посада у фонді',
+        },
+        {
+          name: 'bio',
+          type: 'textarea',
+          localized: true,
+          required: true,
+          defaultValue: 'Короткий опис учасника команди та його або її ролі у фонді.',
+        },
+        {
+          name: 'telegramUrl',
+          type: 'text',
+        },
+        {
+          name: 'twitterUrl',
+          type: 'text',
+        },
+      ],
+    },
+    {
+      name: 'teamSection',
+      type: 'group',
+      fields: [
+        {
+          name: 'members',
+          type: 'array',
+          required: true,
+          minRows: 1,
+          fields: [
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+            },
+            {
+              name: 'name',
+              type: 'text',
+              localized: true,
+              required: true,
+            },
+            {
+              name: 'role',
+              type: 'text',
+              localized: true,
+              required: true,
+            },
+            {
+              name: 'bio',
+              type: 'textarea',
+              localized: true,
+              required: true,
+            },
+            {
+              name: 'telegramUrl',
+              type: 'text',
+            },
+            {
+              name: 'twitterUrl',
+              type: 'text',
+            },
+          ],
+          defaultValue: defaultTeamMembers,
+        },
+      ],
+    },
+    {
+      name: 'partnersSection',
+      type: 'group',
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          localized: true,
+          required: true,
+          defaultValue: 'Наші партнери',
+        },
+        {
+          name: 'partners',
+          type: 'array',
+          required: true,
+          minRows: 1,
+          fields: [
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+            },
+            {
+              name: 'name',
+              type: 'text',
+              localized: true,
+              required: true,
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              localized: true,
+              required: true,
+            },
+            {
+              name: 'url',
+              type: 'text',
+            },
+          ],
+          defaultValue: defaultPartners,
+        },
+      ],
+    },
+    {
+      name: 'storySection',
+      type: 'group',
+      fields: [
+        {
+          name: 'lead',
+          type: 'text',
+          localized: true,
+          required: true,
+          defaultValue: 'Way to Ukraine — це волонтерський фонд середнього масштабу, який працює на благо СОУ',
         },
         {
           name: 'paragraphs',
           type: 'array',
-          minRows: 4,
-          maxRows: 4,
           required: true,
+          minRows: 1,
           fields: [
             {
               name: 'copy',
@@ -47,38 +179,6 @@ export const About: GlobalConfig = {
               required: true,
             },
           ],
-        },
-      ],
-    },
-    {
-      name: 'video',
-      type: 'group',
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          localized: true,
-          required: true,
-          defaultValue: 'Інтерв’ю «UA:Перший» у марафоні',
-        },
-        {
-          name: 'youtubeUrl',
-          type: 'text',
-          required: true,
-          defaultValue: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
-        },
-        {
-          name: 'originalVideoLabel',
-          type: 'text',
-          localized: true,
-          required: true,
-          defaultValue: 'Оригінальне відео',
-        },
-        {
-          name: 'originalVideoUrl',
-          type: 'text',
-          required: true,
-          defaultValue: 'https://www.youtube.com/watch?v=hmbRxrP-dPQ&t=15853',
         },
       ],
     },
