@@ -277,6 +277,13 @@
     background-position: center top;
   }
 
+  .content-page-surface {
+    margin-bottom: -1px;
+    background-image: var(--wtu-paper-texture);
+    background-size: cover;
+    background-position: center top;
+  }
+
   button,
   input,
   select,

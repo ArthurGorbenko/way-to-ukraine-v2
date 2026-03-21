@@ -9,6 +9,7 @@ import { Media } from './collections/Media'
 import { MonobankJars } from './collections/MonobankJars'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { ShopItems } from './collections/ShopItems'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
@@ -69,7 +70,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, MonobankJars],
+  collections: [Pages, Posts, Media, Categories, Users, MonobankJars, ShopItems],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, Homepage, About, Achievements, FinishedProjects, ActiveProjects, Shop],
   plugins,

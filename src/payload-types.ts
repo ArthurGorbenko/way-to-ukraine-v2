@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     'monobank-jars': MonobankJar;
+    'shop-items': ShopItem;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -96,6 +97,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'monobank-jars': MonobankJarsSelect<false> | MonobankJarsSelect<true>;
+    'shop-items': ShopItemsSelect<false> | ShopItemsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -819,6 +821,19 @@ export interface MonobankJar {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shop-items".
+ */
+export interface ShopItem {
+  id: string;
+  title: string;
+  price: string;
+  description: string;
+  image: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1030,6 +1045,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'monobank-jars';
         value: string | MonobankJar;
+      } | null)
+    | ({
+        relationTo: 'shop-items';
+        value: string | ShopItem;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1417,6 +1436,18 @@ export interface MonobankJarsSelect<T extends boolean = true> {
   lastResolveStatus?: T;
   lastError?: T;
   lastResolveError?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shop-items_select".
+ */
+export interface ShopItemsSelect<T extends boolean = true> {
+  title?: T;
+  price?: T;
+  description?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2009,10 +2040,8 @@ export interface Shop {
     title: string;
     price: string;
     backTitle: string;
-    backItems: {
-      text: string;
-      id?: string | null;
-    }[];
+    selectedItems: (string | ShopItem)[];
+    availableItems: (string | ShopItem)[];
     backButtonLabel: string;
     backButtonUrl: string;
     frameSide: 'left' | 'right';
@@ -2332,12 +2361,8 @@ export interface ShopSelect<T extends boolean = true> {
         title?: T;
         price?: T;
         backTitle?: T;
-        backItems?:
-          | T
-          | {
-              text?: T;
-              id?: T;
-            };
+        selectedItems?: T;
+        availableItems?: T;
         backButtonLabel?: T;
         backButtonUrl?: T;
         frameSide?: T;

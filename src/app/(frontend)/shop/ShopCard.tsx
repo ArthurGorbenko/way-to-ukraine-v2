@@ -1,7 +1,8 @@
 'use client'
 
 import { Media } from '@/components/Media'
-import type { Config, Media as MediaType } from '@/payload-types'
+import type { Config, Media as MediaType, ShopItem as ShopCatalogItem } from '@/payload-types'
+import Link from 'next/link'
 import type { KeyboardEvent } from 'react'
 import { useState } from 'react'
 
@@ -16,13 +17,31 @@ type ShopCardProps = {
 
 const defaultBackItems = ['First item', 'Second item', 'Third item']
 
+function isShopItemDoc(
+  value: NonNullable<ShopItem['availableItems']>[number] | NonNullable<ShopItem['selectedItems']>[number],
+): value is ShopCatalogItem {
+  return typeof value === 'object' && value !== null
+}
+
+function slugifySegment(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
 export function ShopCard({ item, index, photoFallback }: ShopCardProps) {
   const [isFlipped, setIsFlipped] = useState(false)
 
   const frameClass = item?.frameSide === 'right' ? 'shop-frame-right' : 'shop-frame-left'
-  const backItems = item?.backItems?.map((entry) => entry?.text).filter(Boolean) || []
+  const relationshipItems = (item?.selectedItems || [])
+    .filter(isShopItemDoc)
+    .map((entry) => entry?.title)
+    .filter(Boolean)
+  const backItems = relationshipItems || []
   const resolvedBackItems = backItems.length > 0 ? backItems : defaultBackItems
-  const buttonUrl = item?.backButtonUrl || '/shop'
+  const buttonUrl =
+    item?.backButtonUrl && item.backButtonUrl !== '/shop' ? item.backButtonUrl : `/shop/${slugifySegment(item?.title || 'box')}`
   const isExternalUrl = /^https?:\/\//.test(buttonUrl)
 
   const toggleFlip = () => {
@@ -87,17 +106,29 @@ export function ShopCard({ item, index, photoFallback }: ShopCardProps) {
 
             <div className="shop-card-back-action">
               <span className="shop-card-back-action-frame" aria-hidden="true" />
-              <a
-                className="shop-card-back-button"
-                href={buttonUrl}
-                onClick={(event) => {
-                  event.stopPropagation()
-                }}
-                rel={isExternalUrl ? 'noopener noreferrer' : undefined}
-                target={isExternalUrl ? '_blank' : undefined}
-              >
-                {item?.backButtonLabel || 'LEARN MORE'}
-              </a>
+              {isExternalUrl ? (
+                <a
+                  className="shop-card-back-button"
+                  href={buttonUrl}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                  }}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {item?.backButtonLabel || 'LEARN MORE'}
+                </a>
+              ) : (
+                <Link
+                  className="shop-card-back-button"
+                  href={buttonUrl}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                  }}
+                >
+                  {item?.backButtonLabel || 'LEARN MORE'}
+                </Link>
+              )}
             </div>
           </div>
         </div>
