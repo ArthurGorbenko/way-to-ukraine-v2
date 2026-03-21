@@ -1,5 +1,8 @@
 import configPromise from '@payload-config'
+import { promises as fs } from 'fs'
 import { revalidatePath, revalidateTag } from 'next/cache'
+import os from 'os'
+import path from 'path'
 import { getPayload } from 'payload'
 
 import {
@@ -16,6 +19,17 @@ type SyncResult = {
   failed: number
   skipped: number
   errors: { jarUrl: string; error: string }[]
+}
+
+const MONOBANK_SYNC_LOCK_FILE = path.join(os.tmpdir(), 'way-to-ukraine-monobank-sync.lock')
+const MONOBANK_SYNC_LOCK_TTL_MS = 30 * 60 * 1000
+const MONOBANK_SYNC_INTERVAL_MS = 60 * 1000
+
+export class MonobankSyncAlreadyRunningError extends Error {
+  constructor() {
+    super('Monobank sync is already running')
+    this.name = 'MonobankSyncAlreadyRunningError'
+  }
 }
 
 async function getConfiguredJarUrls(payload: Payload): Promise<string[]> {
@@ -56,6 +70,50 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(resolve, ms)
   })
+}
+
+async function acquireMonobankSyncLock(): Promise<void> {
+  const now = Date.now()
+
+  try {
+    const handle = await fs.open(MONOBANK_SYNC_LOCK_FILE, 'wx')
+    await handle.writeFile(JSON.stringify({ pid: process.pid, startedAt: new Date(now).toISOString() }))
+    await handle.close()
+    return
+  } catch (error) {
+    const nodeError = error as NodeJS.ErrnoException
+    if (nodeError.code !== 'EEXIST') throw error
+  }
+
+  try {
+    const raw = await fs.readFile(MONOBANK_SYNC_LOCK_FILE, 'utf8')
+    const parsed = JSON.parse(raw) as { startedAt?: string }
+    const startedAt = parsed.startedAt ? new Date(parsed.startedAt).getTime() : Number.NaN
+
+    if (Number.isFinite(startedAt) && now - startedAt < MONOBANK_SYNC_LOCK_TTL_MS) {
+      throw new MonobankSyncAlreadyRunningError()
+    }
+  } catch (error) {
+    if (error instanceof MonobankSyncAlreadyRunningError) throw error
+  }
+
+  await fs.rm(MONOBANK_SYNC_LOCK_FILE, { force: true })
+
+  try {
+    const handle = await fs.open(MONOBANK_SYNC_LOCK_FILE, 'wx')
+    await handle.writeFile(JSON.stringify({ pid: process.pid, startedAt: new Date(now).toISOString() }))
+    await handle.close()
+  } catch (error) {
+    const nodeError = error as NodeJS.ErrnoException
+    if (nodeError.code === 'EEXIST') {
+      throw new MonobankSyncAlreadyRunningError()
+    }
+    throw error
+  }
+}
+
+async function releaseMonobankSyncLock(): Promise<void> {
+  await fs.rm(MONOBANK_SYNC_LOCK_FILE, { force: true })
 }
 
 async function upsertJarError(
@@ -187,54 +245,62 @@ function revalidateActiveProjectPages() {
 }
 
 export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
-  const payload = await getPayload({ config: configPromise })
-  const jarUrls = await getConfiguredJarUrls(payload)
+  await acquireMonobankSyncLock()
 
-  const result: SyncResult = {
-    total: jarUrls.length,
-    success: 0,
-    failed: 0,
-    skipped: 0,
-    errors: [],
-  }
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const jarUrls = await getConfiguredJarUrls(payload)
 
-  for (const jarUrl of jarUrls) {
-    const clientId = parseMonobankClientId(jarUrl)
-
-    if (!clientId) {
-      result.skipped += 1
-      result.errors.push({ jarUrl, error: 'Invalid jar URL' })
-      continue
+    const result: SyncResult = {
+      total: jarUrls.length,
+      success: 0,
+      failed: 0,
+      skipped: 0,
+      errors: [],
     }
 
-    try {
-      const existing = await findExistingSnapshot(payload, clientId, jarUrl)
-      await syncJarSnapshot(payload, existing?.id || null, jarUrl, clientId, existing?.extJarId)
-      result.success += 1
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown sync error'
-      const existing = await findExistingSnapshot(payload, clientId, jarUrl)
-      const resolveLikelyFailed =
-        message.includes('extJarId') || message.includes('resolver') || message.includes('invalid alias')
+    for (const [index, jarUrl] of jarUrls.entries()) {
+      const clientId = parseMonobankClientId(jarUrl)
 
-      await upsertJarError(payload, existing?.id || null, {
-        jarUrl,
-        clientId,
-        extJarId: existing?.extJarId,
-        lastFetchStatus: 'error',
-        lastError: message,
-        lastFetchedAt: new Date().toISOString(),
-        lastResolveStatus: resolveLikelyFailed ? 'error' : existing?.lastResolveStatus || 'pending',
-        lastResolvedAt: resolveLikelyFailed ? new Date().toISOString() : existing?.lastResolvedAt || undefined,
-        lastResolveError: resolveLikelyFailed ? message : existing?.lastResolveError || '',
-      })
-      result.failed += 1
-      result.errors.push({ jarUrl, error: message })
+      if (!clientId) {
+        result.skipped += 1
+        result.errors.push({ jarUrl, error: 'Invalid jar URL' })
+        continue
+      }
+
+      try {
+        const existing = await findExistingSnapshot(payload, clientId, jarUrl)
+        await syncJarSnapshot(payload, existing?.id || null, jarUrl, clientId, existing?.extJarId)
+        result.success += 1
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unknown sync error'
+        const existing = await findExistingSnapshot(payload, clientId, jarUrl)
+        const resolveLikelyFailed =
+          message.includes('extJarId') || message.includes('resolver') || message.includes('invalid alias')
+
+        await upsertJarError(payload, existing?.id || null, {
+          jarUrl,
+          clientId,
+          extJarId: existing?.extJarId,
+          lastFetchStatus: 'error',
+          lastError: message,
+          lastFetchedAt: new Date().toISOString(),
+          lastResolveStatus: resolveLikelyFailed ? 'error' : existing?.lastResolveStatus || 'pending',
+          lastResolvedAt: resolveLikelyFailed ? new Date().toISOString() : existing?.lastResolvedAt || undefined,
+          lastResolveError: resolveLikelyFailed ? message : existing?.lastResolveError || '',
+        })
+        result.failed += 1
+        result.errors.push({ jarUrl, error: message })
+      }
+
+      if (index < jarUrls.length - 1) {
+        await sleep(MONOBANK_SYNC_INTERVAL_MS)
+      }
     }
 
-    await sleep(500)
+    revalidateActiveProjectPages()
+    return result
+  } finally {
+    await releaseMonobankSyncLock()
   }
-
-  revalidateActiveProjectPages()
-  return result
 }
