@@ -1151,6 +1151,9 @@ For deeper exploration of specific topics, refer to the context files located in
 - The deploy workflow runs on the droplet in `/var/www/app`, installs dependencies with `pnpm install --frozen-lockfile`, builds the app with `pnpm build`, and restarts the process with `pm2 restart way-to-ukraine`.
 - Treat the production host as a Linux container/server environment. Prefer Linux-compatible commands and assumptions when writing deployment, build, or runtime instructions.
 - If deployment behavior is relevant, check `.github/workflows/deploy.yml` first before making assumptions from generic Docker or template docs.
+- If production is moved by creating a new droplet from snapshot, the app stack, PM2 state, swap file, and most OS-level configuration usually move with it, but GitHub Actions secrets and DNS still need to be updated separately if the public IP changes.
+- After a droplet move, the minimum deploy secret that usually needs changing is `DROPLET_HOST`; keep `DROPLET_PORT`, `DROPLET_USER`, and `DROPLET_SSH_KEY` unchanged unless SSH settings actually changed.
+- Verify post-migration behavior from the new droplet before deleting the old one: app responds locally, `pm2` is healthy, deploy workflow succeeds, and Monobank requests succeed from the new public IP.
 
 ## Project-Specific Implementation Notes
 
@@ -1163,3 +1166,6 @@ For deeper exploration of specific topics, refer to the context files located in
 7. **Brand Logos in Header/Footer**: Prefer inline SVG logos for stable transparent rendering; uploaded media logos can introduce unwanted matte/background artifacts depending on source assets.
 8. **Homepage Project Card Linking**: For dedicated routes, update both header nav and homepage card seeded links together (e.g. `#projects` -> `/projects`) to avoid split navigation behavior.
 9. **Keep `AGENTS.md` Current on Commits**: Before every commit, check whether repo instructions or workflow assumptions changed during the work. If they did, update `AGENTS.md` in the same change automatically rather than leaving it stale.
+10. **Monobank Sync Depends on Egress IP Reputation**: The Monobank jar endpoints can return `429 TMR` from one droplet IP while working normally from another. If Monobank requests suddenly fail in production, test from the current public IP before changing code.
+11. **Prefer Fresh Host Verification Over Repeated Retries**: When Monobank starts rate-limiting a host, do not keep hammering the same IP. Validate with one or two manual `curl` requests, then test from a different host/provider or a newly migrated droplet.
+12. **Current Monobank Jar Response Shape**: The successful jar payload returns fields like `amount`, `goal`, `jarId`, `title`, `description`, and `closed` boolean. Do not assume the legacy `jarStatus` field from the old Laravel implementation still exists.
