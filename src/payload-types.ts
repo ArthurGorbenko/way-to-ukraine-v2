@@ -2014,6 +2014,13 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+    backTitle: string;
+    backItems: {
+      text: string;
+      id?: string | null;
+    }[];
+    backButtonLabel: string;
+    backButtonUrl: string;
         id?: T;
       };
   updatedAt?: T;
@@ -2298,6 +2305,15 @@ export interface TaskSchedulePublish {
         } | null);
     global?: string | null;
     user?: (string | null) | User;
+        backTitle?: T;
+        backItems?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        backButtonLabel?: T;
+        backButtonUrl?: T;
   };
   output?: unknown;
 }

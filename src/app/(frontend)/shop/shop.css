@@ -16,13 +16,68 @@
   gap: 18px;
 }
 
+.shop-card-scene {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  perspective: 1400px;
+  cursor: pointer;
+  border-radius: 34px;
+  outline: none;
+}
+
+.shop-card-scene:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 188, 0, 0.85);
+}
+
+.shop-card-inner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.shop-card-scene.is-flipped .shop-card-inner {
+  transform: rotateY(180deg);
+}
+
 .shop-card {
   position: relative;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   border-radius: 34px;
-  aspect-ratio: 1 / 1;
   background: rgba(255, 255, 255, 0.18);
   box-shadow: 0 16px 40px rgba(2, 31, 66, 0.16);
+}
+
+.shop-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.shop-card-front {
+  z-index: 1;
+  transform: rotateY(0deg) translateZ(2px);
+}
+
+.shop-card-back {
+  transform: rotateY(180deg) translateZ(2px);
+  background: linear-gradient(180deg, rgba(20, 47, 88, 0.98) 0%, rgba(14, 21, 34, 0.98) 100%);
+}
+
+.shop-card-scene.is-flipped .shop-card-front {
+  visibility: hidden;
+}
+
+.shop-card-scene:not(.is-flipped) .shop-card-back {
+  visibility: hidden;
 }
 
 .shop-card-image {
@@ -93,6 +148,107 @@
   color: #021f42;
 }
 
+.shop-card-back-gradient,
+.shop-card-back-shade,
+.shop-card-back-image {
+  position: absolute;
+  inset: 0;
+}
+
+.shop-card-back-gradient {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(118, 173, 255, 0.16), rgba(118, 173, 255, 0) 34%),
+    linear-gradient(180deg, rgba(25, 58, 108, 0.92) 0%, rgba(17, 23, 35, 0.96) 100%);
+}
+
+.shop-card-back-image {
+  object-fit: contain;
+  opacity: 0.12;
+  transform: scale(0.84) translateY(10%);
+  filter: saturate(0) brightness(0.55);
+}
+
+.shop-card-back-shade {
+  background:
+    linear-gradient(180deg, rgba(11, 32, 68, 0.05) 0%, rgba(11, 32, 68, 0.4) 48%, rgba(8, 11, 18, 0.84) 100%),
+    linear-gradient(180deg, rgba(5, 16, 37, 0) 0%, rgba(5, 16, 37, 0.38) 100%);
+}
+
+.shop-card-back-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 34px 28px 28px;
+  color: #fff;
+}
+
+.shop-card-back-title {
+  margin: 0;
+  font-size: clamp(24px, 2.2vw, 29px);
+  line-height: 1.08;
+  font-weight: 700;
+  text-align: center;
+}
+
+.shop-card-back-list {
+  margin: 24px 0 0;
+  max-width: 88%;
+  padding-left: 1.2em;
+  font-size: clamp(15px, 1.55vw, 19px);
+  line-height: 1.08;
+}
+
+.shop-card-back-list-item + .shop-card-back-list-item {
+  margin-top: 2px;
+}
+
+.shop-card-back-action {
+  position: relative;
+  margin-top: auto;
+  min-height: 134px;
+  width: 100%;
+}
+
+.shop-card-back-action-frame {
+  position: absolute;
+  left: 34px;
+  right: 44px;
+  top: 16px;
+  bottom: 16px;
+  border: 4px solid rgba(255, 255, 255, 0.94);
+  border-right: 0;
+  border-radius: 40px 0 0 40px;
+}
+
+.shop-card-back-button {
+  position: absolute;
+  left: 70px;
+  right: 70px;
+  top: 47px;
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #ffbc00;
+  padding: 8px 18px;
+  text-align: center;
+  font-size: clamp(14px, 1.15vw, 18px);
+  line-height: 1;
+  font-weight: 700;
+  color: #082d5f;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.shop-card-back-button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
 @media (max-width: 1240px) {
   .shop-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -106,6 +262,10 @@
   }
 
   .shop-card {
+    border-radius: 26px;
+  }
+
+  .shop-card-scene {
     border-radius: 26px;
   }
 
@@ -137,5 +297,46 @@
   .shop-card-price {
     min-width: 138px;
     font-size: 18px;
+  }
+
+  .shop-card-back-content {
+    padding: 24px 18px 18px;
+  }
+
+  .shop-card-back-title {
+    font-size: 18px;
+  }
+
+  .shop-card-back-list {
+    margin-top: 16px;
+    max-width: 94%;
+    font-size: 14px;
+    line-height: 1.04;
+  }
+
+  .shop-card-back-list-item + .shop-card-back-list-item {
+    margin-top: 1px;
+  }
+
+  .shop-card-back-action {
+    min-height: 102px;
+  }
+
+  .shop-card-back-action-frame {
+    left: 18px;
+    right: 24px;
+    top: 12px;
+    bottom: 14px;
+    border-width: 3px;
+    border-radius: 30px 0 0 30px;
+  }
+
+  .shop-card-back-button {
+    left: 36px;
+    right: 36px;
+    top: 34px;
+    min-height: 40px;
+    padding-inline: 10px;
+    font-size: 12px;
   }
 }
