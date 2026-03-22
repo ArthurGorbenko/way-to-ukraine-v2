@@ -16,9 +16,18 @@ export default async function ActiveProjectDonatePage() {
   const locale = await getRequestPayloadLocale()
   const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const project = activeProjects?.projects?.[0]
-  const paymentMethods = project?.donateMethods || []
-  const jar = await getMonobankJarSnapshot(project?.monoJarUrl)
+  const paymentMethods = activeProjects?.donateMethods || []
+  const jar = await getMonobankJarSnapshot(project?.monobankJar)
   const raisedLabel = locale === 'en' ? 'raised:' : 'зібрано:'
+  const monobankMethod = jar
+    ? {
+        label: 'Monobank',
+        description: jar.description || undefined,
+        actionLabel: locale === 'en' ? 'Open jar' : 'Відкрити банку',
+        actionUrl: jar.jarUrl,
+        details: [{ label: jar.title || 'Monobank', value: jar.jarUrl }],
+      }
+    : null
 
   return (
     <article className="donate-page pb-10 pt-30 lg:pb-30 lg:pt-24">
@@ -86,7 +95,7 @@ export default async function ActiveProjectDonatePage() {
           </section>
         </div>
 
-        <DonateMethods methods={paymentMethods} />
+        <DonateMethods methods={paymentMethods} monobankMethod={monobankMethod} />
       </section>
     </article>
   )

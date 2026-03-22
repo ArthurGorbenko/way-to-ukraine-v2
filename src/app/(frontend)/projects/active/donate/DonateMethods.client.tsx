@@ -3,7 +3,7 @@
 import type { Config } from '@/payload-types'
 import { useMemo, useState } from 'react'
 
-type DonateMethod = NonNullable<Config['globals']['active-projects']['projects']>[number]['donateMethods'] extends
+type DonateMethod = Config['globals']['active-projects']['donateMethods'] extends
   | (infer T)[]
   | null
   | undefined
@@ -12,20 +12,10 @@ type DonateMethod = NonNullable<Config['globals']['active-projects']['projects']
 
 type DonateMethodsProps = {
   methods: DonateMethod[]
+  monobankMethod?: DonateMethod | null
 }
 
 const defaultMethods: DonateMethod[] = [
-  {
-    label: 'Monobank',
-    details: [
-      { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
-      {
-        label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade',
-        value: 'https://send.monobank.ua/jar/bB9VYwZiY',
-      },
-      { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
-    ],
-  },
   {
     label: 'UniversalBank',
     details: [
@@ -51,11 +41,12 @@ const defaultMethods: DonateMethod[] = [
   },
 ]
 
-export function DonateMethods({ methods }: DonateMethodsProps) {
+export function DonateMethods({ methods, monobankMethod }: DonateMethodsProps) {
   const normalized = useMemo(() => {
     const list = methods.filter((method) => Boolean(method?.label))
-    return list.length > 0 ? list : defaultMethods
-  }, [methods])
+    const sharedMethods = list.length > 0 ? list : defaultMethods
+    return monobankMethod?.label ? [monobankMethod, ...sharedMethods] : sharedMethods
+  }, [methods, monobankMethod])
 
   const [activeIndex, setActiveIndex] = useState(0)
   const active = normalized[activeIndex]

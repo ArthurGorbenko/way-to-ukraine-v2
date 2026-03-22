@@ -24,7 +24,7 @@ export default async function ActiveProjectDetailsPage() {
   const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const project = activeProjects?.projects?.[0]
   const gallery = project?.detailsGallery || []
-  const jar = await getMonobankJarSnapshot(project?.monoJarUrl)
+  const jar = await getMonobankJarSnapshot(project?.monobankJar)
   const raisedLabel = locale === 'en' ? 'raised:' : 'зібрано:'
 
   return (

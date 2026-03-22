@@ -1,5 +1,4 @@
 import configPromise from '@payload-config'
-import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
 
 import type { Config, MonobankJar } from '@/payload-types'
@@ -20,7 +19,7 @@ export type MonobankJarData = {
 }
 
 type ActiveProjectsGlobal = Config['globals']['active-projects']
-type ActiveProjectItem = NonNullable<ActiveProjectsGlobal['projects']>[number]
+type MonobankJarReference = NonNullable<ActiveProjectsGlobal['projects']>[number]['monobankJar']
 
 export function parseMonobankClientId(input: string | null | undefined): string | null {
   if (!input) return null
@@ -161,57 +160,28 @@ export function formatMonobankAmount(amount: number, locale: 'uk' | 'en'): strin
   return `${formatted} ${locale === 'uk' ? 'грн' : 'UAH'}`
 }
 
-function buildSnapshotMap(snapshots: MonobankJar[]): Map<string, MonobankJar> {
-  return new Map(
-    snapshots.flatMap((snapshot) => {
-      const keys = [snapshot.jarUrl, snapshot.clientId, snapshot.extJarId].filter(
-        (key): key is string => Boolean(key),
-      )
-      return keys.map((key) => [key, snapshot] as const)
-    }),
-  )
+function hasUsableSnapshot(snapshot: MonobankJar): boolean {
+  const hasUsableValues = Boolean(snapshot.displayGoal || snapshot.displayAmount || snapshot.progressPercent)
+  return snapshot.lastFetchStatus === 'success' || hasUsableValues
 }
 
-const getCachedSnapshots = unstable_cache(
-  async (): Promise<MonobankJar[]> => {
-    const payload = await getPayload({ config: configPromise })
-    const result = await payload.find({
-      collection: 'monobank-jars',
-      limit: 200,
-      pagination: false,
-      sort: 'jarId',
-    })
+function isMonobankJar(value: MonobankJarReference): value is MonobankJar {
+  return typeof value === 'object' && value !== null
+}
 
-    return result.docs
-  },
-  ['monobank-jar-snapshots'],
-  {
-    tags: ['monobank_jar_snapshots'],
-  },
-)
+export async function getMonobankJarSnapshot(source: MonobankJarReference): Promise<MonobankJar | null> {
+  if (!source) return null
 
-export async function getMonobankJarSnapshot(url: string | null | undefined): Promise<MonobankJar | null> {
-  const clientId = parseMonobankClientId(url)
-  if (!clientId && !url) return null
-
-  const snapshotMap = buildSnapshotMap(await getCachedSnapshots())
-  const snapshot = snapshotMap.get(url || '') || (clientId ? snapshotMap.get(clientId) || null : null)
-  if (!snapshot) return null
-
-  const hasUsableValues = Boolean(snapshot.displayGoal || snapshot.displayAmount || snapshot.progressPercent)
-  if (snapshot.lastFetchStatus !== 'success' && !hasUsableValues) {
-    return null
+  if (isMonobankJar(source)) {
+    return hasUsableSnapshot(source) ? source : null
   }
 
-  return snapshot
-}
+  const payload = await getPayload({ config: configPromise })
+  const snapshot = await payload.findByID({
+    collection: 'monobank-jars',
+    id: source,
+    depth: 0,
+  })
 
-export function collectMonobankJarUrls(
-  projects: ActiveProjectsGlobal['projects'] | null | undefined,
-): string[] {
-  const urls = (projects || [])
-    .map((project: ActiveProjectItem) => project?.monoJarUrl?.trim())
-    .filter((value): value is string => Boolean(value))
-
-  return [...new Set(urls)]
+  return hasUsableSnapshot(snapshot) ? snapshot : null
 }

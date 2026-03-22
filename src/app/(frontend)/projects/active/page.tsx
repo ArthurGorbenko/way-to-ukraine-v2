@@ -18,7 +18,7 @@ export default async function ActiveProjectsPage() {
   const locale = await getRequestPayloadLocale()
   const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
   const projects = activeProjects?.projects || []
-  const jarData = await Promise.all(projects.map((project) => getMonobankJarSnapshot(project?.monoJarUrl)))
+  const jarData = await Promise.all(projects.map((project) => getMonobankJarSnapshot(project?.monobankJar)))
   const raisedLabel = locale === 'en' ? 'raised:' : 'зібрано:'
 
   return (

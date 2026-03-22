@@ -13,6 +13,7 @@ import { post3 } from './post-3'
 const collections: CollectionSlug[] = [
   'categories',
   'media',
+  'monobank-jars',
   'pages',
   'posts',
   'shop-items',
@@ -278,6 +279,48 @@ export const seed = async ({
       locale: 'en',
       context: { disableRevalidate: true },
       data: { title: 'Foundation surprise', price: '$65', description: 'Special bonus item from the foundation team.' },
+    }),
+  ])
+
+  payload.logger.info(`— Seeding Monobank jars...`)
+
+  const [steyrRepairJar, steyrTruckJar] = await Promise.all([
+    payload.create({
+      collection: 'monobank-jars',
+      context: { disableRevalidate: true },
+      data: {
+        jarUrl: 'https://send.monobank.ua/jar/3dSGvocJoY',
+        clientId: '3dSGvocJoY',
+        extJarId: '3dSGvocJoY',
+        title: 'Відновлення вантажівки STEYR 1291',
+        description:
+          'Ця вантажівка була передана нами у 25-й ОШБ навесні цього року, після чого була уражена в зоні бойових дій. Наша задача - відновити її та повернути в руки 25-го ОШБ',
+        amountMinor: 0,
+        goalMinor: 0,
+        displayAmount: 0,
+        displayGoal: 0,
+        progressPercent: 0,
+        lastFetchStatus: 'pending',
+        lastResolveStatus: 'pending',
+      },
+    }),
+    payload.create({
+      collection: 'monobank-jars',
+      context: { disableRevalidate: true },
+      data: {
+        jarUrl: 'https://send.monobank.ua/jar/bB9VYwZiY',
+        clientId: 'bB9VYwZiY',
+        extJarId: 'bB9VYwZiY',
+        title: 'Військова вантажівка STEYR 1291',
+        description: '« 120 бригада ТРО, інженерна рота »',
+        amountMinor: 0,
+        goalMinor: 0,
+        displayAmount: 0,
+        displayGoal: 0,
+        progressPercent: 0,
+        lastFetchStatus: 'pending',
+        lastResolveStatus: 'pending',
+      },
     }),
   ])
 
@@ -776,6 +819,31 @@ export const seed = async ({
       },
       data: {
         pageTitle: 'Актуальні проєкти',
+        donateMethods: [
+          {
+            label: 'UniversalBank',
+            details: [
+              { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
+              { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
+              { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
+              { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
+              { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
+              { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
+            ],
+          },
+          {
+            label: 'Crypto',
+            details: [
+              { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
+              { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
+              { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
+            ],
+          },
+          {
+            label: 'Інше',
+            details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }],
+          },
+        ],
         projects: [
           {
             image: image1Doc.id,
@@ -792,43 +860,7 @@ export const seed = async ({
             donateLabel: 'ЗАДОНАТИТИ',
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Задонатити',
-            monoJarUrl: 'https://api.monobank.ua/bank/jar/2S9ehWkVCcYY4SdcXQw3HDHzpsCUq81d',
-            donateMethods: [
-              {
-                label: 'Monobank',
-                details: [
-                  { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
-                  {
-                    label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade',
-                    value: 'https://send.monobank.ua/jar/bB9VYwZiY',
-                  },
-                  { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
-                ],
-              },
-              {
-                label: 'UniversalBank',
-                details: [
-                  { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
-                  { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
-                  { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
-                  { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
-                  { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
-                  { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
-                ],
-              },
-              {
-                label: 'Crypto',
-                details: [
-                  { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
-                  { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
-                  { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
-                ],
-              },
-              {
-                label: 'Інше',
-                details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }],
-              },
-            ],
+            monobankJar: steyrRepairJar.id,
             detailsLabel: 'ДЕТАЛЬНІШЕ',
             detailsUrl: '/projects/active/details',
             detailsPageTitle: 'Детальніше',
@@ -861,43 +893,7 @@ export const seed = async ({
             donateLabel: 'ЗАДОНАТИТИ',
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Задонатити',
-            monoJarUrl: '',
-            donateMethods: [
-              {
-                label: 'Monobank',
-                details: [
-                  { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
-                  {
-                    label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade',
-                    value: 'https://send.monobank.ua/jar/bB9VYwZiY',
-                  },
-                  { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
-                ],
-              },
-              {
-                label: 'UniversalBank',
-                details: [
-                  { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
-                  { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
-                  { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
-                  { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
-                  { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
-                  { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
-                ],
-              },
-              {
-                label: 'Crypto',
-                details: [
-                  { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
-                  { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
-                  { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
-                ],
-              },
-              {
-                label: 'Інше',
-                details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }],
-              },
-            ],
+            monobankJar: steyrTruckJar.id,
             detailsLabel: 'ДЕТАЛЬНІШЕ',
             detailsUrl: '/projects/active/details',
             detailsPageTitle: 'Детальніше',
@@ -1244,6 +1240,28 @@ export const seed = async ({
       },
       data: {
         pageTitle: 'Active Projects',
+        donateMethods: [
+          {
+            label: 'UniversalBank',
+            details: [
+              { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
+              { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
+              { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
+              { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
+              { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
+              { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
+            ],
+          },
+          {
+            label: 'Crypto',
+            details: [
+              { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
+              { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
+              { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
+            ],
+          },
+          { label: 'Other', details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }] },
+        ],
         projects: [
           {
             image: image1Doc.id,
@@ -1260,37 +1278,7 @@ export const seed = async ({
             donateLabel: 'DONATE',
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Donate',
-            monoJarUrl: 'https://api.monobank.ua/bank/jar/2S9ehWkVCcYY4SdcXQw3HDHzpsCUq81d',
-            donateMethods: [
-              {
-                label: 'Monobank',
-                details: [
-                  { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
-                  { label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade', value: 'https://send.monobank.ua/jar/bB9VYwZiY' },
-                  { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
-                ],
-              },
-              {
-                label: 'UniversalBank',
-                details: [
-                  { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
-                  { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
-                  { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
-                  { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
-                  { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
-                  { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
-                ],
-              },
-              {
-                label: 'Crypto',
-                details: [
-                  { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
-                  { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
-                  { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
-                ],
-              },
-              { label: 'Other', details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }] },
-            ],
+            monobankJar: steyrRepairJar.id,
             detailsLabel: 'DETAILS',
             detailsUrl: '/projects/active/details',
             detailsPageTitle: 'Details',
@@ -1323,37 +1311,7 @@ export const seed = async ({
             donateLabel: 'DONATE',
             donateUrl: '/projects/active/donate',
             donatePageTitle: 'Donate',
-            monoJarUrl: '',
-            donateMethods: [
-              {
-                label: 'Monobank',
-                details: [
-                  { label: '2 Ecoflow Delta 2 for SOF', value: 'https://send.monobank.ua/jar/5BKt1DUbx6' },
-                  { label: 'Military truck Steyr 1291 for Engineer company of the 120-th TDF Brigade', value: 'https://send.monobank.ua/jar/bB9VYwZiY' },
-                  { label: 'Repair and restoration of damaged STEYR 1291', value: 'https://send.monobank.ua/jar/3dSGvocJoY' },
-                ],
-              },
-              {
-                label: 'UniversalBank',
-                details: [
-                  { label: 'IBAN (EUR)', value: 'UA493220010000026006080001211' },
-                  { label: 'IBAN (USD)', value: 'UA313220010000026007080001210' },
-                  { label: 'IBAN (CHF)', value: 'UA063220010000026003080001214' },
-                  { label: 'IBAN (UAH)', value: 'UA583220010000026007080001209' },
-                  { label: 'Bank', value: 'JSK UNIVERSAL BANK' },
-                  { label: 'Receiver', value: 'CO CF WAY TO UKRAINE' },
-                ],
-              },
-              {
-                label: 'Crypto',
-                details: [
-                  { label: 'BTC', value: '1PgLvcGNwerzKwtDSdvvgPLCgXDYfy8YZW' },
-                  { label: 'ETH (ERC20)', value: '0x6f69c7fc26f885934d48d0285fb8c1a992e4a2da' },
-                  { label: 'USDT (TRC20)', value: 'TW8nrwBuTWogBZN9kzChJ3fjg6FFmC5qaC' },
-                ],
-              },
-              { label: 'Other', details: [{ label: 'PayPal', value: 'waytoukr@gmail.com' }] },
-            ],
+            monobankJar: steyrTruckJar.id,
             detailsLabel: 'DETAILS',
             detailsUrl: '/projects/active/details',
             detailsPageTitle: 'Details',

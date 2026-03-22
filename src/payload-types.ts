@@ -800,8 +800,17 @@ export interface Form {
  */
 export interface MonobankJar {
   id: string;
+  /**
+   * Primary manual field. Add the public send.monobank.ua/jar/{clientId} URL here.
+   */
   jarUrl: string;
-  clientId: string;
+  /**
+   * Derived from the jar URL during sync.
+   */
+  clientId?: string | null;
+  /**
+   * Resolved by sync and used for Monobank API fetches.
+   */
   extJarId?: string | null;
   title?: string | null;
   description?: string | null;
@@ -1977,6 +1986,20 @@ export interface FinishedProject {
 export interface ActiveProject {
   id: string;
   pageTitle: string;
+  donateMethods: {
+    label: string;
+    description?: string | null;
+    actionLabel?: string | null;
+    actionUrl?: string | null;
+    details?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
   projects: {
     image: string | Media;
     badgeImage?: (string | null) | Media;
@@ -1993,23 +2016,9 @@ export interface ActiveProject {
     donateUrl: string;
     donatePageTitle: string;
     /**
-     * Store the public send.monobank.ua/jar/{clientId} link for the fundraiser.
+     * Select the Monobank jar record used to render fundraising progress for this project.
      */
-    monoJarUrl?: string | null;
-    donateMethods: {
-      label: string;
-      description?: string | null;
-      actionLabel?: string | null;
-      actionUrl?: string | null;
-      details?:
-        | {
-            label: string;
-            value: string;
-            id?: string | null;
-          }[]
-        | null;
-      id?: string | null;
-    }[];
+    monobankJar?: (string | null) | MonobankJar;
     detailsLabel: string;
     detailsUrl: string;
     detailsPageTitle: string;
@@ -2295,6 +2304,22 @@ export interface FinishedProjectsSelect<T extends boolean = true> {
  */
 export interface ActiveProjectsSelect<T extends boolean = true> {
   pageTitle?: T;
+  donateMethods?:
+    | T
+    | {
+        label?: T;
+        description?: T;
+        actionLabel?: T;
+        actionUrl?: T;
+        details?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   projects?:
     | T
     | {
@@ -2312,23 +2337,7 @@ export interface ActiveProjectsSelect<T extends boolean = true> {
         donateLabel?: T;
         donateUrl?: T;
         donatePageTitle?: T;
-        monoJarUrl?: T;
-        donateMethods?:
-          | T
-          | {
-              label?: T;
-              description?: T;
-              actionLabel?: T;
-              actionUrl?: T;
-              details?:
-                | T
-                | {
-                    label?: T;
-                    value?: T;
-                    id?: T;
-                  };
-              id?: T;
-            };
+        monobankJar?: T;
         detailsLabel?: T;
         detailsUrl?: T;
         detailsPageTitle?: T;

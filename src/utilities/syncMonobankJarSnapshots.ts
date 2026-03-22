@@ -6,11 +6,11 @@ import path from 'path'
 import { getPayload } from 'payload'
 
 import {
-  collectMonobankJarUrls,
   fetchMonobankJarById,
   parseMonobankClientId,
   resolveMonobankExtJarId,
 } from '@/utilities/monobankJarSnapshot'
+import type { MonobankJar } from '@/payload-types'
 import type { Payload } from 'payload'
 
 type SyncResult = {
@@ -39,38 +39,16 @@ function formatJarForLog(jarUrl: string, clientId?: string | null, extJarId?: st
   return parts.join(' | ')
 }
 
-async function getConfiguredJarUrls(payload: Payload): Promise<string[]> {
-  const locales: Array<'uk' | 'en'> = ['uk', 'en']
-  const uniqueUrls = new Map<string, string>()
-
-  for (const locale of locales) {
-    const activeProjects = await payload.findGlobal({
-      slug: 'active-projects',
-      locale: locale as unknown as 'all',
-      depth: 0,
-    })
-
-    for (const url of collectMonobankJarUrls(activeProjects.projects)) {
-      const clientId = parseMonobankClientId(url)
-      if (!clientId) continue
-      if (!uniqueUrls.has(clientId)) uniqueUrls.set(clientId, url)
-    }
-  }
-
-  return [...uniqueUrls.values()]
-}
-
-async function findExistingSnapshot(payload: Payload, clientId: string, jarUrl: string) {
-  const existing = await payload.find({
+async function getConfiguredJars(payload: Payload): Promise<MonobankJar[]> {
+  const result = await payload.find({
     collection: 'monobank-jars',
-    where: {
-      or: [{ clientId: { equals: clientId } }, { jarUrl: { equals: jarUrl } }],
-    },
-    limit: 1,
+    depth: 0,
+    limit: 200,
     pagination: false,
+    sort: 'clientId',
   })
 
-  return existing.docs[0] || null
+  return result.docs
 }
 
 function sleep(ms: number): Promise<void> {
@@ -252,7 +230,6 @@ function revalidateActiveProjectPages() {
   revalidatePath('/en/projects/active/donate')
   revalidateTag('global_active-projects_uk')
   revalidateTag('global_active-projects_en')
-  revalidateTag('monobank_jar_snapshots')
 }
 
 export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
@@ -260,22 +237,23 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
 
   try {
     const payload = await getPayload({ config: configPromise })
-    const jarUrls = await getConfiguredJarUrls(payload)
+    const configuredJars = await getConfiguredJars(payload)
 
-    payload.logger.info(`Starting Monobank sync for ${jarUrls.length} jar(s)`)
+    payload.logger.info(`Starting Monobank sync for ${configuredJars.length} jar(s)`)
 
     const result: SyncResult = {
-      total: jarUrls.length,
+      total: configuredJars.length,
       success: 0,
       failed: 0,
       skipped: 0,
       errors: [],
     }
 
-    for (const [index, jarUrl] of jarUrls.entries()) {
+    for (const [index, configuredJar] of configuredJars.entries()) {
+      const jarUrl = configuredJar.jarUrl?.trim()
       const clientId = parseMonobankClientId(jarUrl)
 
-      if (!clientId) {
+      if (!jarUrl || !clientId) {
         payload.logger.warn(`Skipping Monobank sync for invalid jar URL: ${jarUrl}`)
         result.skipped += 1
         result.errors.push({ jarUrl, error: 'Invalid jar URL' })
@@ -283,39 +261,37 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
       }
 
       try {
-        const existing = await findExistingSnapshot(payload, clientId, jarUrl)
         payload.logger.info(
-          `Syncing Monobank jar ${index + 1}/${jarUrls.length}: ${formatJarForLog(jarUrl, clientId, existing?.extJarId)}`,
+          `Syncing Monobank jar ${index + 1}/${configuredJars.length}: ${formatJarForLog(jarUrl, clientId, configuredJar.extJarId)}`,
         )
-        await syncJarSnapshot(payload, existing?.id || null, jarUrl, clientId, existing?.extJarId)
+        await syncJarSnapshot(payload, configuredJar.id, jarUrl, clientId, configuredJar.extJarId)
         payload.logger.info(`Monobank jar sync succeeded: ${formatJarForLog(jarUrl, clientId)}`)
         result.success += 1
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown sync error'
-        const existing = await findExistingSnapshot(payload, clientId, jarUrl)
         const resolveLikelyFailed =
           message.includes('extJarId') || message.includes('resolver') || message.includes('invalid alias')
 
         payload.logger.error(
-          `Monobank jar sync failed for ${formatJarForLog(jarUrl, clientId, existing?.extJarId)}: ${message}`,
+          `Monobank jar sync failed for ${formatJarForLog(jarUrl, clientId, configuredJar.extJarId)}: ${message}`,
         )
 
-        await upsertJarError(payload, existing?.id || null, {
+        await upsertJarError(payload, configuredJar.id, {
           jarUrl,
           clientId,
-          extJarId: existing?.extJarId,
+          extJarId: configuredJar.extJarId,
           lastFetchStatus: 'error',
           lastError: message,
           lastFetchedAt: new Date().toISOString(),
-          lastResolveStatus: resolveLikelyFailed ? 'error' : existing?.lastResolveStatus || 'pending',
-          lastResolvedAt: resolveLikelyFailed ? new Date().toISOString() : existing?.lastResolvedAt || undefined,
-          lastResolveError: resolveLikelyFailed ? message : existing?.lastResolveError || '',
+          lastResolveStatus: resolveLikelyFailed ? 'error' : configuredJar.lastResolveStatus || 'pending',
+          lastResolvedAt: resolveLikelyFailed ? new Date().toISOString() : configuredJar.lastResolvedAt || undefined,
+          lastResolveError: resolveLikelyFailed ? message : configuredJar.lastResolveError || '',
         })
         result.failed += 1
         result.errors.push({ jarUrl, error: message })
       }
 
-      if (index < jarUrls.length - 1) {
+      if (index < configuredJars.length - 1) {
         payload.logger.info(
           `Waiting ${Math.round(MONOBANK_SYNC_INTERVAL_MS / 1000)}s before next Monobank jar sync`,
         )
