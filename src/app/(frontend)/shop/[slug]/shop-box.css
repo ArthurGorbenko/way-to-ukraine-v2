@@ -1,4 +1,6 @@
 .shop-box-page {
+  --shop-box-panel-height: 430px;
+  --shop-box-panel-height-mobile: 360px;
   margin-bottom: -1px;
   background-image:
     radial-gradient(circle at 50% 8%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 30%),
@@ -17,6 +19,33 @@
   margin-top: 40px;
 }
 
+.shop-box-builder-tools {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.shop-box-mode-toggle {
+  border: 0;
+  border-radius: 999px;
+  background: #082d5f;
+  color: #ffffff;
+  padding: 12px 20px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.shop-box-mode-toggle:hover,
+.shop-box-mode-toggle:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(8, 45, 95, 0.18);
+  outline: none;
+}
+
 .shop-box-columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr);
@@ -25,7 +54,9 @@
 }
 
 .shop-box-panel {
-  min-height: 430px;
+  display: flex;
+  flex-direction: column;
+  height: var(--shop-box-panel-height);
   border-radius: 50px;
   background: rgba(255, 255, 255, 0.44);
   backdrop-filter: blur(3px);
@@ -55,15 +86,22 @@
 
 .shop-box-cards {
   display: grid;
+  flex: 1;
+  min-height: 0;
   gap: 16px;
+  align-content: start;
+  overflow-y: auto;
+  padding-right: 4px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .shop-box-cards-empty {
-  min-height: 252px;
+  min-height: 0;
 }
 
 .shop-box-empty-placeholder {
-  min-height: 252px;
+  min-height: 100%;
 }
 
 .shop-box-item-card {
@@ -78,17 +116,13 @@
   padding: 8px 16px 8px 12px;
   text-align: left;
   color: #021f42;
-  box-shadow: 0 10px 26px rgba(2, 31, 66, 0.08);
   cursor: pointer;
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
+  transition: transform 180ms ease;
 }
 
 .shop-box-item-card:hover,
 .shop-box-item-card:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(2, 31, 66, 0.14);
   outline: none;
 }
 
@@ -140,11 +174,31 @@
 
 .shop-box-panel-arrow {
   margin: 24px auto 0;
+  flex-shrink: 0;
+  display: block;
+  border-top: 16px solid #cfcfcf;
+  border-right: 18px solid transparent;
+  border-left: 18px solid transparent;
+  border-bottom: 0;
+  background: transparent;
+  padding: 0;
   width: 0;
   height: 0;
-  border-left: 18px solid transparent;
-  border-right: 18px solid transparent;
-  border-top: 16px solid #cfcfcf;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-top-color 180ms ease;
+}
+
+.shop-box-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.shop-box-panel-arrow:hover,
+.shop-box-panel-arrow:focus-visible {
+  transform: translateY(2px);
+  border-top-color: #082d5f;
+  outline: none;
 }
 
 .shop-box-footer-row {
@@ -202,6 +256,29 @@
   text-align: center;
 }
 
+.shop-box-builder-capture .shop-box-columns {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.shop-box-builder-capture .shop-box-panel-selected {
+  height: auto;
+  min-height: var(--shop-box-panel-height);
+}
+
+.shop-box-builder-capture .shop-box-panel-selected .shop-box-cards {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.shop-box-builder-capture .shop-box-panel-selected .shop-box-panel-arrow,
+.shop-box-builder-capture .shop-box-panel-available,
+.shop-box-builder-capture .shop-box-center-arrow,
+.shop-box-builder-capture .shop-box-footer-row {
+  display: none;
+}
+
 @media (max-width: 1100px) {
   .shop-box-columns {
     grid-template-columns: 1fr;
@@ -233,8 +310,16 @@
     margin-top: 28px;
   }
 
+  .shop-box-builder-tools {
+    justify-content: stretch;
+  }
+
+  .shop-box-mode-toggle {
+    width: 100%;
+  }
+
   .shop-box-panel {
-    min-height: 0;
+    height: var(--shop-box-panel-height-mobile);
     border-radius: 32px;
     padding: 18px 16px 28px;
   }
@@ -252,9 +337,8 @@
     padding: 8px 12px 8px 8px;
   }
 
-  .shop-box-cards-empty,
-  .shop-box-empty-placeholder {
-    min-height: 176px;
+  .shop-box-cards {
+    padding-right: 4px;
   }
 
   .shop-box-item-thumb {

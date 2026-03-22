@@ -3,7 +3,8 @@
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import type { RefObject } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 type MediaResource = string | number | MediaType | null | undefined
 
@@ -26,6 +27,8 @@ type ShopBoxBuilderProps = {
   nextBoxLabel: string
   nextBoxHint: string
   nextBoxUrl: string
+  screenshotModeLabel: string
+  builderModeLabel: string
 }
 
 export function ShopBoxBuilder({
@@ -39,10 +42,15 @@ export function ShopBoxBuilder({
   nextBoxLabel,
   nextBoxHint,
   nextBoxUrl,
+  screenshotModeLabel,
+  builderModeLabel,
 }: ShopBoxBuilderProps) {
   const maxSelection = items.length
   const selectedDefaults = useMemo(() => initialSelectedIds, [initialSelectedIds])
   const [selectedIds, setSelectedIds] = useState<string[]>(selectedDefaults)
+  const [isScreenshotMode, setIsScreenshotMode] = useState(false)
+  const selectedListRef = useRef<HTMLDivElement>(null)
+  const availableListRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setSelectedIds(selectedDefaults)
@@ -65,13 +73,42 @@ export function ShopBoxBuilder({
     })
   }
 
+  const scrollListByPanel = (listRef: RefObject<HTMLDivElement | null>) => {
+    const list = listRef.current
+
+    if (!list) return
+
+    const remainingScroll = list.scrollHeight - list.clientHeight - list.scrollTop
+    const scrollStep = Math.max(list.clientHeight * 0.72, 160)
+
+    if (remainingScroll <= 8) {
+      list.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
+    list.scrollBy({ top: scrollStep, behavior: 'smooth' })
+  }
+
   return (
-    <section className="shop-box-builder">
+    <section className={`shop-box-builder ${isScreenshotMode ? 'shop-box-builder-capture' : ''}`}>
+      <div className="shop-box-builder-tools">
+        <button
+          type="button"
+          className="shop-box-mode-toggle"
+          onClick={() => setIsScreenshotMode((current) => !current)}
+        >
+          {isScreenshotMode ? builderModeLabel : screenshotModeLabel}
+        </button>
+      </div>
+
       <div className="shop-box-columns">
-        <section className="shop-box-panel">
+        <section className="shop-box-panel shop-box-panel-selected">
           <div className="shop-box-pill shop-box-pill-selected">{selectionLabel}</div>
 
-          <div className={`shop-box-cards ${selectedItems.length === 0 ? 'shop-box-cards-empty' : ''}`}>
+          <div
+            ref={selectedListRef}
+            className={`shop-box-cards ${selectedItems.length === 0 ? 'shop-box-cards-empty' : ''}`}
+          >
             {selectedItems.length > 0 ? (
               selectedItems.map((entry) => (
                 <button
@@ -102,17 +139,22 @@ export function ShopBoxBuilder({
             )}
           </div>
 
-          <div className="shop-box-panel-arrow" aria-hidden="true" />
+          <button
+            type="button"
+            className="shop-box-panel-arrow"
+            onClick={() => scrollListByPanel(selectedListRef)}
+            aria-label={`Scroll ${selectionLabel} list`}
+          />
         </section>
 
         <div className="shop-box-center-arrow" aria-hidden="true">
           ←
         </div>
 
-        <section className="shop-box-panel">
+        <section className="shop-box-panel shop-box-panel-available">
           <div className="shop-box-pill shop-box-pill-available">{availableLabel}</div>
 
-          <div className="shop-box-cards">
+          <div ref={availableListRef} className="shop-box-cards">
             {availableItems.map((entry) => (
               <button
                 key={entry.id}
@@ -139,7 +181,12 @@ export function ShopBoxBuilder({
             ))}
           </div>
 
-          <div className="shop-box-panel-arrow" aria-hidden="true" />
+          <button
+            type="button"
+            className="shop-box-panel-arrow"
+            onClick={() => scrollListByPanel(availableListRef)}
+            aria-label={`Scroll ${availableLabel} list`}
+          />
         </section>
       </div>
 

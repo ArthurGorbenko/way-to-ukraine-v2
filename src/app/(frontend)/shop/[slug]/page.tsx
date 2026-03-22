@@ -62,6 +62,8 @@ function getShopDetailCopy(locale: 'ua' | 'en') {
       availableLabel: 'Choose an item',
       instruction: 'Choose 5 items from the list on the right, make a screenshot of your donation, and send it to @CU4O2.',
       nextBoxHint: '(go to the next box)',
+      screenshotModeLabel: 'Prepare screenshot',
+      builderModeLabel: 'Back to builder',
     }
   }
 
@@ -70,6 +72,8 @@ function getShopDetailCopy(locale: 'ua' | 'en') {
     availableLabel: 'Оберіть айтем',
     instruction: 'Оберіть 5 айтемів серед запропонованих праворуч, зробіть скрін свого донату та надішліть його @CU4O2.',
     nextBoxHint: '(перейти у наступний бокс)',
+    screenshotModeLabel: 'Підготувати скрін',
+    builderModeLabel: 'Повернути конструктор',
   }
 }
 
@@ -107,8 +111,10 @@ export default async function ShopBoxPage({ params }: { params: Promise<{ slug: 
           nextBoxHint={detailCopy.nextBoxHint}
           nextBoxLabel={nextItem?.title || currentItem?.title || 'Shop box'}
           nextBoxUrl={getShopItemPath(nextItem)}
+          screenshotModeLabel={detailCopy.screenshotModeLabel}
           selectionLabel={detailCopy.selectionLabel}
           title={currentItem?.title || 'Shop box'}
+          builderModeLabel={detailCopy.builderModeLabel}
         />
       </section>
     </article>
