@@ -18,6 +18,7 @@ import { Achievements } from './globals/Achievements/config'
 import { About } from './globals/About/config'
 import { FinishedProjects } from './globals/FinishedProjects/config'
 import { Homepage } from './globals/Homepage/config'
+import { ProjectsOverview } from './globals/ProjectsOverview/config'
 import { Shop } from './globals/Shop/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
@@ -72,7 +73,7 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users, MonobankJars, ShopItems],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, Homepage, About, Achievements, FinishedProjects, ActiveProjects, Shop],
+  globals: [Header, Footer, Homepage, About, Achievements, ProjectsOverview, FinishedProjects, ActiveProjects, Shop],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

@@ -746,6 +746,30 @@ export const seed = async ({
       },
     }),
     payload.updateGlobal({
+      slug: 'projects-overview',
+      locale: 'uk' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Проєкти',
+        cards: [
+          {
+            image: image1Doc.id,
+            title: 'Актуальні проєкти',
+            url: '/projects/active',
+            accentSide: 'left',
+          },
+          {
+            image: image2Doc.id,
+            title: 'Закриті проєкти',
+            url: '/projects/finished',
+            accentSide: 'right',
+          },
+        ],
+      },
+    }),
+    payload.updateGlobal({
       slug: 'finished-projects',
       locale: 'uk' as unknown as 'all',
       context: {
@@ -1209,6 +1233,30 @@ export const seed = async ({
           label: 'CLOSED PROJECTS',
           url: '/projects/finished',
         },
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'projects-overview',
+      locale: 'en' as unknown as 'all',
+      context: {
+        disableRevalidate: true,
+      },
+      data: {
+        pageTitle: 'Projects',
+        cards: [
+          {
+            image: image1Doc.id,
+            title: 'Active projects',
+            url: '/projects/active',
+            accentSide: 'left',
+          },
+          {
+            image: image2Doc.id,
+            title: 'Closed projects',
+            url: '/projects/finished',
+            accentSide: 'right',
+          },
+        ],
       },
     }),
     payload.updateGlobal({

@@ -119,6 +119,7 @@ export interface Config {
     homepage: Homepage;
     about: About;
     achievements: Achievement;
+    'projects-overview': ProjectsOverview;
     'finished-projects': FinishedProject;
     'active-projects': ActiveProject;
     shop: Shop;
@@ -129,6 +130,7 @@ export interface Config {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
     achievements: AchievementsSelect<false> | AchievementsSelect<true>;
+    'projects-overview': ProjectsOverviewSelect<false> | ProjectsOverviewSelect<true>;
     'finished-projects': FinishedProjectsSelect<false> | FinishedProjectsSelect<true>;
     'active-projects': ActiveProjectsSelect<false> | ActiveProjectsSelect<true>;
     shop: ShopSelect<false> | ShopSelect<true>;
@@ -1964,6 +1966,23 @@ export interface Achievement {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects-overview".
+ */
+export interface ProjectsOverview {
+  id: string;
+  pageTitle: string;
+  cards: {
+    image?: (string | null) | Media;
+    title: string;
+    url: string;
+    accentSide: 'left' | 'right';
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "finished-projects".
  */
 export interface FinishedProject {
@@ -2274,6 +2293,25 @@ export interface AchievementsSelect<T extends boolean = true> {
     | {
         label?: T;
         url?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects-overview_select".
+ */
+export interface ProjectsOverviewSelect<T extends boolean = true> {
+  pageTitle?: T;
+  cards?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        url?: T;
+        accentSide?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
