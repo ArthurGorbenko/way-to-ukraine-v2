@@ -32,8 +32,7 @@ export const ProjectsOverview: GlobalConfig = {
       name: 'cards',
       type: 'array',
       required: true,
-      minRows: 2,
-      maxRows: 2,
+      minRows: 1,
       fields: [
         {
           name: 'image',

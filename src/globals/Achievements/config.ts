@@ -35,8 +35,7 @@ export const Achievements: GlobalConfig = {
       name: 'topStats',
       type: 'array',
       required: true,
-      minRows: 3,
-      maxRows: 3,
+      minRows: 1,
       fields: [
         {
           name: 'value',
@@ -92,8 +91,7 @@ export const Achievements: GlobalConfig = {
       name: 'cards',
       type: 'array',
       required: true,
-      minRows: 11,
-      maxRows: 11,
+      minRows: 1,
       fields: [
         {
           name: 'layoutType',

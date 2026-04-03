@@ -93,8 +93,7 @@ export const Homepage: GlobalConfig = {
     {
       name: 'cards',
       type: 'array',
-      minRows: 6,
-      maxRows: 6,
+      minRows: 1,
       required: true,
       fields: [
         {

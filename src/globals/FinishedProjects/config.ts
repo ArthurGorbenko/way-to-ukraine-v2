@@ -25,8 +25,7 @@ export const FinishedProjects: GlobalConfig = {
       name: 'cards',
       type: 'array',
       required: true,
-      minRows: 9,
-      maxRows: 9,
+      minRows: 1,
       fields: [
         {
           name: 'image',
