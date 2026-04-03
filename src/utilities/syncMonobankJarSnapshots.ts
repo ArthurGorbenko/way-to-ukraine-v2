@@ -69,6 +69,16 @@ function sleep(ms: number): Promise<void> {
   })
 }
 
+function isLikelyInvalidExtJarId(extJarId: string | null | undefined, clientId: string): boolean {
+  if (!extJarId) return true
+
+  const normalizedExtJarId = extJarId.trim()
+  if (!normalizedExtJarId) return true
+
+  // Some older records were populated with the public clientId instead of the resolved Monobank jar ID.
+  return normalizedExtJarId === clientId
+}
+
 async function enforceMonobankSyncCooldown(): Promise<void> {
   const now = Date.now()
 
@@ -234,10 +244,20 @@ async function syncJarSnapshot(
 ) {
   let extJarId = existingExtJarId?.trim()
 
-  if (!extJarId) {
+  if (isLikelyInvalidExtJarId(extJarId, clientId)) {
+    if (extJarId) {
+      payload.logger.warn(
+        `Ignoring stale Monobank extJarId for ${formatJarForLog(jarUrl, clientId, existingExtJarId)} because it matches the public clientId`,
+      )
+    }
+
     payload.logger.info(`Resolving Monobank extJarId for ${formatJarForLog(jarUrl, clientId)}`)
     extJarId = await resolveMonobankExtJarId(clientId)
     await sleep(500)
+  }
+
+  if (!extJarId) {
+    throw new Error(`Failed to resolve Monobank extJarId for ${formatJarForLog(jarUrl, clientId)}`)
   }
 
   try {
