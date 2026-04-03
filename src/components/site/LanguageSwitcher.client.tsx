@@ -1,22 +1,33 @@
 'use client'
 
 import { defaultPublicLocale, type PublicLocale } from '@/i18n/config'
+import { cn } from '@/utilities/ui'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 
-const LanguageDot = ({ label, active }: { label: string; active: boolean }) => {
+const LanguageDot = ({
+  label,
+  active,
+  className,
+}: {
+  label: string
+  active: boolean
+  className?: string
+}) => {
   return (
     <span
-      className={`grid h-[23px] w-[23px] place-items-center rounded-full text-[10px] font-bold ${
-        active ? 'bg-[#ffbc00] text-[#021f42]' : 'bg-white text-[#021f42]'
-      }`}
+      className={cn(
+        'grid h-[23px] w-[23px] place-items-center rounded-full text-[10px] font-bold',
+        active ? 'bg-[#ffbc00] text-[#021f42]' : 'bg-white text-[#021f42]',
+        className,
+      )}
     >
       {label}
     </span>
   )
 }
 
-function getLocalizedHref(target: PublicLocale, pathname: string) {
+export function getLocalizedHref(target: PublicLocale, pathname: string) {
   const parts = pathname.split('/').filter(Boolean)
   const first = parts[0]
 
@@ -29,7 +40,15 @@ function getLocalizedHref(target: PublicLocale, pathname: string) {
   return `/${target}${pathname}`
 }
 
-export function LanguageSwitcher({ locale }: { locale: PublicLocale }) {
+export function LanguageSwitcher({
+  locale,
+  className = 'hidden flex-col gap-[6px] lg:flex',
+  dotClassName,
+}: {
+  locale: PublicLocale
+  className?: string
+  dotClassName?: string
+}) {
   const pathname = usePathname()
 
   const { uaHref, enHref } = useMemo(() => {
@@ -43,12 +62,12 @@ export function LanguageSwitcher({ locale }: { locale: PublicLocale }) {
   const activeLocale = locale || defaultPublicLocale
 
   return (
-    <div className="hidden flex-col gap-[6px] lg:flex">
+    <div className={className}>
       <a href={uaHref} aria-current={activeLocale === 'ua' ? 'page' : undefined}>
-        <LanguageDot active={activeLocale === 'ua'} label="UA" />
+        <LanguageDot active={activeLocale === 'ua'} className={dotClassName} label="UA" />
       </a>
       <a href={enHref} aria-current={activeLocale === 'en' ? 'page' : undefined}>
-        <LanguageDot active={activeLocale === 'en'} label="EN" />
+        <LanguageDot active={activeLocale === 'en'} className={dotClassName} label="EN" />
       </a>
     </div>
   )
