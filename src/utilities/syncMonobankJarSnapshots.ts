@@ -22,13 +22,25 @@ type SyncResult = {
 }
 
 const MONOBANK_SYNC_LOCK_FILE = path.join(os.tmpdir(), 'way-to-ukraine-monobank-sync.lock')
+const MONOBANK_SYNC_STATE_FILE = path.join(os.tmpdir(), 'way-to-ukraine-monobank-sync-state.json')
 const MONOBANK_SYNC_LOCK_TTL_MS = 30 * 60 * 1000
+const MONOBANK_SYNC_COOLDOWN_MS = 5 * 60 * 1000
 const MONOBANK_SYNC_INTERVAL_MS = 60 * 1000
 
 export class MonobankSyncAlreadyRunningError extends Error {
   constructor() {
     super('Monobank sync is already running')
     this.name = 'MonobankSyncAlreadyRunningError'
+  }
+}
+
+export class MonobankSyncCooldownError extends Error {
+  retryAfterMs: number
+
+  constructor(retryAfterMs: number) {
+    super(`Monobank sync cooldown active. Retry in ${Math.ceil(retryAfterMs / 1000)}s`)
+    this.name = 'MonobankSyncCooldownError'
+    this.retryAfterMs = retryAfterMs
   }
 }
 
@@ -55,6 +67,33 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(resolve, ms)
   })
+}
+
+async function enforceMonobankSyncCooldown(): Promise<void> {
+  const now = Date.now()
+
+  try {
+    const raw = await fs.readFile(MONOBANK_SYNC_STATE_FILE, 'utf8')
+    const parsed = JSON.parse(raw) as { lastAttemptAt?: string }
+    const lastAttemptAt = parsed.lastAttemptAt ? new Date(parsed.lastAttemptAt).getTime() : Number.NaN
+
+    if (!Number.isFinite(lastAttemptAt)) {
+      return
+    }
+
+    const elapsed = now - lastAttemptAt
+
+    if (elapsed < MONOBANK_SYNC_COOLDOWN_MS) {
+      throw new MonobankSyncCooldownError(MONOBANK_SYNC_COOLDOWN_MS - elapsed)
+    }
+  } catch (error) {
+    if (error instanceof MonobankSyncCooldownError) throw error
+
+    const nodeError = error as NodeJS.ErrnoException
+    if (nodeError.code === 'ENOENT') return
+  }
+
+  await fs.writeFile(MONOBANK_SYNC_STATE_FILE, JSON.stringify({ lastAttemptAt: new Date(now).toISOString() }))
 }
 
 async function acquireMonobankSyncLock(): Promise<void> {
@@ -236,6 +275,8 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
   await acquireMonobankSyncLock()
 
   try {
+    await enforceMonobankSyncCooldown()
+
     const payload = await getPayload({ config: configPromise })
     const configuredJars = await getConfiguredJars(payload)
 

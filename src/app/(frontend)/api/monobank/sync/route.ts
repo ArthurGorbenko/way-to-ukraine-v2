@@ -1,4 +1,5 @@
 import {
+  MonobankSyncCooldownError,
   MonobankSyncAlreadyRunningError,
   syncMonobankJarSnapshots,
 } from '@/utilities/syncMonobankJarSnapshots'
@@ -23,6 +24,18 @@ async function handleSync(request: Request): Promise<Response> {
   } catch (error) {
     if (error instanceof MonobankSyncAlreadyRunningError) {
       return Response.json({ ok: false, error: error.message }, { status: 409 })
+    }
+
+    if (error instanceof MonobankSyncCooldownError) {
+      return Response.json(
+        { ok: false, error: error.message, retryAfterMs: error.retryAfterMs },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(Math.ceil(error.retryAfterMs / 1000)),
+          },
+        },
+      )
     }
 
     const message = error instanceof Error ? error.message : 'Monobank sync failed'
