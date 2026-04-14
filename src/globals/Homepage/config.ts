@@ -107,6 +107,7 @@ export const Homepage: GlobalConfig = {
           type: 'upload',
           relationTo: 'media',
           required: true,
+          localized: true,
         },
         {
           name: 'href',
