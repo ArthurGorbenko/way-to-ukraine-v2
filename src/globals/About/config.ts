@@ -80,6 +80,7 @@ export const About: GlobalConfig = {
               name: 'image',
               type: 'upload',
               relationTo: 'media',
+              localized: true,
             },
             {
               name: 'name',
@@ -133,6 +134,7 @@ export const About: GlobalConfig = {
               name: 'image',
               type: 'upload',
               relationTo: 'media',
+              localized: true,
             },
             {
               name: 'name',

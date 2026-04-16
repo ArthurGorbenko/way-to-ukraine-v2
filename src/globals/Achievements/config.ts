@@ -161,6 +161,7 @@ export const Achievements: GlobalConfig = {
           name: 'featuredImage',
           type: 'upload',
           relationTo: 'media',
+          localized: true,
           admin: {
             condition: (_, siblingData) => siblingData?.layoutType === 'photoWide',
           },

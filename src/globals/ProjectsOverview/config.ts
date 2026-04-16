@@ -38,6 +38,7 @@ export const ProjectsOverview: GlobalConfig = {
           name: 'image',
           type: 'upload',
           relationTo: 'media',
+          localized: true,
         },
         {
           name: 'title',

@@ -123,11 +123,13 @@ export const ActiveProjects: GlobalConfig = {
           type: 'upload',
           relationTo: 'media',
           required: true,
+          localized: true,
         },
         {
           name: 'badgeImage',
           type: 'upload',
           relationTo: 'media',
+          localized: true,
         },
         {
           name: 'cardTitle',
@@ -270,6 +272,7 @@ export const ActiveProjects: GlobalConfig = {
           name: 'detailsStoryImage',
           type: 'upload',
           relationTo: 'media',
+          localized: true,
         },
         {
           name: 'detailsGallery',

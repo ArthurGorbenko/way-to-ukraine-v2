@@ -26,6 +26,7 @@ export const Shop: GlobalConfig = {
           type: 'upload',
           relationTo: 'media',
           required: true,
+          localized: true,
         },
         {
           name: 'title',

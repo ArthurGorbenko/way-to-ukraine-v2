@@ -32,6 +32,7 @@ export const FinishedProjects: GlobalConfig = {
           type: 'upload',
           relationTo: 'media',
           required: true,
+          localized: true,
         },
         {
           name: 'unit',
