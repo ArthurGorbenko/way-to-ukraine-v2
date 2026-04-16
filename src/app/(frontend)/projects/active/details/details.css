@@ -135,15 +135,14 @@
 }
 
 .details-story-image-wrap {
-  height: 182px;
   border-radius: 30px;
   overflow: hidden;
 }
 
 .details-story-image {
-  height: 100%;
+  display: block;
   width: 100%;
-  object-fit: cover;
+  height: auto;
 }
 
 .details-story-copy h3 {
@@ -233,11 +232,6 @@
     margin-top: 20px;
     height: 36px;
     border-radius: 14px;
-  }
-
-  .details-story-image-wrap {
-    height: auto;
-    min-height: 190px;
   }
 
   .details-story-copy h3 {
