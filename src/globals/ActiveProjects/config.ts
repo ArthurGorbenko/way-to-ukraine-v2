@@ -1,4 +1,5 @@
 import type { Field, GlobalConfig } from 'payload'
+import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { revalidateActiveProjects } from './hooks/revalidateActiveProjects'
 
@@ -255,11 +256,17 @@ export const ActiveProjects: GlobalConfig = {
         },
         {
           name: 'detailsStoryBody',
-          type: 'textarea',
+          type: 'richText',
           localized: true,
           required: true,
-          defaultValue:
-            'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => [
+              ...rootFeatures,
+              HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+              FixedToolbarFeature(),
+              InlineToolbarFeature(),
+            ],
+          }),
         },
         {
           name: 'detailsStoryOutro',

@@ -1,4 +1,5 @@
 import { Media } from '@/components/Media'
+import RichText from '@/components/RichText'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { formatMonobankAmount, getMonobankJarSnapshot } from '@/utilities/monobankJarSnapshot'
@@ -97,7 +98,9 @@ export default async function ActiveProjectDetailsPage() {
 
           <section className="details-story-copy">
             <h3>{project?.detailsStoryHeading || 'Дорогі друзі!'}</h3>
-            <p>{project?.detailsStoryBody || ''}</p>
+            {project?.detailsStoryBody && (
+              <RichText data={project.detailsStoryBody} enableGutter={false} enableProse={false} />
+            )}
             <p>{project?.detailsStoryOutro || 'Разом до перемог!'}</p>
           </section>
         </div>
