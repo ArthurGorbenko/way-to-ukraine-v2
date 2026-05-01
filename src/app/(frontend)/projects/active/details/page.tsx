@@ -1,5 +1,6 @@
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import { DetailsGallery } from './DetailsGallery'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { formatMonobankAmount, getMonobankJarSnapshot } from '@/utilities/monobankJarSnapshot'
@@ -105,23 +106,11 @@ export default async function ActiveProjectDetailsPage() {
           </section>
         </div>
 
-        <section className="details-gallery mt-6" aria-label="Галерея проєкту">
-          {gallery.length > 0
-            ? gallery.map((item, index) => (
-                <article key={item.id || index} className="details-gallery-item">
-                  {item?.image ? (
-                    <Media resource={item.image as MediaResource} imgClassName="details-gallery-image" />
-                  ) : (
-                    <img alt={`Фото проєкту ${index + 1}`} className="details-gallery-image" src={photoFallback} />
-                  )}
-                </article>
-              ))
-            : galleryFallback.map((src, index) => (
-                <article key={index} className="details-gallery-item">
-                  <img alt={`Фото проєкту ${index + 1}`} className="details-gallery-image" src={src} />
-                </article>
-              ))}
-        </section>
+        <DetailsGallery
+          items={gallery}
+          fallbacks={galleryFallback}
+          fallbackAlt="Фото проєкту"
+        />
       </section>
     </article>
   )

@@ -889,8 +889,36 @@ export const seed = async ({
             detailsUrl: '/projects/active/details',
             detailsPageTitle: 'Детальніше',
             detailsStoryHeading: 'Дорогі друзі!',
-            detailsStoryBody:
-              'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
+            detailsStoryBody: {
+              root: {
+                type: 'root',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'text',
+                        detail: 0,
+                        format: 0,
+                        mode: 'normal',
+                        style: '',
+                        text: 'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
+                        version: 1,
+                      },
+                    ],
+                    direction: 'ltr',
+                    format: '',
+                    indent: 0,
+                    textFormat: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                version: 1,
+              },
+            },
             detailsStoryOutro: 'Разом до перемог!',
             detailsStoryImage: image1Doc.id,
             detailsGallery: [
@@ -922,8 +950,36 @@ export const seed = async ({
             detailsUrl: '/projects/active/details',
             detailsPageTitle: 'Детальніше',
             detailsStoryHeading: 'Дорогі друзі!',
-            detailsStoryBody:
-              'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
+            detailsStoryBody: {
+              root: {
+                type: 'root',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'text',
+                        detail: 0,
+                        format: 0,
+                        mode: 'normal',
+                        style: '',
+                        text: 'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
+                        version: 1,
+                      },
+                    ],
+                    direction: 'ltr',
+                    format: '',
+                    indent: 0,
+                    textFormat: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                version: 1,
+              },
+            },
             detailsStoryOutro: 'Разом до перемог!',
             detailsStoryImage: image2Doc.id,
             detailsGallery: [
@@ -1331,8 +1387,36 @@ export const seed = async ({
             detailsUrl: '/projects/active/details',
             detailsPageTitle: 'Details',
             detailsStoryHeading: 'Dear friends!',
-            detailsStoryBody:
-              'We continue supporting the Defense Forces of Ukraine. This time, fighters from the 5th Assault Brigade asked us for help. They are defending near Chasiv Yar and need a Robotrack drone platform for evacuation and ammunition supply.',
+            detailsStoryBody: {
+              root: {
+                type: 'root',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'text',
+                        detail: 0,
+                        format: 0,
+                        mode: 'normal',
+                        style: '',
+                        text: 'We continue supporting the Defense Forces of Ukraine. This time, fighters from the 5th Assault Brigade asked us for help. They are defending near Chasiv Yar and need a Robotrack drone platform for evacuation and ammunition supply.',
+                        version: 1,
+                      },
+                    ],
+                    direction: 'ltr',
+                    format: '',
+                    indent: 0,
+                    textFormat: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                version: 1,
+              },
+            },
             detailsStoryOutro: 'Together to victory!',
             detailsStoryImage: image1Doc.id,
             detailsGallery: [
@@ -1364,8 +1448,36 @@ export const seed = async ({
             detailsUrl: '/projects/active/details',
             detailsPageTitle: 'Details',
             detailsStoryHeading: 'Dear friends!',
-            detailsStoryBody:
-              'We continue supporting the Defense Forces of Ukraine. This time, fighters from the 5th Assault Brigade asked us for help. They are defending near Chasiv Yar and need a Robotrack drone platform for evacuation and ammunition supply.',
+            detailsStoryBody: {
+              root: {
+                type: 'root',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'text',
+                        detail: 0,
+                        format: 0,
+                        mode: 'normal',
+                        style: '',
+                        text: 'We continue supporting the Defense Forces of Ukraine. This time, fighters from the 5th Assault Brigade asked us for help. They are defending near Chasiv Yar and need a Robotrack drone platform for evacuation and ammunition supply.',
+                        version: 1,
+                      },
+                    ],
+                    direction: 'ltr',
+                    format: '',
+                    indent: 0,
+                    textFormat: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                version: 1,
+              },
+            },
             detailsStoryOutro: 'Together to victory!',
             detailsStoryImage: image2Doc.id,
             detailsGallery: [
