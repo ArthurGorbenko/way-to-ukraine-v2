@@ -46,5 +46,10 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|.*\\..*).*)'],
+  matcher: [
+    {
+      source: '/((?!_next/static|_next/image|.*\\..*).*)',
+      missing: [{ type: 'header', key: 'x-wtu-locale' }],
+    },
+  ],
 }

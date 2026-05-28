@@ -3,6 +3,7 @@ import type { Config, Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 import './finished-projects.css'
 
@@ -25,25 +26,27 @@ export default async function FinishedProjectsPage() {
         </h1>
 
         <div className="finished-projects-grid mt-10 lg:mt-14">
-          {cards.map((card, index) => {
+          {[...cards].reverse().map((card, index) => {
             const cornerClass = card?.cornerStyle === 'right' ? 'project-corner-right' : 'project-corner-left'
 
             return (
-              <article key={card.id || index} className="finished-project-card">
-                {card?.image ? (
-                  <Media resource={card.image as MediaResource} imgClassName="finished-project-image" />
-                ) : (
-                  <img alt="Закритий проєкт" className="finished-project-image" src={photoFallback} />
-                )}
+              <Link key={card.id || index} href={`/projects/finished/${card.slug || card.id}/details`} style={{ display: "block" }}>
+                <article className="finished-project-card">
+                  {card?.image ? (
+                    <Media resource={card.image as MediaResource} imgClassName="finished-project-image" />
+                  ) : (
+                    <img alt="Закритий проєкт" className="finished-project-image" src={photoFallback} />
+                  )}
 
-                <div className="finished-project-overlay" />
-                <div className={`project-corner ${cornerClass}`} />
+                  <div className="finished-project-overlay" />
+                  <div className={`project-corner ${cornerClass}`} />
 
-                <div className="project-meta-wrap">
-                  <p className="project-unit">{card?.unit || '120 бригада, 173 батальйон'}</p>
-                  <p className="project-vehicle">{card?.vehicle || 'STEYR 1291'}</p>
-                </div>
-              </article>
+                  <div className="project-meta-wrap">
+                    <p className="project-unit">{card?.unit || '120 бригада, 173 батальйон'}</p>
+                    <p className="project-vehicle">{card?.vehicle || 'STEYR 1291'}</p>
+                  </div>
+                </article>
+              </Link>
             )
           })}
         </div>

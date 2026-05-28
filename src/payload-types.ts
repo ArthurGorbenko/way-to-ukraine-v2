@@ -1993,6 +1993,37 @@ export interface FinishedProject {
     unit: string;
     vehicle: string;
     cornerStyle: 'left' | 'right';
+    slug: string;
+    detailsPageTitle?: string | null;
+    detailsStoryHeading?: string | null;
+    detailsStoryBody?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    detailsStoryOutro?: string | null;
+    detailsStoryImage?: (string | null) | Media;
+    detailsGallery?:
+      | {
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
+    badgeImage?: (string | null) | Media;
+    unitLabel?: string | null;
+    unitValue?: string | null;
+    directionLabel?: string | null;
+    directionValue?: string | null;
     id?: string | null;
   }[];
   updatedAt?: string | null;
@@ -2344,6 +2375,23 @@ export interface FinishedProjectsSelect<T extends boolean = true> {
         unit?: T;
         vehicle?: T;
         cornerStyle?: T;
+        slug?: T;
+        detailsPageTitle?: T;
+        detailsStoryHeading?: T;
+        detailsStoryBody?: T;
+        detailsStoryOutro?: T;
+        detailsStoryImage?: T;
+        detailsGallery?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        badgeImage?: T;
+        unitLabel?: T;
+        unitValue?: T;
+        directionLabel?: T;
+        directionValue?: T;
         id?: T;
       };
   updatedAt?: T;

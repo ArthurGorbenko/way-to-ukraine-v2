@@ -1,0 +1,88 @@
+- generic [active] [ref=e1]:
+  - banner:
+    - generic [ref=e2]:
+      - link [ref=e3] [cursor=pointer]:
+        - /url: /
+        - img [ref=e5]
+      - navigation [ref=e8]:
+        - link "Проєкти" [ref=e9] [cursor=pointer]:
+          - /url: /projects
+        - link "Досягнення" [ref=e10] [cursor=pointer]:
+          - /url: /achievements
+        - link "Про нас" [ref=e11] [cursor=pointer]:
+          - /url: /about
+      - generic [ref=e12]:
+        - link "ЗАДОНАТИТИ" [ref=e13] [cursor=pointer]:
+          - /url: /projects/active/donate
+        - generic [ref=e14]:
+          - link "UA" [ref=e15] [cursor=pointer]:
+            - /url: /ua/projects/active/details
+            - generic [ref=e16]: UA
+          - link "EN" [ref=e17] [cursor=pointer]:
+            - /url: /en/projects/active/details
+            - generic [ref=e18]: EN
+  - main [ref=e19]:
+    - article [ref=e20]:
+      - generic [ref=e21]:
+        - heading "Детальніше" [level=1] [ref=e22]
+        - generic [ref=e23]:
+          - article [ref=e24]:
+            - paragraph [ref=e26]: STEYR 1291
+          - generic [ref=e30]:
+            - heading "Військова вантажівка STEYR 1291" [level=2] [ref=e31]
+            - paragraph [ref=e32]:
+              - text: "Підрозділ:"
+              - strong [ref=e33]: Інженерна рота 120 Бригади ТРО
+            - paragraph [ref=e34]:
+              - text: "напрямок:"
+              - strong [ref=e35]: Лиман
+            - paragraph [ref=e36]:
+              - text: "ціль:"
+              - strong [ref=e37]: 1 380 000 грн
+            - paragraph [ref=e38]:
+              - text: "зібрано:"
+              - strong [ref=e39]: 1 220 742,03 грн
+        - generic [ref=e42]:
+          - article [ref=e43]:
+            - img "Блочок" [ref=e46]
+          - generic [ref=e47]:
+            - heading "Військова вантажівка STEYR 1291" [level=3] [ref=e48]
+            - paragraph [ref=e49]: Дорогі друзі, Наша команда запускає наш ТРЕТІЙ збір на військову вантажівку, яка буде передана в руки бійців 120 Бригади ТРО, які щодня забезпечують прикриття державного кордону України! Вантажівка буде виконувати надзвичайно складні завдання і значно підвищить боєздатність та укомплектованість цілої роти! У звʼязку із труднощами проходження кордону та трансферу попередньої вантажівки в Україну, ми домовились з нашим партнером про моментальний транзит вантажівки в Україну вперед збору та оплати, і тому STEYR 1291 ВЖЕ знаходиться на території України. А це означає, що в цей раз не буде ЖОДНИХ затримок! Тож давайте якнайшвидше закриємо збір і підсилимо боєздатність інженерної роти! Разом до перемог!
+            - paragraph [ref=e50]: .
+        - region "Галерея проєкту" [ref=e51]:
+          - article [ref=e52]:
+            - img "Curving abstract shapes with an orange and blue gradient" [ref=e55]
+          - article [ref=e56]:
+            - img "Curving abstract shapes with an orange and blue gradient" [ref=e59]
+          - article [ref=e60]:
+            - img "Curving abstract shapes with an orange and blue gradient" [ref=e63]
+          - article [ref=e64]:
+            - img "Curving abstract shapes with an orange and blue gradient" [ref=e67]
+          - article [ref=e68]:
+            - img "Curving abstract shapes with an orange and blue gradient" [ref=e71]
+          - article [ref=e72]:
+            - img "Curving abstract shapes with an orange and blue gradient" [ref=e75]
+  - contentinfo [ref=e76]:
+    - generic [ref=e82]:
+      - link [ref=e83] [cursor=pointer]:
+        - /url: /
+        - img [ref=e84]
+      - generic [ref=e87]:
+        - link "Facebook" [ref=e88] [cursor=pointer]:
+          - /url: https://www.facebook.com/groups/way.to.ukraine
+          - img [ref=e90]
+          - generic [ref=e92]: Facebook
+        - link "Instgram" [ref=e93] [cursor=pointer]:
+          - /url: https://www.instagram.com/way.to.ukraine/
+          - img [ref=e95]
+          - generic [ref=e98]: Instgram
+        - link "X" [ref=e99] [cursor=pointer]:
+          - /url: https://x.com/WayToUkraine
+          - img [ref=e101]
+          - generic [ref=e103]: X
+      - generic [ref=e104]:
+        - link "РЕКВІЗИТИ" [ref=e105] [cursor=pointer]:
+          - /url: https://way-to-ukraine.com/en/requisites
+        - link "ЗАДОНАТИТИ" [ref=e106] [cursor=pointer]:
+          - /url: /projects/active/donate
+  - alert [ref=e107]
