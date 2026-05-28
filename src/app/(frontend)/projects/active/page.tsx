@@ -33,8 +33,7 @@ export default async function ActiveProjectsPage() {
             const jar = jarData[index]
             const donateHref =
               project?.donateUrl && project.donateUrl !== '#' ? project.donateUrl : '/projects/active/donate'
-            const detailsHref =
-              project?.detailsUrl && project.detailsUrl !== '#' ? project.detailsUrl : '/projects/active/details'
+            const detailsHref = `/projects/active/${project.slug || project.id}/details`
 
             return (
               <article key={project.id || index} className="active-project-row">

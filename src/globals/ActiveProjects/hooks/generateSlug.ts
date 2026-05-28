@@ -19,22 +19,18 @@ function transliterate(text: string): string {
 function extractLocalized(value: any): string {
   if (!value) return ''
   if (typeof value === 'string') return value
-  // Localized field — extract first truthy locale value
   const v = Object.values(value).find((v) => typeof v === 'string' && v)
   return (v as string) || ''
 }
 
 export const generateSlug: FieldHook = ({ data, value }) => {
-  // Only auto-generate if slug is empty
   if (value) return value
 
-  const unit = extractLocalized((data as any)?.unit)
-  const vehicle = extractLocalized((data as any)?.vehicle)
+  const title = extractLocalized((data as any)?.cardTitle)
 
-  if (!unit && !vehicle) return value
+  if (!title) return value
 
-  const raw = `${unit} ${vehicle}`.trim()
-  const slug = transliterate(raw)
+  const slug = transliterate(title)
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .replace(/-+/g, '-')

@@ -2,6 +2,7 @@ import type { Field, GlobalConfig } from 'payload'
 import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { revalidateActiveProjects } from './hooks/revalidateActiveProjects'
+import { generateSlug } from './hooks/generateSlug'
 
 const sharedDonateMethodsDefault = [
   {
@@ -87,8 +88,6 @@ const defaultProjects = Array.from({ length: 2 }, () => ({
   detailsUrl: '/projects/active/details',
   detailsPageTitle: 'Детальніше',
   detailsStoryHeading: 'Дорогі друзі!',
-  detailsStoryBody:
-    'Вкотре ми продовжуємо підтримувати Сили Оборони України, де на цей раз до нас звернулись військові з 5-ї Штурмової Бригади. Воїни 5-ї ОШБ нині героїчно тримають оборону в районі Часового Яру і потребують Robotrack для вивезення поранених та підвозу набоїв на передові позиції! Тож давайте разом надамо їм цей вкрай необхідний дрон і допоможемо нашим героям у цей нелегкий час!',
   detailsStoryOutro: 'Разом до перемог!',
 }))
 
@@ -138,6 +137,18 @@ export const ActiveProjects: GlobalConfig = {
           localized: true,
           required: true,
           defaultValue: 'Збір на авто',
+        },
+        {
+          name: 'slug',
+          type: 'text',
+          required: true,
+          admin: {
+            hidden: true,
+            readOnly: true,
+          },
+          hooks: {
+            beforeValidate: [generateSlug],
+          },
         },
         {
           name: 'leftOverlayTitle',
@@ -258,7 +269,6 @@ export const ActiveProjects: GlobalConfig = {
           name: 'detailsStoryBody',
           type: 'richText',
           localized: true,
-          required: true,
           editor: lexicalEditor({
             features: ({ rootFeatures }) => [
               ...rootFeatures,

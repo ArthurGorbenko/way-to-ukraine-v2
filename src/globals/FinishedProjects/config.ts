@@ -64,7 +64,6 @@ export const FinishedProjects: GlobalConfig = {
         {
           name: 'slug',
           type: 'text',
-          required: true,
           admin: {
             hidden: true,
             readOnly: true,

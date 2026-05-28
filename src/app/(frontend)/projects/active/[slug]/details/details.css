@@ -159,10 +159,10 @@
 }
 
 .details-lightbox-img {
-  max-width: 95vw;
-  max-height: 95vh;
+  max-width: 96vw;
+  max-height: 96vh;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
 .details-lightbox-close {
@@ -233,7 +233,7 @@
 
 .details-gallery {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 

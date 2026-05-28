@@ -1,6 +1,6 @@
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import { DetailsGallery } from '../../../active/details/DetailsGallery'
+import { DetailsGallery } from '../../../active/[slug]/details/DetailsGallery'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'

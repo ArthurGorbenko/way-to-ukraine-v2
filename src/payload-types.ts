@@ -1993,7 +1993,7 @@ export interface FinishedProject {
     unit: string;
     vehicle: string;
     cornerStyle: 'left' | 'right';
-    slug: string;
+    slug?: string | null;
     detailsPageTitle?: string | null;
     detailsStoryHeading?: string | null;
     detailsStoryBody?: {
@@ -2054,6 +2054,7 @@ export interface ActiveProject {
     image: string | Media;
     badgeImage?: (string | null) | Media;
     cardTitle: string;
+    slug: string;
     leftOverlayTitle: string;
     unitLabel: string;
     unitValue: string;
@@ -2073,7 +2074,7 @@ export interface ActiveProject {
     detailsUrl: string;
     detailsPageTitle: string;
     detailsStoryHeading: string;
-    detailsStoryBody: {
+    detailsStoryBody?: {
       root: {
         type: string;
         children: {
@@ -2087,7 +2088,7 @@ export interface ActiveProject {
         version: number;
       };
       [k: string]: unknown;
-    };
+    } | null;
     detailsStoryOutro: string;
     detailsStoryImage?: (string | null) | Media;
     detailsGallery?:
@@ -2426,6 +2427,7 @@ export interface ActiveProjectsSelect<T extends boolean = true> {
         image?: T;
         badgeImage?: T;
         cardTitle?: T;
+        slug?: T;
         leftOverlayTitle?: T;
         unitLabel?: T;
         unitValue?: T;

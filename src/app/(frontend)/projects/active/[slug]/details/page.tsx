@@ -5,6 +5,7 @@ import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { formatMonobankAmount, getMonobankJarSnapshot } from '@/utilities/monobankJarSnapshot'
 import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 
 import './details.css'
@@ -21,10 +22,20 @@ const galleryFallback = [
   'http://localhost:3845/assets/d9111514d570ca164e1327c97ce8de9448d00e58.png',
 ] as const
 
-export default async function ActiveProjectDetailsPage() {
+interface PageProps {
+  params: Promise<{ slug: string }>
+}
+
+export default async function ActiveProjectDetailsPage({ params }: PageProps) {
+  const { slug } = await params
   const locale = await getRequestPayloadLocale()
   const activeProjects = await getCachedGlobal('active-projects', 2, locale)()
-  const project = activeProjects?.projects?.[0]
+  const project = activeProjects?.projects?.find((p) => (p.slug || p.id) === slug)
+
+  if (!project) {
+    notFound()
+  }
+
   const gallery = project?.detailsGallery || []
   const jar = await getMonobankJarSnapshot(project?.monobankJar)
   const raisedLabel = locale === 'en' ? 'raised:' : 'зібрано:'
@@ -116,10 +127,11 @@ export default async function ActiveProjectDetailsPage() {
   )
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
   const [publicLocale, payloadLocale] = await Promise.all([getRequestLocale(), getRequestPayloadLocale()])
   const activeProjects = await getCachedGlobal('active-projects', 0, payloadLocale)()
-  const pageTitle = activeProjects?.projects?.[0]?.detailsPageTitle || 'Детальніше'
+  const pageTitle = activeProjects?.projects?.find((p) => (p.slug || p.id) === slug)?.detailsPageTitle || 'Детальніше'
 
   return {
     title: `${pageTitle} | Way to Ukraine`,
