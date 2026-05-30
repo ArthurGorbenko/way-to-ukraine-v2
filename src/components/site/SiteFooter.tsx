@@ -25,17 +25,16 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ data, locale }) => {
   const isEn = locale === 'en'
 
   return (
-    <footer className="relative mt-auto min-h-[300px] overflow-hidden bg-[#021f42] text-white lg:min-h-[360px]">
+    <footer className="site-footer relative mt-auto min-h-[340px] overflow-hidden bg-[#021f42] text-white lg:min-h-[430px]">
       <div className="absolute inset-0">
         {footer?.backgroundImage ? (
           <Media resource={footer.backgroundImage as MediaResource} fill pictureClassName="absolute inset-0" imgClassName="object-cover" />
         ) : null}
       </div>
-      <div className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.58)_46%,rgba(255,255,255,0)_100%)] lg:h-32" />
-      <div className="absolute inset-x-0 top-0 h-20 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_100%)] blur-[6px]" />
+      <div className="site-footer__mist absolute inset-x-0 top-0 h-[180px] md:h-[220px] lg:h-[270px]" />
       <div className="absolute inset-x-0 bottom-0 h-2 bg-[#ffbc00]" />
 
-      <div className="relative mx-auto flex w-full max-w-[1320px] flex-col gap-6 px-5 pb-8 pt-28 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-end lg:gap-8 lg:px-8 lg:pb-7 lg:pt-[258px]">
+      <div className="relative mx-auto flex w-full max-w-[1320px] flex-col gap-6 px-5 pb-8 pt-36 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-end lg:gap-8 lg:px-8 lg:pb-7 lg:pt-[310px]">
         <Link href="/" className="inline-flex h-[56px] w-[50px] items-end justify-start lg:h-[78px] lg:w-[70px]">
           <svg viewBox="0 0 90 100" className="h-full w-full" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <g clipPath="url(#clip0_footer_logo)">

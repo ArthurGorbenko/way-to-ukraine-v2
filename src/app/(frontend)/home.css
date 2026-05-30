@@ -2,11 +2,60 @@
   --wtu-dark: #021f42;
   --wtu-accent: #ffbc00;
   --wtu-blue: #3366cb;
-  background: transparent;
+  background-color: #ffffff;
 }
 
 .home-hero {
   background-color: var(--wtu-dark);
+}
+
+.home-hero__fade {
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    hsla(0, 0%, 100%, 0) 0%,
+    hsla(0, 0%, 100%, 0.012) 12%,
+    hsla(0, 0%, 100%, 0.05) 24%,
+    hsla(0, 0%, 100%, 0.12) 36%,
+    hsla(0, 0%, 100%, 0.24) 48%,
+    hsla(0, 0%, 100%, 0.44) 60%,
+    hsla(0, 0%, 100%, 0.68) 70%,
+    hsla(0, 0%, 100%, 0.86) 80%,
+    hsla(0, 0%, 100%, 0.96) 90%,
+    #ffffff 100%
+  );
+}
+
+.site-footer__mist {
+  background:
+    linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.92) 28%,
+      rgba(255, 255, 255, 0.52) 56%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 255, 255, 0.46) 42%,
+      rgba(255, 255, 255, 0) 76%
+    );
+  filter: blur(0.2px);
+  pointer-events: none;
+}
+
+.site-footer__mist::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 22% 16%, rgba(2, 31, 66, 0.045) 0 1px, transparent 1px),
+    radial-gradient(circle at 74% 62%, rgba(2, 31, 66, 0.035) 0 1px, transparent 1px);
+  background-size: 38px 38px, 52px 52px;
+  opacity: 0.26;
+  mix-blend-mode: multiply;
 }
 
 .home-hero-mark {

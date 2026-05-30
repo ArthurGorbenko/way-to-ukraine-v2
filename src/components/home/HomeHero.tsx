@@ -12,16 +12,16 @@ interface HomeHeroProps {
 
 export const HomeHero: React.FC<HomeHeroProps> = ({ data }) => {
   return (
-    <section className="home-hero relative min-h-[600px] overflow-hidden pt-[84px] lg:min-h-[760px]">
+    <section className="home-hero relative min-h-[620px] overflow-hidden pt-[84px] lg:min-h-[760px]">
       <div className="absolute inset-0">
         {data?.backgroundImage ? (
           <Media resource={data.backgroundImage as MediaResource} fill pictureClassName="absolute inset-0" imgClassName="object-cover" priority />
         ) : null}
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-[#021f42]/90 via-[#021f42]/35 to-white/0" />
-      <div className="absolute bottom-0 h-52 w-full bg-gradient-to-b from-transparent to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#021f42]/70 via-[#021f42]/18 to-[#021f42]/0" />
+      <div className="home-hero__fade absolute inset-x-0 bottom-0 h-[360px] md:h-[420px] lg:h-[500px]" aria-hidden />
 
-      <div className="relative mx-auto grid w-full max-w-[1320px] gap-10 px-5 pb-20 pt-10 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:px-8 lg:pb-28 lg:pt-16">
+      <div className="relative mx-auto grid w-full max-w-[1320px] gap-10 px-5 pb-32 pt-10 md:pb-40 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:px-8 lg:pb-52 lg:pt-16">
         <div>
           <h1 className="font-sans text-[54px] font-medium uppercase leading-[0.95] text-white md:text-[82px] lg:text-[96px]">
             <span className="block">{data?.titleLine1 || 'WAY TO'}</span>
