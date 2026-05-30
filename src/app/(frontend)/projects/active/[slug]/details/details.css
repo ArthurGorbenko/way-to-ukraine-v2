@@ -1,8 +1,10 @@
 .details-page {
   margin-bottom: -1px;
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+  background-color: #ffffff;
   background-image:
-    radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 34%),
-    linear-gradient(180deg, rgba(2, 31, 66, 0.95) 0%, rgba(2, 31, 66, 0.5) 18%, rgba(242, 244, 247, 0.14) 44%, rgba(242, 244, 247, 0) 58%),
+    radial-gradient(ellipse at 50% 116px, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 265px),
+    linear-gradient(180deg, #021f42 0%, rgba(2, 31, 66, 0.94) 92px, rgba(34, 61, 88, 0.56) 156px, rgba(255, 255, 255, 0.86) 250px, #ffffff 370px),
     var(--wtu-paper-texture);
   background-size: auto, auto, cover;
   background-position: center top, center top, center top;
@@ -24,6 +26,7 @@
   height: 233px;
   border-radius: 30px;
   overflow: hidden;
+  box-shadow: 0 18px 42px rgba(2, 31, 66, 0.1);
 }
 
 .details-project-image {
@@ -37,7 +40,7 @@
 .details-project-overlay {
   position: absolute;
   inset: 0 110px 0 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.66) 0%, rgba(0, 0, 0, 0.5) 72%, rgba(0, 0, 0, 0.18) 100%);
 }
 
 .details-project-overlay-title {
@@ -137,6 +140,7 @@
 .details-story-image-wrap {
   border-radius: 30px;
   overflow: hidden;
+  box-shadow: 0 18px 42px rgba(2, 31, 66, 0.08);
 }
 
 .details-gallery-btn {

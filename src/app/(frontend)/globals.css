@@ -179,6 +179,38 @@
   --error: oklch(75% 0.15 25deg);
 }
 
+.site-footer__mist {
+  background:
+    linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.92) 28%,
+      rgba(255, 255, 255, 0.52) 56%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 255, 255, 0.46) 42%,
+      rgba(255, 255, 255, 0) 76%
+    );
+  filter: blur(0.2px);
+  pointer-events: none;
+}
+
+.site-footer__mist::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 22% 16%, rgba(2, 31, 66, 0.045) 0 1px, transparent 1px),
+    radial-gradient(circle at 74% 62%, rgba(2, 31, 66, 0.035) 0 1px, transparent 1px);
+  background-size: 38px 38px, 52px 52px;
+  opacity: 0.26;
+  mix-blend-mode: multiply;
+}
+
 [data-theme='dark'] {
   --background: oklch(14.5% 0 0deg);
   --foreground: oklch(98.5% 0 0deg);

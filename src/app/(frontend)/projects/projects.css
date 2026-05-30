@@ -1,9 +1,12 @@
 .projects-page {
   margin-bottom: -1px;
+  background-color: #ffffff;
   background-image:
-    radial-gradient(circle at 20% 4%, rgba(255, 255, 255, 0.55), transparent 34%),
-    linear-gradient(180deg, rgba(2, 31, 66, 0.97) 0%, rgba(2, 31, 66, 0.52) 17%, rgba(245, 245, 245, 0.12) 44%, rgba(245, 245, 245, 0) 58%),
+    radial-gradient(ellipse at 50% 118px, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 260px),
+    linear-gradient(180deg, #021f42 0%, rgba(2, 31, 66, 0.94) 92px, rgba(34, 61, 88, 0.58) 155px, rgba(255, 255, 255, 0.84) 245px, #ffffff 365px),
     var(--wtu-paper-texture);
+  background-size: auto, auto, cover;
+  background-position: center top, center top, center top;
 }
 
 .projects-title {
@@ -21,6 +24,7 @@
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 50px;
+  box-shadow: 0 22px 50px rgba(2, 31, 66, 0.12);
 }
 
 .project-card-image {
@@ -34,7 +38,9 @@
 .project-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(102, 102, 102, 0.4) 100%);
+  background:
+    linear-gradient(180deg, rgba(2, 31, 66, 0.18) 0%, rgba(2, 31, 66, 0.08) 48%, rgba(2, 31, 66, 0.25) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.04));
 }
 
 /* Full rectangle frame on left card, sits behind/around the CTA */
@@ -127,9 +133,9 @@
 @media (max-width: 680px) {
   .projects-page {
     background-image:
-      radial-gradient(circle at 22% 5%, rgba(255, 255, 255, 0.55), transparent 28%),
-      linear-gradient(180deg, rgba(2, 31, 66, 0.96) 0%, rgba(2, 31, 66, 0.52) 14%, rgba(245, 245, 245, 0.94) 40%),
-      linear-gradient(180deg, #efefef 0%, #f7f7f7 100%);
+      radial-gradient(ellipse at 50% 96px, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 210px),
+      linear-gradient(180deg, #021f42 0%, rgba(2, 31, 66, 0.9) 82px, rgba(56, 78, 100, 0.48) 142px, rgba(255, 255, 255, 0.94) 230px, #ffffff 100%),
+      var(--wtu-paper-texture);
   }
 
   .project-card {
