@@ -1,9 +1,13 @@
 .finished-projects-page {
   margin-bottom: -1px;
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+  background-color: #ffffff;
   background-image:
-    radial-gradient(circle at 50% 2%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 26%),
-    linear-gradient(180deg, rgba(2, 31, 66, 0.97) 0%, rgba(2, 31, 66, 0.58) 16%, rgba(242, 244, 247, 0.14) 42%, rgba(242, 244, 247, 0) 56%),
+    radial-gradient(ellipse at 50% 116px, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 260px),
+    linear-gradient(180deg, #021f42 0%, rgba(2, 31, 66, 0.94) 92px, rgba(34, 61, 88, 0.56) 156px, rgba(255, 255, 255, 0.86) 250px, #ffffff 370px),
     var(--wtu-paper-texture);
+  background-size: auto, auto, cover;
+  background-position: center top, center top, center top;
 }
 
 .finished-projects-title {
@@ -21,6 +25,7 @@
   overflow: hidden;
   border-radius: 30px;
   aspect-ratio: 1 / 1;
+  box-shadow: 0 18px 42px rgba(2, 31, 66, 0.1);
 }
 
 .finished-project-image {
