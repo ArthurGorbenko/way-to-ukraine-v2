@@ -51,16 +51,46 @@ function formatJarForLog(jarUrl: string, clientId?: string | null, extJarId?: st
   return parts.join(' | ')
 }
 
+function getMonobankJarId(source: string | MonobankJar | null | undefined): string | null {
+  if (!source) return null
+  return typeof source === 'string' ? source : source.id || null
+}
+
 async function getConfiguredJars(payload: Payload): Promise<MonobankJar[]> {
-  const result = await payload.find({
-    collection: 'monobank-jars',
-    depth: 0,
-    limit: 200,
-    pagination: false,
-    sort: 'clientId',
+  const activeProjects = await payload.findGlobal({
+    slug: 'active-projects',
+    depth: 1,
+    locale: 'uk',
   })
 
-  return result.docs
+  const jarIds = Array.from(
+    new Set(
+      (activeProjects.projects || [])
+        .map((project) => getMonobankJarId(project.monobankJar))
+        .filter((id): id is string => Boolean(id)),
+    ),
+  )
+
+  const jars = await Promise.all(
+    jarIds.map(async (id) => {
+      try {
+        return await payload.findByID({
+          collection: 'monobank-jars',
+          id,
+          depth: 0,
+        })
+      } catch (error) {
+        payload.logger.error(
+          `Active project references missing Monobank jar ${id}: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`,
+        )
+        return null
+      }
+    }),
+  )
+
+  return jars.filter((jar): jar is MonobankJar => Boolean(jar))
 }
 
 function sleep(ms: number): Promise<void> {
@@ -315,7 +345,7 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
     const payload = await getPayload({ config: configPromise })
     const configuredJars = await getConfiguredJars(payload)
 
-    payload.logger.info(`Starting Monobank sync for ${configuredJars.length} jar(s)`)
+    payload.logger.info(`Starting Monobank sync for ${configuredJars.length} active jar(s)`)
 
     const result: SyncResult = {
       total: configuredJars.length,
