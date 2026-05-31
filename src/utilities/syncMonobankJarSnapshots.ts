@@ -277,7 +277,13 @@ async function syncJarSnapshot(
   }
 }
 
-function revalidateActiveProjectPages() {
+function revalidateProjectAndTotalPages() {
+  revalidatePath('/')
+  revalidatePath('/ua')
+  revalidatePath('/en')
+  revalidatePath('/achievements')
+  revalidatePath('/ua/achievements')
+  revalidatePath('/en/achievements')
   revalidatePath('/projects/active')
   revalidatePath('/projects/active/details')
   revalidatePath('/projects/active/donate')
@@ -287,8 +293,17 @@ function revalidateActiveProjectPages() {
   revalidatePath('/en/projects/active')
   revalidatePath('/en/projects/active/details')
   revalidatePath('/en/projects/active/donate')
+  revalidatePath('/projects/finished')
+  revalidatePath('/ua/projects/finished')
+  revalidatePath('/en/projects/finished')
+  revalidateTag('global_homepage_uk')
+  revalidateTag('global_homepage_en')
+  revalidateTag('global_achievements_uk')
+  revalidateTag('global_achievements_en')
   revalidateTag('global_active-projects_uk')
   revalidateTag('global_active-projects_en')
+  revalidateTag('global_finished-projects_uk')
+  revalidateTag('global_finished-projects_en')
 }
 
 export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
@@ -360,7 +375,7 @@ export async function syncMonobankJarSnapshots(): Promise<SyncResult> {
       }
     }
 
-    revalidateActiveProjectPages()
+    revalidateProjectAndTotalPages()
     payload.logger.info(
       `Completed Monobank sync: total=${result.total} success=${result.success} failed=${result.failed} skipped=${result.skipped}`,
     )

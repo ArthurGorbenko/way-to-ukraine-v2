@@ -1994,6 +1994,10 @@ export interface FinishedProject {
     vehicle: string;
     cornerStyle: 'left' | 'right';
     slug?: string | null;
+    /**
+     * Select the Monobank jar record used to include this finished project in foundation totals.
+     */
+    monobankJar?: (string | null) | MonobankJar;
     detailsPageTitle?: string | null;
     detailsStoryHeading?: string | null;
     detailsStoryBody?: {
@@ -2377,6 +2381,7 @@ export interface FinishedProjectsSelect<T extends boolean = true> {
         vehicle?: T;
         cornerStyle?: T;
         slug?: T;
+        monobankJar?: T;
         detailsPageTitle?: T;
         detailsStoryHeading?: T;
         detailsStoryBody?: T;

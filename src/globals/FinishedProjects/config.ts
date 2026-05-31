@@ -73,6 +73,15 @@ export const FinishedProjects: GlobalConfig = {
           },
         },
         {
+          name: 'monobankJar',
+          type: 'relationship',
+          relationTo: 'monobank-jars',
+          label: 'Monobank jar',
+          admin: {
+            description: 'Select the Monobank jar record used to include this finished project in foundation totals.',
+          },
+        },
+        {
           name: 'detailsPageTitle',
           type: 'text',
           localized: true,

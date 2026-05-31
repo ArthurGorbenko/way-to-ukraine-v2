@@ -3,6 +3,7 @@ import RichText from '@/components/RichText'
 import { DetailsGallery } from '../../../active/[slug]/details/DetailsGallery'
 import type { Media as MediaType } from '@/payload-types'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { formatMonobankAmount, getMonobankJarSnapshot } from '@/utilities/monobankJarSnapshot'
 import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
@@ -35,6 +36,9 @@ export default async function FinishedProjectDetailsPage({ params }: PageProps) 
   }
 
   const gallery = card?.detailsGallery || []
+  const jar = await getMonobankJarSnapshot(card?.monobankJar)
+  const raisedLabel = locale === 'en' ? 'raised:' : 'зібрано:'
+  const goalLabel = locale === 'en' ? 'goal:' : 'ціль:'
 
   return (
     <article className="details-page pb-8 pt-24 lg:pb-10 lg:pt-24">
@@ -73,6 +77,17 @@ export default async function FinishedProjectDetailsPage({ params }: PageProps) 
             <p className="details-project-line">
               {card?.directionLabel || 'напрямок:'} <strong>{card?.directionValue || 'Напрямок'}</strong>
             </p>
+
+            {jar ? (
+              <>
+                <p className="details-project-line">
+                  {goalLabel} <strong>{formatMonobankAmount(jar.displayGoal || 0, locale)}</strong>
+                </p>
+                <p className="details-project-line">
+                  {raisedLabel} <strong>{formatMonobankAmount(jar.displayAmount || 0, locale)}</strong>
+                </p>
+              </>
+            ) : null}
           </section>
         </div>
 

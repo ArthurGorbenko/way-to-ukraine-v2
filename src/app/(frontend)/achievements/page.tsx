@@ -1,5 +1,6 @@
 import { Media } from '@/components/Media'
 import type { Config, Media as MediaType } from '@/payload-types'
+import { calculateFundraisingTotals, formatFoundationRaisedAmount } from '@/utilities/fundraisingTotals'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getRequestLocale, getRequestPayloadLocale } from '@/utilities/getRequestLocale'
 import {
@@ -51,8 +52,20 @@ const IconGlyph = ({ iconStyle }: { iconStyle?: string | null }) => {
 
 export default async function AchievementsPage() {
   const payloadLocale = await getRequestPayloadLocale()
-  const achievements = await getCachedGlobal('achievements', 2, payloadLocale)()
-  const topStats = achievements?.topStats || []
+  const [achievements, activeProjects, finishedProjects] = await Promise.all([
+    getCachedGlobal('achievements', 2, payloadLocale)(),
+    getCachedGlobal('active-projects', 2, payloadLocale)(),
+    getCachedGlobal('finished-projects', 2, payloadLocale)(),
+  ])
+  const fundraisingTotals = await calculateFundraisingTotals(activeProjects?.projects || [], finishedProjects?.cards || [])
+  const topStats = (achievements?.topStats || []).map((item, index) => {
+    if (index !== 0 && item?.iconStyle !== 'currency') return item
+
+    return {
+      ...item,
+      value: formatFoundationRaisedAmount(fundraisingTotals.displayAmount, payloadLocale),
+    }
+  })
   const cards = achievements?.cards || []
 
   return (
