@@ -1,11 +1,37 @@
 .donate-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   margin-bottom: -1px;
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+  background-color: #ffffff;
   background-image:
     radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 34%),
     linear-gradient(180deg, rgba(2, 31, 66, 0.95) 0%, rgba(2, 31, 66, 0.5) 18%, rgba(242, 244, 247, 0.14) 44%, rgba(242, 244, 247, 0) 58%),
     var(--wtu-paper-texture);
   background-size: auto, auto, cover;
   background-position: center top, center top, center top;
+}
+
+.donate-page::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: -1;
+  height: min(34%, 620px);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(246, 243, 235, 0) 0%,
+    rgba(255, 255, 255, 0.72) 46%,
+    #ffffff 100%
+  );
+}
+
+.donate-page > section {
+  position: relative;
+  z-index: 1;
 }
 
 .donate-title {
