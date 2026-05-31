@@ -1,8 +1,14 @@
 .about-page {
+  margin-bottom: -1px;
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+  background-color: #ffffff;
   background:
-    linear-gradient(180deg, rgba(2, 31, 66, 0.96) 0, rgba(2, 31, 66, 0.72) 120px, rgba(2, 31, 66, 0) 280px),
-    radial-gradient(circle at top center, rgba(255, 188, 0, 0.18), transparent 28%),
-    linear-gradient(180deg, #f6f3eb 0%, #f1eee5 100%);
+    radial-gradient(ellipse at 50% 116px, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0) 260px),
+    linear-gradient(180deg, #021f42 0%, rgba(2, 31, 66, 0.94) 92px, rgba(43, 63, 82, 0.56) 156px, rgba(246, 243, 235, 0.88) 250px, #f6f3eb 370px),
+    radial-gradient(circle at top center, rgba(255, 188, 0, 0.14), transparent 28%),
+    linear-gradient(180deg, #f6f3eb 0%, #f1eee5 82%, #ffffff 100%);
+  background-size: auto, auto, auto, cover;
+  background-position: center top, center top, center top, center top;
   color: #021f42;
 }
 

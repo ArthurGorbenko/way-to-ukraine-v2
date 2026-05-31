@@ -2,10 +2,15 @@
   --wtu-dark: #021f42;
   --wtu-accent: #ffbc00;
   --wtu-blue: #3366cb;
+  margin-bottom: -1px;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  background-color: #ffffff;
   background-image:
-    radial-gradient(circle at 15% 3%, rgba(255, 255, 255, 0.5), transparent 35%),
-    linear-gradient(180deg, rgba(2, 31, 66, 0.08) 0%, rgba(2, 31, 66, 0) 28%),
+    radial-gradient(ellipse at 50% 116px, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 260px),
+    linear-gradient(180deg, #021f42 0%, rgba(2, 31, 66, 0.94) 92px, rgba(34, 61, 88, 0.56) 156px, rgba(255, 255, 255, 0.86) 250px, #ffffff 370px),
     var(--wtu-paper-texture);
+  background-size: auto, auto, cover;
+  background-position: center top, center top, center top;
 }
 
 .achievements-header {
